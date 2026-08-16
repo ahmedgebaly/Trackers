@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>متابع الشهر - Habit Tracker</title>
+<style>
+  :root{
+    --gold:#e8c46b;
+    --green:#4a7c3f;
+    --lightgreen:#8fbf7a;
+    --bg1:#fdf6e3;
+    --bg2:#f4e6b8;
+    --red:#d9534f;
+    --blue:#3a6fb5;
+    --cardbg:#fffdf5;
+    --text:#3a3a2a;
+    --text-dark:#3a2e10;
+    --border:#d8c98a;
+    --space-sm:8px;
+    --space-md:12px;
+    --space-lg:16px;
+    --space-xl:24px;
+    --radius:8px;
+    --shadow:0 4px 15px rgba(0,0,0,0.1);
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Segoe UI',Tahoma,sans-serif;
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    margin:0;padding:0;color:var(--text);
+    min-height:100vh;
+  }
+  button:focus-visible,
+  select:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  .day-cell:focus-visible{
+    outline:2px solid var(--green);
+    outline-offset:2px;
+  }
+  .header{
+    text-align:center;
+    padding:var(--space-xl) var(--space-md) var(--space-sm);
+  }
+  .header h1{
+    font-size:2.2rem;
+    color:var(--text-dark);
+    text-shadow:1px 1px 0 #fff;
+    margin:0 0 var(--space-md);
+  }
+  .top-bar{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:var(--space-md);
+    flex-wrap:wrap;
+    margin:0 auto var(--space-xl);
+    padding:0 var(--space-md);
+  }
+  select, input[type="number"], input[type="text"], button{
+    padding:8px 14px;
+    border-radius:var(--radius);
+    border:1px solid var(--green);
+    font-size:1rem;
+    background:var(--cardbg);
+    cursor:pointer;
+    font-family:inherit;
+  }
+  input[type="text"]{cursor:text;}
+  button.primary{
+    background:var(--green);
+    color:#fff;
+    border:none;
+  }
+  button.primary:hover{background:#3a6230;}
+  button.danger{
+    background:var(--red);
+    color:#fff;
+    border:none;
+  }
+  button.danger:hover{background:#c9302c;}
+  .view-btn{
+    background:var(--cardbg);
+    color:var(--text-dark);
+  }
+  .view-btn.primary{
+    background:var(--green);
+    color:#fff;
+    border:none;
+  }
+  .month-panel{display:none;}
+  .month-panel.is-visible{display:block;}
+  .day-view{display:none;max-width:800px;margin:0 auto 30px;padding:0 var(--space-md);}
+  .day-view.is-visible{display:block;}
+  .table-wrap{
+    overflow-x:auto;
+    margin:0 auto 30px;
+    max-width:1300px;
+    padding:0 var(--space-md);
+  }
+  .table-legend{
+    display:flex;
+    gap:var(--space-lg);
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-bottom:var(--space-md);
+    font-size:0.9rem;
+  }
+  .table-legend span{display:inline-flex;align-items:center;gap:4px;}
+  table{
+    border-collapse:separate;
+    border-spacing:0;
+    width:100%;
+    min-width:1100px;
+    background:var(--cardbg);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+  }
+  th, td{
+    border:1px solid var(--border);
+    text-align:center;
+    padding:6px 4px;
+    font-size:0.85rem;
+  }
+  thead th{
+    background:var(--gold);
+    color:var(--text-dark);
+    font-weight:bold;
+    position:sticky;
+    top:0;
+    z-index:2;
+  }
+  thead th.habit-col{
+    z-index:3;
+  }
+  .habit-cell, th.habit-col{
+    text-align:right;
+    padding-right:10px;
+    font-weight:bold;
+    background:#fffaf0;
+    min-width:160px;
+    white-space:nowrap;
+    position:sticky;
+    right:0;
+    z-index:1;
+  }
+  th.habit-col{background:var(--gold);z-index:3;}
+  .day-cell{
+    cursor:pointer;
+    font-size:1.1rem;
+    user-select:none;
+    min-width:32px;
+    transition:background 0.2s;
+  }
+  .day-cell:hover{background:#f0e6c0;}
+  .day-cell.today-col{background:#fff3d6;}
+  th.today-col{box-shadow:inset 0 -3px 0 var(--green);}
+  .mark-check{color:#2e8b2e;font-weight:bold;}
+  .mark-x{color:var(--red);font-weight:bold;}
+  .mark-dash{color:var(--blue);font-weight:bold;}
+  .points-row td{background:#fff3d6;font-weight:bold;}
+  .cat-group-row td{
+    background:#e8f0e4;
+    text-align:right;
+    font-weight:bold;
+    color:#1f3a17;
+    padding:8px 12px;
+  }
+  .weekly-section{
+    max-width:1300px;
+    margin:0 auto 40px;
+    padding:0 var(--space-md);
+    display:none;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  .weekly-section.is-visible{display:grid;}
+  .weekly-card{
+    background:var(--cardbg);
+    border-radius:10px;
+    padding:15px;
+    box-shadow:var(--shadow);
+  }
+  .weekly-card h3{margin-top:0;color:var(--text-dark);}
+  textarea{
+    width:100%;
+    min-height:90px;
+    border-radius:var(--radius);
+    border:1px solid var(--green);
+    padding:8px;
+    font-family:inherit;
+    resize:vertical;
+  }
+  .week-points{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+  .week-points span{
+    background:var(--lightgreen);
+    color:#1f3a17;
+    padding:5px 10px;
+    border-radius:6px;
+    font-size:0.85rem;
+  }
+  .habit-manager .row{
+    display:flex;
+    gap:8px;
+    margin-bottom:var(--space-md);
+    flex-wrap:wrap;
+  }
+  .habit-list-manage{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    max-height:240px;
+    overflow-y:auto;
+    margin-top:var(--space-md);
+  }
+  .habit-manage-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#f8f4e8;
+    padding:6px 10px;
+    border-radius:var(--radius);
+  }
+  .habit-manage-item input[type="text"]{
+    flex:1;
+    border:1px solid #ccc;
+    border-radius:6px;
+    padding:4px 8px;
+    min-width:0;
+  }
+  .habit-manage-item .icon-input{width:56px;flex:0 0 56px;text-align:center;}
+  .day-view-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .day-view-header h2{
+    margin:0;
+    color:var(--text-dark);
+    text-align:center;
+    flex:1;
+  }
+  .day-habit-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .day-habit-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--cardbg);
+    border-radius:10px;
+    padding:12px 16px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .day-habit-name{
+    font-weight:bold;
+    font-size:1.05rem;
+    flex:1;
+  }
+  .day-habit-cat{
+    background:var(--lightgreen);
+    color:#1f3a17;
+    font-size:0.75rem;
+    padding:3px 8px;
+    border-radius:6px;
+  }
+  .day-toggle-group{display:flex;gap:6px;flex-wrap:wrap;}
+  .day-toggle-btn{
+    padding:6px 14px;
+    border-radius:var(--radius);
+    border:1px solid #ccc;
+    cursor:pointer;
+    background:#fafafa;
+    font-size:0.9rem;
+    font-weight:bold;
+  }
+  .day-toggle-btn.active-check{
+    background:#2e8b2e;
+    color:#fff;
+    border-color:#2e8b2e;
+  }
+  .day-toggle-btn.active-x{
+    background:var(--red);
+    color:#fff;
+    border-color:var(--red);
+  }
+  .day-toggle-btn.active-dash{
+    background:var(--blue);
+    color:#fff;
+    border-color:var(--blue);
+  }
+  .day-picker-row{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
+    flex-wrap:wrap;
+  }
+  .day-total{
+    text-align:center;
+    font-size:1.4rem;
+    font-weight:bold;
+    margin-top:20px;
+    background:#fff3d6;
+    padding:15px;
+    border-radius:10px;
+    color:var(--text-dark);
+  }
+  .month-summary{
+    display:none;
+    max-width:1300px;
+    margin:0 auto 20px;
+    padding:0 var(--space-md);
+  }
+  .month-summary.is-visible{display:block;}
+  .month-summary-card{
+    background:var(--cardbg);
+    border-radius:10px;
+    padding:15px;
+    box-shadow:var(--shadow);
+  }
+  .month-summary-card h3{margin-top:0;color:var(--text-dark);}
+  .habit-progress-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
+  }
+  .habit-progress-name{
+    min-width:160px;
+    font-weight:bold;
+    font-size:0.9rem;
+  }
+  .habit-progress-bar-wrap{
+    flex:1;
+    background:#eee;
+    border-radius:6px;
+    overflow:hidden;
+    height:16px;
+  }
+  .habit-progress-bar{
+    height:100%;
+    background:var(--green);
+    transition:width 0.2s;
+  }
+  .habit-progress-pct{
+    min-width:70px;
+    font-size:0.85rem;
+    font-weight:bold;
+    text-align:left;
+  }
+  .footer-note{
+    text-align:center;
+    color:#7a6a3a;
+    padding:20px;
+    font-size:0.85rem;
+  }
+  .modal-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(40,30,10,0.45);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    padding:var(--space-md);
+  }
+  .modal-overlay.is-open{display:flex;}
+  .modal{
+    background:var(--cardbg);
+    border-radius:12px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.25);
+    max-width:640px;
+    width:100%;
+    max-height:90vh;
+    overflow-y:auto;
+    padding:var(--space-xl);
+    position:relative;
+  }
+  .modal h2{
+    margin:0 0 var(--space-lg);
+    color:var(--text-dark);
+    font-size:1.4rem;
+  }
+  .modal-section{
+    margin-bottom:var(--space-xl);
+    padding-bottom:var(--space-lg);
+    border-bottom:1px solid var(--border);
+  }
+  .modal-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .modal-section h3{
+    margin:0 0 var(--space-md);
+    font-size:1rem;
+    color:var(--text-dark);
+  }
+  .modal-row{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+    margin-bottom:var(--space-sm);
+  }
+  .modal-close{
+    position:absolute;
+    top:12px;
+    left:12px;
+    border:none;
+    background:transparent;
+    font-size:1.4rem;
+    line-height:1;
+    cursor:pointer;
+    color:var(--text-dark);
+    padding:4px 8px;
+  }
+  .toast{
+    position:fixed;
+    bottom:24px;
+    left:50%;
+    transform:translateX(-50%) translateY(80px);
+    background:var(--green);
+    color:#fff;
+    padding:10px 20px;
+    border-radius:var(--radius);
+    font-weight:bold;
+    z-index:200;
+    opacity:0;
+    transition:opacity 0.25s, transform 0.25s;
+    pointer-events:none;
+  }
+  .toast.is-show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+  }
+  @media(max-width:700px){
+    .weekly-section.is-visible{grid-template-columns:1fr;}
+    .header h1{font-size:1.6rem;}
+    .habit-cell, th.habit-col{min-width:120px;}
+    .habit-progress-name{min-width:100px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📅 متابع الشهر</h1>
+</div>
+
+<div class="top-bar">
+  <button class="view-btn primary" id="showDayBtn" type="button">Day view</button>
+  <button class="view-btn" id="showMonthBtn" type="button">Month view</button>
+  <button type="button" id="settingsBtn">Settings</button>
+</div>
+
+<div class="day-view" id="dayView">
+  <div class="day-view-header">
+    <button type="button" id="prevDayBtn">◀ Previous day</button>
+    <h2 id="dayViewTitle"></h2>
+    <button type="button" id="nextDayBtn">Next day ▶</button>
+  </div>
+  <div class="day-picker-row">
+    <label for="daySelect">اختر يومًا آخر: </label>
+    <select id="daySelect"></select>
+    <button type="button" id="goTodayBtn">Today</button>
+  </div>
+  <div class="day-habit-list" id="dayHabitList"></div>
+  <div class="day-total" id="dayTotal"></div>
+</div>
+
+<div class="month-panel" id="monthPanel">
+  <div class="table-wrap">
+    <div class="table-legend" aria-hidden="true">
+      <span class="mark-check">✓ Done</span>
+      <span class="mark-x">✗ Missed</span>
+      <span class="mark-dash">− Skip</span>
+      <span>(empty = unset)</span>
+    </div>
+    <table id="trackerTable">
+      <thead>
+        <tr id="headerRow"></tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="month-summary" id="monthSummary">
+    <div class="month-summary-card">
+      <h3>ملخص إنجاز الشهر لكل عادة</h3>
+      <div id="monthSummaryList"></div>
+    </div>
+  </div>
+
+  <div class="weekly-section" id="weeklySection"></div>
+</div>
+
+<div class="footer-note" id="footerNote">
+  في عرض اليوم استخدم الأزرار. في عرض الشهر اضغط على الخلية للتبديل بين ✓ و✗ و−. تُحفظ بياناتك تلقائيًا محليًا لكل شهر على حدة.
+</div>
+
+<div class="modal-overlay" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div class="modal">
+    <button type="button" class="modal-close" id="closeSettingsBtn" aria-label="Close">×</button>
+    <h2 id="settingsTitle">Settings</h2>
+
+    <div class="modal-section">
+      <h3>Period</h3>
+      <div class="modal-row">
+        <label>الشهر:
+          <select id="monthSelect"></select>
+        </label>
+        <label>السنة:
+          <input type="number" id="yearInput" value="2026" min="2000" max="2100" style="width:90px;">
+        </label>
+        <button class="primary" type="button" id="loadBtn">Load</button>
+        <button class="danger" type="button" id="resetBtn">Clear month data</button>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3>Data</h3>
+      <div class="modal-row">
+        <button type="button" id="exportBtn">Export JSON</button>
+        <button type="button" id="importBtn">Import JSON</button>
+        <input type="file" id="importFile" accept=".json" style="display:none;">
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3>Habits</h3>
+      <div class="habit-manager">
+        <div class="row">
+          <input type="text" id="newHabitName" placeholder="اسم عادة جديدة" style="flex:2;min-width:120px;">
+          <input type="text" id="newHabitCat" placeholder="التصنيف (مثال: الصباح)" style="flex:1;min-width:100px;">
+          <input type="text" id="newHabitIcon" placeholder="إيموجي" style="width:70px;">
+          <button class="primary" type="button" id="addHabitBtn">Add habit</button>
+        </div>
+        <div class="habit-list-manage" id="habitManageList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const MONTH_NAMES = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+
+const DEFAULT_HABITS = [
+  {name:"تنظيف", cat:"الصباح", icon:"🧹"},
+  {name:"رياضة جماعية", cat:"الصباح", icon:"🏃"},
+  {name:"ساعة بدون هاتف", cat:"الظهر", icon:"📵"},
+  {name:"ترتيب مطبخ", cat:"الظهر", icon:"🍽️"},
+  {name:"قيمة ونشاط", cat:"تطويري", icon:"✋"},
+  {name:"خطوة الهدف", cat:"تطويري", icon:"📈"},
+  {name:"محاضرة", cat:"تطويري", icon:"🎧"},
+  {name:"إعادة الضبط", cat:"قبل النوم", icon:"📋"},
+  {name:"اللمسة الواحدة", cat:"قبل النوم", icon:"🤲"},
+  {name:"تدوين وامتنان", cat:"قبل النوم", icon:"📝"},
+  {name:"رعاية ذاتية", cat:"قبل النوم", icon:"🧖"},
+  {name:"إرسال تودو", cat:"قبل النوم", icon:"📤"},
+  {name:"صلوات", cat:"قبل النوم", icon:"🕌"}
+];
+
+const MARK_CYCLE = ["", "check", "x", "dash"];
+const MARK_SYMBOL = {"":"", "check":"✓", "x":"✗", "dash":"−"};
+const MARK_CLASS = {"":"", "check":"mark-check", "x":"mark-x", "dash":"mark-dash"};
+const MARK_POINTS = {"":0, "check":10, "x":0, "dash":0};
+const MARK_LABEL = {"":"unset", "check":"Done", "x":"Missed", "dash":"Skip"};
+
+let state = {
+  habits: JSON.parse(JSON.stringify(DEFAULT_HABITS)),
+  marks: {},
+  weekly: {}
+};
+
+let currentDay = new Date().getDate();
+let viewMode = "day";
+let weeklyBuiltFor = null;
+
+function storageKey(year, month){
+  return `tracker_${year}_${String(month+1).padStart(2,'0')}`;
+}
+
+function daysInMonth(year, month){
+  return new Date(year, month+1, 0).getDate();
+}
+
+function getCurrentYearMonth(){
+  const year = parseInt(document.getElementById('yearInput').value, 10);
+  const month = parseInt(document.getElementById('monthSelect').value, 10);
+  return {year, month};
+}
+
+function showToast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('is-show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => el.classList.remove('is-show'), 2200);
+}
+
+function escapeAttr(str){
+  return String(str ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function deleteHabitAt(idx){
+  if(!confirm('Delete this habit?')) return;
+  state.habits.splice(idx, 1);
+  const newMarks = {};
+  Object.keys(state.marks).forEach(k => {
+    const [hi, day] = k.split('_');
+    const hiNum = parseInt(hi, 10);
+    if(hiNum === idx) return;
+    const newHi = hiNum > idx ? hiNum - 1 : hiNum;
+    newMarks[`${newHi}_${day}`] = state.marks[k];
+  });
+  state.marks = newMarks;
+  saveState();
+  renderAll();
+}
+
+function loadState(){
+  const {year, month} = getCurrentYearMonth();
+  const raw = localStorage.getItem(storageKey(year, month));
+  if(raw){
+    try{
+      const parsed = JSON.parse(raw);
+      state.habits = parsed.habits && parsed.habits.length ? parsed.habits : JSON.parse(JSON.stringify(DEFAULT_HABITS));
+      state.marks = parsed.marks || {};
+      state.weekly = parsed.weekly || {};
+    }catch(e){
+      state = {habits: JSON.parse(JSON.stringify(DEFAULT_HABITS)), marks:{}, weekly:{}};
+    }
+  } else {
+    state = {habits: JSON.parse(JSON.stringify(DEFAULT_HABITS)), marks:{}, weekly:{}};
+  }
+  weeklyBuiltFor = null;
+  renderAll();
+}
+
+function saveState(){
+  const {year, month} = getCurrentYearMonth();
+  localStorage.setItem(storageKey(year, month), JSON.stringify(state));
+}
+
+function renderAll(){
+  if(viewMode === "month"){
+    renderTable();
+    renderWeekly(false);
+    renderMonthSummary();
+  } else {
+    renderDayView();
+  }
+  renderHabitManageList();
+}
+
+function setViewMode(mode){
+  viewMode = mode;
+  const isDay = mode === "day";
+  document.getElementById('dayView').classList.toggle('is-visible', isDay);
+  document.getElementById('monthPanel').classList.toggle('is-visible', !isDay);
+  document.getElementById('monthSummary').classList.toggle('is-visible', !isDay);
+  document.getElementById('weeklySection').classList.toggle('is-visible', !isDay);
+  document.getElementById('showDayBtn').classList.toggle('primary', isDay);
+  document.getElementById('showMonthBtn').classList.toggle('primary', !isDay);
+  if(isDay){
+    renderDayView();
+  } else {
+    renderTable();
+    renderWeekly(true);
+    renderMonthSummary();
+  }
+}
+
+function applyMarkToCell(td, key, mark){
+  td.className = "day-cell " + (MARK_CLASS[mark] || "");
+  if(td.classList.contains('today-col') || td.dataset.today === "1"){
+    td.classList.add('today-col');
+  }
+  td.textContent = MARK_SYMBOL[mark] || "";
+  const habitName = state.habits[parseInt(key.split('_')[0], 10)]?.name || "habit";
+  const day = key.split('_')[1];
+  td.setAttribute('aria-label', `${habitName}, day ${day}: ${MARK_LABEL[mark] || 'unset'}`);
+}
+
+function cycleMark(key, td){
+  const current = state.marks[key] || "";
+  const idx = MARK_CYCLE.indexOf(current);
+  const next = MARK_CYCLE[(idx + 1) % MARK_CYCLE.length];
+  state.marks[key] = next;
+  applyMarkToCell(td, key, next);
+  saveState();
+  updatePointsRow();
+  updateWeeklyPoints();
+  if(viewMode === "month") renderMonthSummary();
+}
+
+function updatePointsRow(){
+  const row = document.getElementById('pointsRow');
+  if(!row) return;
+  const {year, month} = getCurrentYearMonth();
+  const nDays = daysInMonth(year, month);
+  const maxDay = state.habits.length * 10;
+  const cells = row.querySelectorAll('td[data-day]');
+  cells.forEach(td => {
+    const d = parseInt(td.dataset.day, 10);
+    let total = 0;
+    state.habits.forEach((h, hIdx) => {
+      total += MARK_POINTS[state.marks[`${hIdx}_${d}`] || ""];
+    });
+    td.textContent = maxDay ? `${total}/${maxDay}` : total;
+  });
+}
+
+function renderTable(){
+  const {year, month} = getCurrentYearMonth();
+  const nDays = daysInMonth(year, month);
+  const now = new Date();
+  const todayDay = (now.getFullYear() === year && now.getMonth() === month) ? now.getDate() : -1;
+  const headerRow = document.getElementById('headerRow');
+  const tbody = document.getElementById('tableBody');
+  headerRow.innerHTML = "";
+  tbody.innerHTML = "";
+
+  const thHabit = document.createElement('th');
+  thHabit.textContent = "العادة";
+  thHabit.className = "habit-col";
+  headerRow.appendChild(thHabit);
+
+  for(let d = 1; d <= nDays; d++){
+    const th = document.createElement('th');
+    th.textContent = d;
+    if(d === todayDay) th.classList.add('today-col');
+    headerRow.appendChild(th);
+  }
+
+  let lastCat = null;
+  state.habits.forEach((habit, hIdx) => {
+    const cat = habit.cat || "—";
+    if(cat !== lastCat){
+      lastCat = cat;
+      const groupTr = document.createElement('tr');
+      groupTr.className = "cat-group-row";
+      const td = document.createElement('td');
+      td.colSpan = 1 + nDays;
+      td.textContent = cat;
+      groupTr.appendChild(td);
+      tbody.appendChild(groupTr);
+    }
+
+    const tr = document.createElement('tr');
+    const tdHabit = document.createElement('td');
+    tdHabit.className = "habit-cell";
+    tdHabit.textContent = `${habit.icon||""} ${habit.name}`.trim();
+    tr.appendChild(tdHabit);
+
+    for(let d = 1; d <= nDays; d++){
+      const td = document.createElement('td');
+      td.className = "day-cell";
+      td.tabIndex = 0;
+      td.setAttribute('role', 'button');
+      const key = `${hIdx}_${d}`;
+      const mark = state.marks[key] || "";
+      if(d === todayDay){
+        td.classList.add('today-col');
+        td.dataset.today = "1";
+      }
+      applyMarkToCell(td, key, mark);
+      td.dataset.key = key;
+      td.addEventListener('click', () => cycleMark(key, td));
+      td.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          cycleMark(key, td);
+        }
+      });
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  });
+
+  const pointsRow = document.createElement('tr');
+  pointsRow.className = "points-row";
+  pointsRow.id = "pointsRow";
+  const tdLabel = document.createElement('td');
+  tdLabel.textContent = "النقاط اليومية";
+  pointsRow.appendChild(tdLabel);
+  const maxDay = state.habits.length * 10;
+  for(let d = 1; d <= nDays; d++){
+    const td = document.createElement('td');
+    td.dataset.day = d;
+    let total = 0;
+    state.habits.forEach((h, hIdx) => {
+      total += MARK_POINTS[state.marks[`${hIdx}_${d}`] || ""];
+    });
+    td.textContent = maxDay ? `${total}/${maxDay}` : total;
+    if(d === todayDay) td.classList.add('today-col');
+    pointsRow.appendChild(td);
+  }
+  tbody.appendChild(pointsRow);
+}
+
+function updateWeeklyPoints(){
+  const {year, month} = getCurrentYearMonth();
+  const nDays = daysInMonth(year, month);
+  const nWeeks = Math.ceil(nDays / 7);
+  for(let w = 0; w < nWeeks; w++){
+    const startDay = w*7 + 1;
+    const endDay = Math.min(nDays, startDay + 6);
+    let weekPoints = 0;
+    for(let d = startDay; d <= endDay; d++){
+      state.habits.forEach((h, hIdx) => {
+        weekPoints += MARK_POINTS[state.marks[`${hIdx}_${d}`] || ""];
+      });
+    }
+    const badge = document.querySelector(`[data-week-points="${w}"]`);
+    if(badge) badge.textContent = `إجمالي النقاط: ${weekPoints}`;
+  }
+}
+
+function renderWeekly(forceRebuild){
+  const {year, month} = getCurrentYearMonth();
+  const nDays = daysInMonth(year, month);
+  const nWeeks = Math.ceil(nDays / 7);
+  const key = `${year}-${month}-${nWeeks}`;
+  const section = document.getElementById('weeklySection');
+
+  if(!forceRebuild && weeklyBuiltFor === key && section.children.length === nWeeks){
+    updateWeeklyPoints();
+    return;
+  }
+
+  const active = document.activeElement;
+  const activeWeek = active && active.dataset && active.dataset.week;
+  const activePos = active && active.tagName === 'TEXTAREA' ? active.selectionStart : null;
+
+  section.innerHTML = "";
+  for(let w = 0; w < nWeeks; w++){
+    const startDay = w*7 + 1;
+    const endDay = Math.min(nDays, startDay + 6);
+    let weekPoints = 0;
+    for(let d = startDay; d <= endDay; d++){
+      state.habits.forEach((h, hIdx) => {
+        weekPoints += MARK_POINTS[state.marks[`${hIdx}_${d}`] || ""];
+      });
+    }
+    const card = document.createElement('div');
+    card.className = "weekly-card";
+    card.innerHTML = `
+      <h3>أيام ${startDay}–${endDay}</h3>
+      <div class="week-points"><span data-week-points="${w}">إجمالي النقاط: ${weekPoints}</span></div>
+      <label style="display:block;margin-top:10px;font-weight:bold;">تخطيط الأسبوع:</label>
+      <textarea data-week="${w}" placeholder="اكتب خطتك لهذا الأسبوع..."></textarea>
+    `;
+    const ta = card.querySelector('textarea');
+    ta.value = state.weekly[w] || "";
+    ta.addEventListener('input', () => {
+      state.weekly[ta.dataset.week] = ta.value;
+      saveState();
+    });
+    section.appendChild(card);
+  }
+  weeklyBuiltFor = key;
+
+  if(activeWeek != null){
+    const ta = section.querySelector(`textarea[data-week="${activeWeek}"]`);
+    if(ta){
+      ta.focus();
+      if(activePos != null) ta.setSelectionRange(activePos, activePos);
+    }
+  }
+}
+
+function populateDaySelect(year, month, nDays){
+  const sel = document.getElementById('daySelect');
+  sel.innerHTML = "";
+  for(let d = 1; d <= nDays; d++){
+    const opt = document.createElement('option');
+    opt.value = d;
+    opt.textContent = `${d} ${MONTH_NAMES[month]}`;
+    if(d === currentDay) opt.selected = true;
+    sel.appendChild(opt);
+  }
+}
+
+function populateMonthSelect(){
+  const sel = document.getElementById('monthSelect');
+  sel.innerHTML = "";
+  MONTH_NAMES.forEach((name, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = name;
+    sel.appendChild(opt);
+  });
+}
+
+function goToToday(){
+  const now = new Date();
+  document.getElementById('monthSelect').value = now.getMonth();
+  document.getElementById('yearInput').value = now.getFullYear();
+  currentDay = now.getDate();
+  loadState();
+  setViewMode('day');
+}
+
+function openSettings(){
+  document.getElementById('settingsModal').classList.add('is-open');
+  renderHabitManageList();
+}
+
+function closeSettings(){
+  document.getElementById('settingsModal').classList.remove('is-open');
+}
+
+function renderHabitManageList(){
+  const list = document.getElementById('habitManageList');
+  if(!list) return;
+  list.innerHTML = "";
+  state.habits.forEach((habit, hIdx) => {
+    const item = document.createElement('div');
+    item.className = "habit-manage-item";
+    item.innerHTML = `
+      <input type="text" class="icon-input" data-field="icon" data-idx="${hIdx}" value="${escapeAttr(habit.icon||"")}" title="Emoji">
+      <input type="text" data-field="name" data-idx="${hIdx}" value="${escapeAttr(habit.name||"")}" placeholder="اسم العادة">
+      <input type="text" data-field="cat" data-idx="${hIdx}" value="${escapeAttr(habit.cat||"")}" placeholder="التصنيف" style="flex:0.8;">
+      <button type="button" class="danger" data-del="${hIdx}">Delete</button>
+    `;
+    list.appendChild(item);
+  });
+
+  list.querySelectorAll('input[data-field]').forEach(input => {
+    input.addEventListener('change', () => {
+      const idx = parseInt(input.dataset.idx, 10);
+      const field = input.dataset.field;
+      if(!state.habits[idx]) return;
+      state.habits[idx][field === 'cat' ? 'cat' : field] = input.value.trim();
+      saveState();
+      renderAll();
+    });
+  });
+
+  list.querySelectorAll('[data-del]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      deleteHabitAt(parseInt(btn.dataset.del, 10));
+    });
+  });
+}
+
+function renderDayView(){
+  const {year, month} = getCurrentYearMonth();
+  const nDays = daysInMonth(year, month);
+  if(currentDay > nDays) currentDay = nDays;
+  if(currentDay < 1) currentDay = 1;
+
+  document.getElementById('dayViewTitle').textContent = `${currentDay} ${MONTH_NAMES[month]} ${year}`;
+  populateDaySelect(year, month, nDays);
+
+  const list = document.getElementById('dayHabitList');
+  list.innerHTML = "";
+  let dayTotal = 0;
+  const maxDay = state.habits.length * 10;
+
+  let lastCat = null;
+  state.habits.forEach((habit, hIdx) => {
+    const cat = habit.cat || "";
+    if(cat && cat !== lastCat){
+      lastCat = cat;
+      const catLabel = document.createElement('div');
+      catLabel.className = "day-habit-cat";
+      catLabel.style.alignSelf = "flex-start";
+      catLabel.style.marginTop = hIdx === 0 ? "0" : "8px";
+      catLabel.textContent = cat;
+      list.appendChild(catLabel);
+    }
+
+    const key = `${hIdx}_${currentDay}`;
+    const mark = state.marks[key] || "";
+    dayTotal += MARK_POINTS[mark];
+
+    const item = document.createElement('div');
+    item.className = "day-habit-item";
+    item.innerHTML = `
+      <span class="day-habit-name">${habit.icon||""} ${habit.name}</span>
+      <div class="day-toggle-group">
+        <button type="button" class="day-toggle-btn ${mark==='check'?'active-check':''}" data-key="${key}" data-mark="check">✓ Done</button>
+        <button type="button" class="day-toggle-btn ${mark==='x'?'active-x':''}" data-key="${key}" data-mark="x">✗ Missed</button>
+        <button type="button" class="day-toggle-btn ${mark==='dash'?'active-dash':''}" data-key="${key}" data-mark="dash">− Skip</button>
+      </div>
+    `;
+    list.appendChild(item);
+  });
+
+  list.querySelectorAll('.day-toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.key;
+      const newMark = btn.dataset.mark;
+      const current = state.marks[key] || "";
+      state.marks[key] = current === newMark ? "" : newMark;
+      saveState();
+      renderDayView();
+    });
+  });
+
+  document.getElementById('dayTotal').textContent = maxDay
+    ? `إجمالي نقاط اليوم: ${dayTotal}/${maxDay}`
+    : `إجمالي نقاط اليوم: ${dayTotal}`;
+}
+
+function renderMonthSummary(){
+  const {year, month} = getCurrentYearMonth();
+  const nDays = daysInMonth(year, month);
+  const list = document.getElementById('monthSummaryList');
+  list.innerHTML = "";
+
+  state.habits.forEach((habit, hIdx) => {
+    let doneCount = 0;
+    for(let d = 1; d <= nDays; d++){
+      if((state.marks[`${hIdx}_${d}`] || "") === "check") doneCount++;
+    }
+    const pct = Math.round((doneCount / nDays) * 100);
+    const row = document.createElement('div');
+    row.className = "habit-progress-row";
+    row.innerHTML = `
+      <span class="habit-progress-name">${habit.icon||""} ${habit.name}</span>
+      <div class="habit-progress-bar-wrap"><div class="habit-progress-bar" style="width:${pct}%;"></div></div>
+      <span class="habit-progress-pct">${doneCount}/${nDays}</span>
+    `;
+    list.appendChild(row);
+  });
+
+  let monthTotal = 0;
+  for(let d = 1; d <= nDays; d++){
+    state.habits.forEach((h, hIdx) => {
+      monthTotal += MARK_POINTS[state.marks[`${hIdx}_${d}`] || ""];
+    });
+  }
+  const maxMonth = state.habits.length * nDays * 10;
+  const totalRow = document.createElement('div');
+  totalRow.style.marginTop = "15px";
+  totalRow.style.fontWeight = "bold";
+  totalRow.style.fontSize = "1.1rem";
+  totalRow.textContent = maxMonth
+    ? `إجمالي نقاط الشهر: ${monthTotal}/${maxMonth}`
+    : `إجمالي نقاط الشهر: ${monthTotal}`;
+  list.appendChild(totalRow);
+}
+
+document.getElementById('loadBtn').addEventListener('click', loadState);
+document.getElementById('monthSelect').addEventListener('change', () => {
+  loadState();
+  if(viewMode === "day") renderDayView();
+});
+document.getElementById('yearInput').addEventListener('change', () => {
+  loadState();
+  if(viewMode === "day") renderDayView();
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if(confirm("Clear this month's data?")){
+    const {year, month} = getCurrentYearMonth();
+    localStorage.removeItem(storageKey(year, month));
+    loadState();
+    showToast('Month cleared');
+  }
+});
+
+document.getElementById('addHabitBtn').addEventListener('click', () => {
+  const name = document.getElementById('newHabitName').value.trim();
+  const cat = document.getElementById('newHabitCat').value.trim();
+  const icon = document.getElementById('newHabitIcon').value.trim();
+  if(!name) return;
+  state.habits.push({name, cat, icon});
+  document.getElementById('newHabitName').value = "";
+  document.getElementById('newHabitCat').value = "";
+  document.getElementById('newHabitIcon').value = "";
+  saveState();
+  renderAll();
+  showToast('Habit added');
+});
+
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const {year, month} = getCurrentYearMonth();
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `tracker_${year}_${String(month+1).padStart(2,'0')}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Exported');
+});
+
+document.getElementById('importBtn').addEventListener('click', () => {
+  document.getElementById('importFile').click();
+});
+
+document.getElementById('importFile').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try{
+      const parsed = JSON.parse(ev.target.result);
+      state = {
+        habits: parsed.habits || JSON.parse(JSON.stringify(DEFAULT_HABITS)),
+        marks: parsed.marks || {},
+        weekly: parsed.weekly || {}
+      };
+      weeklyBuiltFor = null;
+      saveState();
+      renderAll();
+      showToast('Imported');
+    }catch(err){
+      alert('Invalid file');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+});
+
+document.getElementById('settingsBtn').addEventListener('click', openSettings);
+document.getElementById('closeSettingsBtn').addEventListener('click', closeSettings);
+document.getElementById('settingsModal').addEventListener('click', (e) => {
+  if(e.target.id === 'settingsModal') closeSettings();
+});
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') closeSettings();
+});
+
+document.getElementById('showDayBtn').addEventListener('click', () => setViewMode('day'));
+document.getElementById('showMonthBtn').addEventListener('click', () => setViewMode('month'));
+document.getElementById('prevDayBtn').addEventListener('click', () => {
+  currentDay -= 1;
+  const {year, month} = getCurrentYearMonth();
+  if(currentDay < 1) currentDay = daysInMonth(year, month);
+  renderDayView();
+});
+document.getElementById('nextDayBtn').addEventListener('click', () => {
+  const {year, month} = getCurrentYearMonth();
+  currentDay += 1;
+  if(currentDay > daysInMonth(year, month)) currentDay = 1;
+  renderDayView();
+});
+document.getElementById('daySelect').addEventListener('change', (e) => {
+  currentDay = parseInt(e.target.value, 10);
+  renderDayView();
+});
+document.getElementById('goTodayBtn').addEventListener('click', goToToday);
+
+populateMonthSelect();
+goToToday();
+</script>
+
+</body>
+</html>
