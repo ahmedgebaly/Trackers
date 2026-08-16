@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beko Tracker</title>
-<meta name="description" content="متتبع الشهر — تابع عاداتك يوميًا وشهريًا مع Beko . تتبع الإنجاز، العرض اليومي والشهري، وحفظ محلي لبياناتك.">
+<meta name="description" content="Monthly habit tracker — track your habits daily and monthly with Beko. Follow progress, day and month views, and local saving for your data.">
 <meta name="theme-color" content="#1b5e20">
 
 <!-- Open Graph (Facebook, WhatsApp, Telegram) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Beko Tracker">
-<meta property="og:locale" content="ar_AR">
+<meta property="og:locale" content="en_US">
 <meta property="og:title" content="Beko Tracker">
-<meta property="og:description" content="تابع عاداتك يوميًا وشهريًا — عرض اليوم والشهر، ملخص الإنجاز، وحفظ محلي لبياناتك.">
+<meta property="og:description" content="Track your habits daily and monthly — day and month views, progress summary, and local saving for your data.">
 <meta property="og:url" content="https://ahmedgebaly.github.io/Trackers/">
 <meta property="og:image" content="https://ahmedgebaly.github.io/Trackers/og-image.jpg">
 <meta property="og:image:secure_url" content="https://ahmedgebaly.github.io/Trackers/og-image.jpg">
@@ -24,7 +24,7 @@
 <!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Beko Tracker">
-<meta name="twitter:description" content="تابع عاداتك يوميًا وشهريًا — عرض اليوم والشهر، ملخص الإنجاز، وحفظ محلي لبياناتك.">
+<meta name="twitter:description" content="Track your habits daily and monthly — day and month views, progress summary, and local saving for your data.">
 <meta name="twitter:image" content="https://ahmedgebaly.github.io/Trackers/og-image.jpg">
 <meta name="twitter:image:alt" content="Beko Tracker">
 <style>
@@ -670,14 +670,14 @@
     z-index:3;
   }
   .habit-cell, th.habit-col{
-    text-align:right;
-    padding-right:10px;
+    text-align:left;
+    padding-left:10px;
     font-weight:bold;
     background:#fffaf0;
     min-width:160px;
     white-space:nowrap;
     position:sticky;
-    right:0;
+    left:0;
     z-index:1;
     backdrop-filter:none;
     -webkit-backdrop-filter:none;
@@ -785,7 +785,7 @@
     padding:8px 12px;
   }
   .cat-group-row .cat-group-label{
-    text-align:right;
+    text-align:left;
     z-index:1;
     box-shadow:-1px 0 0 rgba(232,240,228,0.95), 1px 0 0 rgba(232,240,228,0.95);
   }
@@ -1346,7 +1346,7 @@
       overflow:hidden;
       text-overflow:ellipsis;
       position:sticky;
-      right:0;
+      left:0;
     }
     .day-cell{
       min-width:0;
@@ -1473,39 +1473,39 @@
 </div>
 
 <div class="top-bar">
-  <div class="view-toggle liquid-glass" id="viewToggle" data-mode="day" role="group" aria-label="طريقة العرض">
+  <div class="view-toggle liquid-glass" id="viewToggle" data-mode="day" role="group" aria-label="View mode">
     <span class="view-toggle-pill" aria-hidden="true"></span>
-    <button class="view-toggle-btn" id="showDayBtn" type="button" aria-pressed="true">عرض اليوم</button>
-    <button class="view-toggle-btn" id="showMonthBtn" type="button" aria-pressed="false">عرض الشهر</button>
+    <button class="view-toggle-btn" id="showDayBtn" type="button" aria-pressed="true">Day view</button>
+    <button class="view-toggle-btn" id="showMonthBtn" type="button" aria-pressed="false">Month view</button>
   </div>
-  <div class="month-nav-bar liquid-glass" aria-label="التنقل بين الشهور">
+  <div class="month-nav-bar liquid-glass" aria-label="Month navigation">
     <button type="button" id="prevMonthBtn" class="nav-step-btn">
-      <span class="nav-step-icon" aria-hidden="true">▶</span> الشهر السابق
+      <span class="nav-step-icon" aria-hidden="true">◀</span> Previous month
     </button>
     <span id="monthNavTitle" class="month-nav-label"></span>
     <button type="button" id="nextMonthBtn" class="nav-step-btn">
-      الشهر التالي <span class="nav-step-icon" aria-hidden="true">◀</span>
+      Next month <span class="nav-step-icon" aria-hidden="true">▶</span>
     </button>
   </div>
-  <button type="button" id="settingsBtn" class="theme-toggle liquid-glass-lite" style="display: none;" aria-label="الإعدادات">⚙ الإعدادات</button>
+  <button type="button" id="settingsBtn" class="theme-toggle liquid-glass-lite" style="display: none;" aria-label="Settings">⚙ Settings</button>
 </div>
 
 <div class="day-view" id="dayView">
   <div class="day-view-header liquid-glass">
     <button type="button" id="prevDayBtn" class="nav-step-btn">
-      <span class="nav-step-icon" aria-hidden="true">▶</span> اليوم السابق
+      <span class="nav-step-icon" aria-hidden="true">◀</span> Previous day
     </button>
     <h2 id="dayViewTitle" class="day-date-chip liquid-glass-lite"></h2>
     <button type="button" id="nextDayBtn" class="nav-step-btn">
-      اليوم التالي <span class="nav-step-icon" aria-hidden="true">◀</span>
+      Next day <span class="nav-step-icon" aria-hidden="true">▶</span>
     </button>
   </div>
   <div class="day-picker-row liquid-glass">
-    <label for="daySelect">اختر يومًا آخر:</label>
+    <label for="daySelect">Pick another day:</label>
     <div class="select-wrap">
       <select id="daySelect"></select>
     </div>
-    <button type="button" id="goTodayBtn" class="btn-today">اليوم</button>
+    <button type="button" id="goTodayBtn" class="btn-today">Today</button>
   </div>
   <div class="day-habit-list" id="dayHabitList"></div>
   <div class="day-total liquid-glass" id="dayTotal"></div>
@@ -1515,9 +1515,9 @@
   <div class="month-heatmap-shell">
     <div class="table-legend-bar" id="tableLegendBar">
       <div class="table-legend" aria-hidden="true">
-        <span><span class="legend-swatch empty"></span> غير محدد</span>
-        <span><span class="legend-swatch done"></span> ✓ تم</span>
-        <span><span class="legend-swatch missed">✗</span> غير مكتمل</span>
+        <span><span class="legend-swatch empty"></span> Unmarked</span>
+        <span><span class="legend-swatch done"></span> ✓ Done</span>
+        <span><span class="legend-swatch missed">✗</span> Missed</span>
       </div>
     </div>
     <div class="table-wrap liquid-glass heatmap-glass">
@@ -1532,7 +1532,7 @@
 
   <div class="month-summary" id="monthSummary">
     <div class="month-summary-card liquid-glass">
-      <h3>ملخص إنجاز الشهر لكل عادة</h3>
+      <h3>Monthly progress by habit</h3>
       <div id="monthSummaryList"></div>
     </div>
   </div>
@@ -1541,12 +1541,12 @@
 </div>
 
 <div class="footer-note" id="footerNote">
-  في عرض اليوم استخدم أزرار ✓ تم و ✗ غير مكتمل. في عرض الشهر اضغط على الخلية للتبديل بين الفارغ و ✓ و ✗. تُحفظ بياناتك تلقائيًا محليًا لكل شهر على حدة.
+  In day view, use the ✓ Done and ✗ Missed buttons. In month view, tap a cell to cycle empty → ✓ → ✗. Your data is saved automatically on this device, one month at a time.
 </div>
 
 <div class="theme-switch-wrap">
   <label class="theme-switch liquid-glass-lite" for="themeToggle">
-    <span class="theme-switch-label" id="themeSwitchLabel">وضع داكن</span>
+    <span class="theme-switch-label" id="themeSwitchLabel">Dark mode</span>
     <input type="checkbox" id="themeToggle" role="switch" aria-checked="false">
     <span class="theme-switch-track" aria-hidden="true"></span>
   </label>
@@ -1568,40 +1568,40 @@
 
 <div class="modal-overlay" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
   <div class="modal">
-    <button type="button" class="modal-close" id="closeSettingsBtn" aria-label="إغلاق">×</button>
-    <h2 id="settingsTitle">الإعدادات</h2>
+    <button type="button" class="modal-close" id="closeSettingsBtn" aria-label="Close">×</button>
+    <h2 id="settingsTitle">Settings</h2>
 
     <div class="modal-section">
-      <h3>الفترة</h3>
+      <h3>Period</h3>
       <div class="modal-row">
-        <label>الشهر:
+        <label>Month:
           <select id="monthSelect"></select>
         </label>
-        <label>السنة:
+        <label>Year:
           <input type="number" id="yearInput" value="2026" min="2000" max="2100" style="width:90px;">
         </label>
-        <button class="primary" type="button" id="loadBtn">تحميل</button>
-        <button class="danger" type="button" id="resetBtn">مسح بيانات الشهر</button>
+        <button class="primary" type="button" id="loadBtn">Load</button>
+        <button class="danger" type="button" id="resetBtn">Clear month data</button>
       </div>
     </div>
 
     <div class="modal-section">
-      <h3>البيانات</h3>
+      <h3>Data</h3>
       <div class="modal-row">
-        <button type="button" id="exportBtn">تصدير JSON</button>
-        <button type="button" id="importBtn">استيراد JSON</button>
+        <button type="button" id="exportBtn">Export JSON</button>
+        <button type="button" id="importBtn">Import JSON</button>
         <input type="file" id="importFile" accept=".json" style="display:none;">
       </div>
     </div>
 
     <div class="modal-section">
-      <h3>العادات</h3>
+      <h3>Habits</h3>
       <div class="habit-manager">
         <div class="row">
-          <input type="text" id="newHabitName" placeholder="اسم عادة جديدة" style="flex:2;min-width:120px;">
-          <input type="text" id="newHabitCat" placeholder="التصنيف (مثال: الصباح)" style="flex:1;min-width:100px;">
-          <input type="text" id="newHabitIcon" placeholder="إيموجي" style="width:70px;">
-          <button class="primary" type="button" id="addHabitBtn">إضافة عادة</button>
+          <input type="text" id="newHabitName" placeholder="New habit name" style="flex:2;min-width:120px;">
+          <input type="text" id="newHabitCat" placeholder="Category (e.g. Morning)" style="flex:1;min-width:100px;">
+          <input type="text" id="newHabitIcon" placeholder="Emoji" style="width:70px;">
+          <button class="primary" type="button" id="addHabitBtn">Add habit</button>
         </div>
         <div class="habit-list-manage" id="habitManageList"></div>
       </div>
@@ -1611,17 +1611,17 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="celebration-overlay" id="celebrationOverlay" aria-hidden="true">
-  <div class="celebration-banner" id="celebrationBanner">🎉 أحسنت! ١٠٠٪</div>
+  <div class="celebration-banner" id="celebrationBanner">🎉 Well done! 100%</div>
 </div>
 
 <script src="Beko.js"></script>
 <script>
-const MONTH_NAMES = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
-const DAY_NAMES = ["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"];
+const MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const DAY_NAMES = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
 const MARK_SYMBOL = {"":"", "check":"✓", "x":"✗"};
 const MARK_CLASS = {"":"", "check":"mark-check", "x":"mark-x"};
-const MARK_LABEL = {"":"غير محدد", "check":"تم", "x":"غير مكتمل"};
+const MARK_LABEL = {"":"Unmarked", "check":"Done", "x":"Missed"};
 
 function normalizeMark(mark){
   if(mark === "check") return "check";
@@ -1670,14 +1670,14 @@ function formatMonthPointsDisplay(earned, possible){
   return formatEarnedPossible(earned, possible);
 }
 
-/** Self-tests: earned/possible and category subtotals across الصباح, الظهر, تطويري, قبل النوم */
+/** Self-tests: earned/possible and category subtotals across Morning, Noon, Growth, Before sleep */
 function runPointsSelfTests(){
   const fixtureHabits = [
-    {name:"أ", cat:"الصباح", points:10},
-    {name:"ب", cat:"الظهر", points:10},
-    {name:"ج", cat:"تطويري", points:10},
-    {name:"د", cat:"قبل النوم", points:10},
-    {name:"هـ", cat:"قبل النوم", points:0}
+    {name:"A", cat:"Morning", points:10},
+    {name:"B", cat:"Noon", points:10},
+    {name:"C", cat:"Growth", points:10},
+    {name:"D", cat:"Before sleep", points:10},
+    {name:"E", cat:"Before sleep", points:0}
   ];
   const fixtureMarks = {"0_1":"check", "1_1":"check", "2_1":"", "3_1":"check", "4_1":"check"};
   const savedHabits = state.habits;
@@ -1695,11 +1695,11 @@ function runPointsSelfTests(){
     earnedPoints += pts;
     byCat[h.cat] = (byCat[h.cat] || 0) + pts;
   });
-  console.assert(earnedPoints === 30, "earnedPoints should be 30 (أ+ب+د)");
-  console.assert(byCat["الصباح"] === 10, "الصباح subtotal");
-  console.assert(byCat["الظهر"] === 10, "الظهر subtotal");
-  console.assert(byCat["تطويري"] === 0, "تطويري subtotal");
-  console.assert(byCat["قبل النوم"] === 10, "قبل النوم subtotal (د=10, هـ=0)");
+  console.assert(earnedPoints === 30, "earnedPoints should be 30 (A+B+D)");
+  console.assert(byCat["Morning"] === 10, "Morning subtotal");
+  console.assert(byCat["Noon"] === 10, "Noon subtotal");
+  console.assert(byCat["Growth"] === 0, "Growth subtotal");
+  console.assert(byCat["Before sleep"] === 10, "Before sleep subtotal (D=10, E=0)");
   const catSum = Object.values(byCat).reduce((a, b) => a + b, 0);
   console.assert(catSum === earnedPoints, "category subtotals must equal day earned");
 
@@ -1712,106 +1712,106 @@ function runPointsSelfTests(){
 }
 
 const CELEBRATION_MESSAGES = [
-  "أحسنت! أكملت اليوم ١٠٠٪",
-  "رائع جدًا! يوم مكتمل",
-  "فخر بك، أنجزت كل شيء اليوم",
-  "ممتاز! استمر على هذا الإيقاع",
-  "أنت بطل اليوم",
-  "إنجاز كامل يستحق الاحتفال",
-  "يوم مثالي، أحسنت صنعًا",
-  "كل العادات تمت بنجاح",
-  "هذا هو الالتزام الحقيقي",
-  "مبروك! يوم بلا تقصير",
-  "أداؤك اليوم يلهم",
-  "قمة التركيز والإنجاز",
-  "أكملت المهمة بامتياز",
-  "يوم ذهبي في سجلّك",
-  "أنت على الطريق الصحيح",
-  "انتصار صغير اليوم يصنع عادة كبيرة",
-  "تهانينا على الإكمال الكامل",
-  "اليوم كان لك بالكامل",
-  "قوي، منظم، ومنجز",
-  "أحسنت الاختيار والاستمرار",
-  "يوم يستحق نجمة ذهبية",
-  "ما شاء الله، إنجاز تام",
-  "كل نقطة جمعتها بجدارة",
-  "أكملت السباق حتى النهاية",
-  "هذا انضباط يستحق التقدير",
-  "يوم مكتمل يعني ثقة أعلى",
-  "أبهرت نفسك اليوم",
-  "لا شيء ناقص... رائع!",
-  "من القمة إلى القمة",
-  "نجاح اليوم يبدأ من هنا",
-  "أنت تثبت أنك قادر",
-  "عاداتك تشكرك اليوم",
-  "يوم نظيف بلا فجوات",
-  "أحسنت المداومة",
-  "هذا هو شكل التميز",
-  "اكتمل الدائرة بنجاح",
-  "نتيجة مئة بالمئة تستحق ابتسامة",
-  "اليوم فزت على التسويف",
-  "إرادة حديدية ظهرت اليوم",
-  "كل عادة نالت حقها",
-  "يوم يُكتب بخط عريض",
-  "تقدّم واضح وملموس",
-  "أنت تصنع فرقًا يوميًا",
-  "بارك الله في مثابرتك",
-  "يوم كامل يعني راحة بال",
-  "أداء مشرف حتى آخر عادة",
-  "هذا مستوى يُحتذى به",
-  "أكملت اليوم كالمحترفين",
-  "فرحة الإنجاز كاملة",
-  "لا اختصارات... فقط إنجاز",
-  "أنت أقرب لهدفك الآن",
-  "يوم يستحق التصفيق",
-  "التزم فنجحت",
-  "أحسنت إدارة وقتك وطاقتك",
-  "كل خانة مشرقة اليوم",
-  "هذا انتصار شخصي جميل",
-  "يوم من ذهب في متابعتك",
-  "أثبتّ الانضباط اليوم",
-  "مبروك الإكمال التام",
-  "عادات قوية تبدأ بأيام كهذا",
-  "اليوم كان نسخة مثالية منك",
-  "أنت تبني نسخة أفضل من نفسك",
-  "إنجاز يستحق لحظة فخر",
-  "ما قصّرت في شيء اليوم",
-  "هذا إيقاع الفائزين",
-  "يوم مكتمل = ثقة مكتملة",
-  "رائع! استمر غدًا بنفس القوة",
-  "كل علامة ✓ قصة نجاح صغيرة",
-  "أغلقت اليوم على خير",
-  "أداؤك اليوم يرفع المعنويات",
-  "يوم بلا أعذار",
-  "هذا هو الوفاء بالعهد مع نفسك",
-  "أكملت فاستحققت الاحتفال",
-  "من القلب: أحسنت جدًا",
-  "يوم يُضاف لسلسلة انتصاراتك",
-  "قمة الإتقان اليومي",
-  "كل عادة تمت كما يجب",
-  "أنت تصنع عادة الفوز",
-  "نجاح صامت وقوي",
-  "اليوم أثبت حضورك لنفسك",
-  "نتيجة كاملة تليق بك",
-  "لا يوجد أفضل من ١٠٠٪",
-  "يوم مكتمل يضيء الأسبوع",
-  "أحسنت الالتزام حتى النهاية",
-  "هذا انضباط يبني المستقبل",
-  "فرحة صغيرة... أثر كبير",
-  "أكملت اليوم بثقة",
-  "أنت تستحق هذا الشعور الجميل",
-  "يوم مثالي في سجلّ الإنجاز",
-  "كل خطوة اليوم كانت محسوبة",
-  "مبروك على المثابرة",
-  "أبهجت يومك بالإنجاز",
-  "هذا شكل الجدية الهادئة",
-  "يوم كامل بلا نقصان",
-  "أنت في أفضل نسخة اليوم",
-  "أحسنت إدارة أولوياتك",
-  "نجاح اليوم وقود لغد أفضل",
-  "أكملت فخورًا بما أنجزت",
-  "يوم يُروى بفخر",
-  "تهانينا الحارة على ١٠٠٪"
+  "Well done! You finished the day at 100%",
+  "Amazing! A perfect day",
+  "Proud of you — you got everything done today",
+  "Excellent! Keep this rhythm going",
+  "You're today's champion",
+  "A full win that deserves a celebration",
+  "A perfect day — beautifully done",
+  "Every habit checked off successfully",
+  "This is real commitment",
+  "Congrats! A day with nothing left undone",
+  "Your performance today is inspiring",
+  "Peak focus and follow-through",
+  "You completed the mission with excellence",
+  "A golden day in your record",
+  "You're on the right path",
+  "A small win today builds a big habit",
+  "Congratulations on a complete day",
+  "Today was entirely yours",
+  "Strong, organized, and done",
+  "Great choices and great consistency",
+  "A day that earns a gold star",
+  "Outstanding — a complete finish",
+  "Every point you earned was deserved",
+  "You finished the race all the way",
+  "This discipline deserves recognition",
+  "A complete day means more confidence",
+  "You impressed yourself today",
+  "Nothing missing... wonderful!",
+  "From peak to peak",
+  "Today's success starts right here",
+  "You're proving what you can do",
+  "Your habits thank you today",
+  "A clean day with no gaps",
+  "Great consistency",
+  "This is what excellence looks like",
+  "You closed the loop successfully",
+  "A 100% result deserves a smile",
+  "Today you beat procrastination",
+  "Iron will showed up today",
+  "Every habit got its due",
+  "A day to write in bold",
+  "Clear, tangible progress",
+  "You're making a daily difference",
+  "Blessed persistence — keep going",
+  "A full day means peace of mind",
+  "Strong performance through the last habit",
+  "A level worth aspiring to",
+  "You finished the day like a pro",
+  "The joy of full completion",
+  "No shortcuts — just results",
+  "You're closer to your goal now",
+  "A day worth applause",
+  "You stayed consistent and succeeded",
+  "Great management of time and energy",
+  "Every box shines today",
+  "A beautiful personal victory",
+  "A golden day in your tracking",
+  "You proved your discipline today",
+  "Congrats on a total completion",
+  "Strong habits start with days like this",
+  "Today was your best version",
+  "You're building a better you",
+  "An achievement worth a moment of pride",
+  "You didn't leave anything short today",
+  "This is a winner's rhythm",
+  "A complete day = complete confidence",
+  "Awesome! Carry the same strength tomorrow",
+  "Every ✓ is a small success story",
+  "You closed the day on a high note",
+  "Today's work lifts the mood",
+  "A day without excuses",
+  "This is keeping a promise to yourself",
+  "You finished — you earned the celebration",
+  "From the heart: very well done",
+  "Another day added to your win streak",
+  "Peak daily mastery",
+  "Every habit done the right way",
+  "You're building a winning habit",
+  "Quiet, powerful success",
+  "Today you showed up for yourself",
+  "A full result that suits you",
+  "Nothing beats 100%",
+  "A complete day lights up the week",
+  "Well done staying committed to the end",
+  "This discipline builds the future",
+  "A small joy... a big impact",
+  "You finished the day with confidence",
+  "You deserve this good feeling",
+  "A perfect day in the achievement log",
+  "Every step today was intentional",
+  "Congrats on the perseverance",
+  "You brightened your day with progress",
+  "This is calm, serious focus",
+  "A full day with nothing missing",
+  "You're at your best today",
+  "Great priority management",
+  "Today's success fuels a better tomorrow",
+  "You finished proud of what you did",
+  "A day to tell with pride",
+  "Warm congratulations on 100%"
 ];
 
 function randomCelebrationMessage(){
@@ -1877,16 +1877,16 @@ function celebrateIfNewlyPerfect(day, wasPerfect){
 }
 
 const HALF_X_ENCOURAGEMENT_MESSAGES = [
-  "لا بأس، الغد فرصة جديدة",
-  "أنت ما زلت على الطريق، استمر",
-  "يوم صعب لا يلغي تقدمك",
-  "خذ نفسًا… وابدأ من جديد بلطف",
-  "كل محاولة تقربك من عادتك",
-  "التقصير اليوم لا يعني الفشل",
-  "أحسنت الاعتراف بما لم يكتمل",
-  "غدًا تستطيع أن تُكمِل أكثر",
-  "رحمتك بنفسك جزء من الانضباط",
-  "خطوة صغيرة غدًا تصنع فرقًا"
+  "It's okay — tomorrow is a fresh chance",
+  "You're still on the path; keep going",
+  "A hard day doesn't erase your progress",
+  "Take a breath… and gently start again",
+  "Every attempt brings you closer to your habit",
+  "Falling short today doesn't mean failure",
+  "Well done for facing what wasn't finished",
+  "Tomorrow you can complete more",
+  "Being kind to yourself is part of discipline",
+  "A small step tomorrow can make a difference"
 ];
 
 function randomHalfXMessage(){
@@ -1947,7 +1947,7 @@ function applyTheme(theme){
     input.setAttribute("aria-checked", isDark ? "true" : "false");
   }
   const label = document.getElementById("themeSwitchLabel");
-  if(label) label.textContent = isDark ? "وضع فاتح" : "وضع داكن";
+  if(label) label.textContent = isDark ? "Light mode" : "Dark mode";
   // Refresh month heatmap so sticky/legend paints pick up theme tokens
   if(viewMode === "month"){
     renderTable();
@@ -2063,14 +2063,14 @@ function getPersistedLongestStreak(hIdx){
 
 function streakBadgeHtml(hIdx){
   const n = getCurrentStreak(hIdx);
-  return `<span class="habit-streak" title="السلسلة الحالية: ${toArabicDigits(n)}">🔥 ${toArabicDigits(n)}</span>`;
+  return `<span class="habit-streak" title="Current streak: ${toArabicDigits(n)}">🔥 ${toArabicDigits(n)}</span>`;
 }
 
 function runStreakSelfTests(){
   const savedHabits = state.habits;
   const savedMarks = state.marks;
   const savedLongest = state.longestStreaks;
-  state.habits = [{name:"اختبار سلسلة", cat:"الصباح", points:10}];
+  state.habits = [{name:"Streak test", cat:"Morning", points:10}];
   state.marks = {
     "0_1":"check", "0_2":"check", "0_3":"",
     "0_4":"check", "0_5":"check", "0_6":"check"
@@ -2130,7 +2130,7 @@ function escapeAttr(str){
 }
 
 function toArabicDigits(value){
-  return String(value).replace(/[0-9]/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
+  return String(value);
 }
 
 function getWeekOfYear(date){
@@ -2142,7 +2142,7 @@ function getWeekOfYear(date){
 }
 
 function deleteHabitAt(idx){
-  if(!confirm('حذف هذه العادة؟')) return;
+  if(!confirm('Delete this habit?')) return;
   state.habits.splice(idx, 1);
   const newMarks = {};
   Object.keys(state.marks).forEach(k => {
@@ -2186,7 +2186,7 @@ function safeSetItem(key, value){
     return true;
   }catch(err){
     console.error(err);
-    showToast('تعذر حفظ البيانات - المساحة التخزينية ممتلئة');
+    showToast('Could not save — storage is full');
     return false;
   }
 }
@@ -2263,9 +2263,9 @@ function applyMarkToCell(td, key, mark){
   const day = parseInt(key.split('_')[1], 10);
   // Theme colors come from CSS (var(--green) / dark overrides) — clear any stale inline fill
   td.style.backgroundColor = "";
-  const habitName = state.habits[hIdx]?.name || "عادة";
+  const habitName = state.habits[hIdx]?.name || "Habit";
   const {year, month} = getCurrentYearMonth();
-  const status = MARK_LABEL[mark] || "غير محدد";
+  const status = MARK_LABEL[mark] || "Unmarked";
   const dateLabel = `${toArabicDigits(day)} ${MONTH_NAMES[month]}`;
   const tip = `${habitName} — ${dateLabel}: ${status}`;
   td.setAttribute('aria-label', tip);
@@ -2316,7 +2316,7 @@ function updatePointsRow(){
       earnedPoints += pointsForMark(h, state.marks[`${hIdx}_${d}`] || "");
     });
     td.textContent = formatMonthPointsDisplay(earnedPoints, possibleDayPoints);
-    td.title = `مكتسب/ممكن: ${earnedPoints} / ${possibleDayPoints}`;
+    td.title = `Earned/possible: ${earnedPoints} / ${possibleDayPoints}`;
   });
 }
 
@@ -2334,16 +2334,16 @@ function scrollMonthTableToToday(){
   const habitTh = wrap?.querySelector('thead tr.day-header-row th.habit-col');
   if(!wrap || !todayTh || !habitTh) return;
 
-  // Align today's right edge flush with the habit column's left edge (no gap).
+  // Align today's left edge flush with the habit column's right edge (no gap).
   const align = () => {
-    const habitEdge = habitTh.getBoundingClientRect().left;
-    const todayEdge = todayTh.getBoundingClientRect().right;
+    const habitEdge = habitTh.getBoundingClientRect().right;
+    const todayEdge = todayTh.getBoundingClientRect().left;
     const delta = todayEdge - habitEdge;
     if(Math.abs(delta) > 0.5) wrap.scrollBy({left: delta, behavior: 'auto'});
     // Second pass after sticky/layout settles
     requestAnimationFrame(() => {
-      const habitEdge2 = habitTh.getBoundingClientRect().left;
-      const todayEdge2 = todayTh.getBoundingClientRect().right;
+      const habitEdge2 = habitTh.getBoundingClientRect().right;
+      const todayEdge2 = todayTh.getBoundingClientRect().left;
       const delta2 = todayEdge2 - habitEdge2;
       if(Math.abs(delta2) > 0.5) wrap.scrollBy({left: delta2, behavior: 'auto'});
       layoutMonthLegend();
@@ -2363,7 +2363,7 @@ function renderTable(){
   tbody.innerHTML = "";
 
   const thHabit = document.createElement('th');
-  thHabit.textContent = "العادة";
+  thHabit.textContent = "Habit";
   thHabit.className = "habit-col";
   headerRow.appendChild(thHabit);
 
@@ -2435,7 +2435,7 @@ function renderTable(){
   pointsRow.id = "pointsRow";
   const tdLabel = document.createElement('td');
   tdLabel.className = "habit-cell";
-  tdLabel.textContent = "النقاط";
+  tdLabel.textContent = "Points";
   pointsRow.appendChild(tdLabel);
   const possibleDayPoints = maxDayPoints();
   for(let d = 1; d <= nDays; d++){
@@ -2446,7 +2446,7 @@ function renderTable(){
       earnedPoints += pointsForMark(h, state.marks[`${hIdx}_${d}`] || "");
     });
     td.textContent = formatMonthPointsDisplay(earnedPoints, possibleDayPoints);
-    td.title = `مكتسب/ممكن: ${earnedPoints} / ${possibleDayPoints}`;
+    td.title = `Earned/possible: ${earnedPoints} / ${possibleDayPoints}`;
     if(new Date(year, month, d).getDay() === 5) td.classList.add('friday-col');
     if(d === todayDay) td.classList.add('today-col');
     pointsRow.appendChild(td);
@@ -2474,7 +2474,7 @@ function updateWeeklyPoints(){
       });
     }
     const badge = document.querySelector(`[data-week-points="${w}"]`);
-    if(badge) badge.textContent = `إجمالي النقاط: ${toArabicDigits(weekPoints)}`;
+    if(badge) badge.textContent = `Total points: ${toArabicDigits(weekPoints)}`;
   }
 }
 
@@ -2510,12 +2510,12 @@ function renderWeekly(forceRebuild){
     card.className = "weekly-card liquid-glass-lite";
     card.innerHTML = `
       <h3>
-        أيام ${toArabicDigits(startDay)}–${toArabicDigits(endDay)}
-        <span class="week-numbers">الأسبوع ${toArabicDigits(monthWeek)} من ${MONTH_NAMES[month]} - الأسبوع ${toArabicDigits(yearWeek)} من سنة ${toArabicDigits(year)}</span>
+        Days ${toArabicDigits(startDay)}–${toArabicDigits(endDay)}
+        <span class="week-numbers">Week ${toArabicDigits(monthWeek)} of ${MONTH_NAMES[month]} — week ${toArabicDigits(yearWeek)} of ${toArabicDigits(year)}</span>
       </h3>
-      <div class="week-points"><span data-week-points="${w}">إجمالي النقاط: ${toArabicDigits(weekPoints)}</span></div>
-      <label style="display:block;margin-top:10px;font-weight:bold;">تخطيط الأسبوع:</label>
-      <textarea data-week="${w}" placeholder="اكتب خطتك لهذا الأسبوع..."></textarea>
+      <div class="week-points"><span data-week-points="${w}">Total points: ${toArabicDigits(weekPoints)}</span></div>
+      <label style="display:block;margin-top:10px;font-weight:bold;">Week plan:</label>
+      <textarea data-week="${w}" placeholder="Write your plan for this week..."></textarea>
     `;
     const ta = card.querySelector('textarea');
     ta.value = state.weekly[w] || "";
@@ -2599,10 +2599,10 @@ function renderHabitManageList(){
     const item = document.createElement('div');
     item.className = "habit-manage-item";
     item.innerHTML = `
-      <input type="text" class="icon-input" data-field="icon" data-idx="${hIdx}" value="${escapeAttr(habit.icon||"")}" title="إيموجي">
-      <input type="text" data-field="name" data-idx="${hIdx}" value="${escapeAttr(habit.name||"")}" placeholder="اسم العادة">
-      <input type="text" data-field="cat" data-idx="${hIdx}" value="${escapeAttr(habit.cat||"")}" placeholder="التصنيف" style="flex:0.8;">
-      <button type="button" class="danger" data-del="${hIdx}">حذف</button>
+      <input type="text" class="icon-input" data-field="icon" data-idx="${hIdx}" value="${escapeAttr(habit.icon||"")}" title="Emoji">
+      <input type="text" data-field="name" data-idx="${hIdx}" value="${escapeAttr(habit.name||"")}" placeholder="Habit name">
+      <input type="text" data-field="cat" data-idx="${hIdx}" value="${escapeAttr(habit.cat||"")}" placeholder="Category" style="flex:0.8;">
+      <button type="button" class="danger" data-del="${hIdx}">Delete</button>
     `;
     list.appendChild(item);
   });
@@ -2664,8 +2664,8 @@ function renderDayView(){
       <span class="day-habit-name">${habit.icon||""} ${habit.name}</span>
       ${streakBadgeHtml(hIdx)}
       <div class="day-toggle-group">
-        <button type="button" class="day-toggle-btn ${mark==='check'?'active-check':''}" data-key="${key}" data-mark="check" aria-pressed="${mark==='check'}">✓ تم</button>
-        <button type="button" class="day-toggle-btn ${mark==='x'?'active-x':''}" data-key="${key}" data-mark="x" aria-pressed="${mark==='x'}">✗ غير مكتمل</button>
+        <button type="button" class="day-toggle-btn ${mark==='check'?'active-check':''}" data-key="${key}" data-mark="check" aria-pressed="${mark==='check'}">✓ Done</button>
+        <button type="button" class="day-toggle-btn ${mark==='x'?'active-x':''}" data-key="${key}" data-mark="x" aria-pressed="${mark==='x'}">✗ Missed</button>
       </div>
     `;
     list.appendChild(item);
@@ -2691,8 +2691,8 @@ function renderDayView(){
   });
 
   document.getElementById('dayTotal').textContent = possibleDayPoints
-    ? `نقاط اليوم: ${formatEarnedPossible(earnedPoints, possibleDayPoints)}`
-    : `نقاط اليوم: ${toArabicDigits(earnedPoints)}`;
+    ? `Day points: ${formatEarnedPossible(earnedPoints, possibleDayPoints)}`
+    : `Day points: ${toArabicDigits(earnedPoints)}`;
 }
 
 function renderMonthSummary(){
@@ -2711,11 +2711,11 @@ function renderMonthSummary(){
     row.className = "habit-progress-row";
     row.innerHTML = `
       <span class="habit-progress-name">${habit.icon||""} ${habit.name}</span>
-      <div class="habit-progress-bar-wrap" title="${toArabicDigits(doneCount)} من ${toArabicDigits(nDays)} يومًا (${toArabicDigits(pct)}٪)">
+      <div class="habit-progress-bar-wrap" title="${toArabicDigits(doneCount)} of ${toArabicDigits(nDays)} days (${toArabicDigits(pct)}%)">
         <div class="habit-progress-bar" style="width:${pct}%;" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
       <span class="habit-progress-pct">${toArabicDigits(`${doneCount} / ${nDays}`)}</span>
-      <span class="habit-progress-pct-box">${toArabicDigits(pct)}٪</span>
+      <span class="habit-progress-pct-box">${toArabicDigits(pct)}%</span>
       ${streakBadgeHtml(hIdx)}
     `;
     list.appendChild(row);
@@ -2733,8 +2733,8 @@ function renderMonthSummary(){
   totalRow.style.fontWeight = "bold";
   totalRow.style.fontSize = "1.1rem";
   totalRow.textContent = possibleMonthPoints && !isMobileViewport()
-    ? `نقاط الشهر: ${formatEarnedPossible(earnedMonthPoints, possibleMonthPoints)}`
-    : `نقاط الشهر: ${toArabicDigits(earnedMonthPoints)}`;
+    ? `Month points: ${formatEarnedPossible(earnedMonthPoints, possibleMonthPoints)}`
+    : `Month points: ${toArabicDigits(earnedMonthPoints)}`;
   list.appendChild(totalRow);
 }
 
@@ -2749,11 +2749,11 @@ document.getElementById('yearInput').addEventListener('change', () => {
 });
 
 document.getElementById('resetBtn').addEventListener('click', () => {
-  if(confirm("مسح بيانات هذا الشهر؟")){
+  if(confirm("Clear this month's data?")){
     const {year, month} = getCurrentYearMonth();
     localStorage.removeItem(storageKey(year, month));
     loadState();
-    showToast('تم مسح الشهر');
+    showToast('Month cleared');
   }
 });
 
@@ -2768,7 +2768,7 @@ document.getElementById('addHabitBtn').addEventListener('click', () => {
   document.getElementById('newHabitIcon').value = "";
   saveState();
   renderAll();
-  showToast('تمت إضافة العادة');
+  showToast('Habit added');
 });
 
 document.getElementById('exportBtn').addEventListener('click', () => {
@@ -2780,7 +2780,7 @@ document.getElementById('exportBtn').addEventListener('click', () => {
   a.download = `tracker_${year}_${String(month+1).padStart(2,'0')}.json`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast('تم التصدير');
+  showToast('Exported');
 });
 
 document.getElementById('importBtn').addEventListener('click', () => {
@@ -2803,9 +2803,9 @@ document.getElementById('importFile').addEventListener('change', (e) => {
       weeklyBuiltFor = null;
       saveState();
       renderAll();
-      showToast('تم الاستيراد');
+      showToast('Imported');
     }catch(err){
-      alert('ملف غير صالح');
+      alert('Invalid file');
     }
   };
   reader.readAsText(file);
