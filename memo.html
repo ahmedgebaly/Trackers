@@ -36,7 +36,7 @@
     --violet-deep:#6D28D9;
     --violet-soft:#a78bfa;
     --rose:#FDA4AF;
-    --rose-deep:#fb7185;
+    --rose-deep:#f43f5e;
     --mint:#10B981;
     --peach-panel:#FFE4E6;
     --lavender-panel:#F3E8FF;
@@ -44,7 +44,7 @@
     --bg2:#FCE7F3;
     --bg-peach:#FFE4E6;
     --bg-lavender:#F3E8FF;
-    --red:#FDA4AF;
+    --red:#f43f5e;
     --blue:#818cf8;
     --cardbg:rgba(255,255,255,0.72);
     --text:#4c1d95;
@@ -172,7 +172,7 @@
     --bg2:#221833;
     --bg-peach:#2a1a28;
     --bg-lavender:#1e1630;
-    --red:#fda4af;
+    --red:#fb7185;
     --blue:#a5b4fc;
     --cardbg:rgba(40,30,55,0.85);
     --text:#f3e8ff;
@@ -271,30 +271,33 @@
     box-shadow:-1px 0 0 rgba(30,50,32,0.98), 1px 0 0 rgba(30,50,32,0.98);
   }
   html.theme-dark .day-cell.heat-empty{
-    background:rgba(60,66,80,0.55);
+    background:rgba(60,50,90,0.55);
   }
   html.theme-dark .day-cell.heat-done{
-    background:var(--green);
-  }
-  html.theme-dark .day-cell.heat-missed{
-    background:var(--red);
+    background:var(--mint);
     color:#fff;
   }
-  html.theme-dark .day-cell.heat-empty:hover{background:rgba(80,88,104,0.7);}
-  html.theme-dark .day-cell.heat-done:hover{background:#5aa35d;}
-  html.theme-dark .day-cell.heat-missed:hover{background:#c96b6b;}
-  html.theme-dark .day-cell.friday-col.heat-empty{background:rgba(55,60,72,0.6);}
-  html.theme-dark .day-cell.friday-col.heat-done{background:var(--green);color:#fff;}
-  html.theme-dark .day-cell.friday-col.heat-missed{background:var(--red);color:#fff;}
-  html.theme-dark .legend-swatch.empty{background:rgba(60,66,80,0.8);border-color:rgba(100,110,130,0.6);}
-  html.theme-dark .legend-swatch.done{background:var(--green);}
+  html.theme-dark .day-cell.heat-missed{
+    background:var(--rose-deep);
+    color:#fff;
+  }
+  html.theme-dark .day-cell.heat-empty:hover{background:rgba(90,70,130,0.65);}
+  html.theme-dark .day-cell.heat-done:hover{background:#34d399;}
+  html.theme-dark .day-cell.heat-missed:hover{background:#fb7185;}
+  html.theme-dark .day-cell.friday-col.heat-empty{background:rgba(70,45,70,0.55);}
+  html.theme-dark .day-cell.friday-col.heat-done{background:var(--mint);color:#fff;}
+  html.theme-dark .day-cell.friday-col.heat-missed{background:var(--rose-deep);color:#fff;}
+  html.theme-dark .legend-swatch.empty{background:rgba(60,50,90,0.8);border-color:rgba(167,139,250,0.4);}
+  html.theme-dark .legend-swatch.done{background:var(--mint);}
   html.theme-dark .day-cell.today-col.heat-done{
-    background:var(--green);
+    background:var(--mint);
+    color:#fff;
     box-shadow:inset 0 0 0 2px #fff;
   }
-  html.theme-dark .legend-swatch.missed{background:var(--red);border-color:var(--red);color:#fff;}
+  html.theme-dark .legend-swatch.missed{background:var(--rose-deep);border-color:var(--rose-deep);color:#fff;}
   html.theme-dark .day-cell.today-col.heat-missed{
-    background:var(--red);
+    background:var(--rose-deep);
+    color:#fff;
     box-shadow:inset 0 0 0 2px #fff;
   }
   html.theme-dark .points-row td{background:rgba(201,168,74,0.2);}
@@ -520,7 +523,7 @@
     z-index:0;
   }
   .view-toggle[data-mode="month"] .view-toggle-pill{
-    transform:translateX(calc(-100% - 4px));
+    transform:translateX(calc(100% + 4px));
   }
   .view-toggle-btn{
     position:relative;
@@ -744,75 +747,85 @@
     transition:background 0.2s, color 0.2s, box-shadow 0.2s;
   }
   .day-cell.heat-empty{
-    background:rgba(235,237,240,0.45);
+    background:rgba(237,233,254,0.55);
     color:transparent;
-    box-shadow:inset 0 0 0 1px rgba(58,46,16,0.2);
+    box-shadow:inset 0 0 0 1px rgba(167,139,250,0.28);
   }
   .day-cell.heat-done{
-    background:var(--green);
+    background:var(--mint);
     color:#fff;
     font-weight:bold;
+    text-shadow:0 1px 1px rgba(0,0,0,0.15);
   }
   .day-cell.heat-missed{
-    background:var(--red);
+    background:var(--rose-deep);
     color:#fff;
     font-weight:bold;
+    text-shadow:0 1px 1px rgba(0,0,0,0.15);
   }
-  .day-cell.heat-empty:hover{background:rgba(208,215,222,0.65);}
+  .day-cell.heat-empty:hover{background:rgba(221,214,254,0.75);}
   .day-cell.heat-done:hover{background:#059669;}
-  .day-cell.heat-missed:hover{background:#c9302c;}
+  .day-cell.heat-missed:hover{background:#be123c;}
   .day-cell.today-col.heat-empty{
-    box-shadow:inset 0 0 0 2px var(--gold);
+    box-shadow:inset 0 0 0 2px var(--violet);
   }
   .day-cell.today-col.heat-done{
     box-shadow:inset 0 0 0 2px #fff;
-    background:var(--green);
+    background:var(--mint);
+    color:#fff;
   }
   .day-cell.today-col.heat-missed{
     box-shadow:inset 0 0 0 2px #fff;
-    background:var(--red);
+    background:var(--rose-deep);
+    color:#fff;
   }
-  th.today-col{box-shadow:inset 0 -3px 0 var(--green);}
-  .mark-check{color:var(--green);font-weight:bold;}
+  th.today-col{box-shadow:inset 0 -3px 0 var(--violet);}
+  .mark-check{color:var(--mint);font-weight:bold;}
   .legend-swatch{
     display:inline-block;
     width:14px;height:14px;
     border-radius:3px;
     vertical-align:middle;
   }
-  .legend-swatch.empty{background:rgba(235,237,240,0.75);border:1px solid rgba(208,215,222,0.9);}
-  .legend-swatch.done{background:var(--green);}
-  .legend-swatch.missed{background:var(--red);border:1px solid var(--red);color:#fff;font-size:10px;line-height:14px;text-align:center;font-weight:bold;}
-  .mark-x{color:var(--red);font-weight:bold;}
+  .legend-swatch.empty{background:rgba(237,233,254,0.85);border:1px solid rgba(167,139,250,0.4);}
+  .legend-swatch.done{background:var(--mint);}
+  .legend-swatch.missed{background:var(--rose-deep);border:1px solid var(--rose-deep);color:#fff;font-size:10px;line-height:14px;text-align:center;font-weight:bold;}
+  .mark-x{color:var(--rose-deep);font-weight:bold;}
   .mark-dash{color:var(--blue);font-weight:bold;}
-  .points-row td{background:rgba(255,243,214,0.55);font-weight:bold;}
+  .points-row td{background:rgba(243,232,255,0.55);font-weight:bold;}
   .points-row td.habit-cell{
-    background:rgba(255,243,214,0.95);
-    box-shadow:-1px 0 0 rgba(255,243,214,0.95), 1px 0 0 rgba(255,243,214,0.95);
+    background:rgba(250,245,255,0.95);
+    box-shadow:-1px 0 0 rgba(250,245,255,0.95), 1px 0 0 rgba(250,245,255,0.95);
   }
   th.friday-col,
   td.friday-col,
   .points-row td.friday-col{
-    background:rgba(232,232,232,0.4);
+    background:rgba(252,231,243,0.45);
   }
   thead th.friday-col{
-    background:#d4d0c4;
+    background:#ddd6fe;
   }
-  .day-cell.friday-col.heat-empty{background:rgba(224,224,224,0.5);}
-  .day-cell.friday-col.heat-done{background:var(--green);color:#fff;}
-  .day-cell.friday-col.heat-missed{background:var(--red);color:#fff;}
-  .day-cell.friday-col.heat-empty:hover{background:rgba(208,215,222,0.65);}
+  .day-cell.friday-col.heat-empty{background:rgba(251,207,232,0.45);}
+  .day-cell.friday-col.heat-done{background:var(--mint);color:#fff;}
+  .day-cell.friday-col.heat-missed{background:var(--rose-deep);color:#fff;}
+  .day-cell.friday-col.heat-empty:hover{background:rgba(249,168,212,0.5);}
   .day-cell.friday-col.heat-done:hover{background:#059669;}
-  .day-cell.friday-col.heat-missed:hover{background:#c9302c;}
+  .day-cell.friday-col.heat-missed:hover{background:#be123c;}
   .day-cell.friday-col.today-col.heat-done{
-    background:var(--green);
+    background:var(--mint);
+    color:#fff;
+    box-shadow:inset 0 0 0 2px #fff;
+  }
+  .day-cell.friday-col.today-col.heat-missed{
+    background:var(--rose-deep);
+    color:#fff;
     box-shadow:inset 0 0 0 2px #fff;
   }
   .points-row td.friday-col.today-col{
-    background:rgba(224,224,224,0.55);
+    background:rgba(252,231,243,0.6);
   }
-  th.friday-col.today-col{background:rgba(216,216,216,0.55);}
-  thead th.friday-col.today-col{background:#d0ccc0;}
+  th.friday-col.today-col{background:rgba(237,233,254,0.7);}
+  thead th.friday-col.today-col{background:#c4b5fd;}
   .cat-group-row .cat-group-label,
   .cat-group-row .cat-group-span{
     background:rgba(232,240,228,0.95);
@@ -1448,42 +1461,125 @@
       max-width:none;
     }
   }
+  @media(max-width:900px){
+    .top-bar{
+      max-width:100%;
+      padding:8px var(--space-sm);
+      margin-bottom:var(--space-md);
+    }
+    .controls-bar{
+      flex-direction:column;
+      align-items:stretch;
+      gap:10px;
+      padding:12px;
+    }
+    .controls-group{
+      width:100%;
+      flex-wrap:nowrap;
+    }
+    .day-view-header,
+    .month-nav-bar{
+      display:grid;
+      grid-template-columns:auto minmax(0,1fr) auto;
+      align-items:center;
+      gap:8px;
+      width:100%;
+    }
+    .day-date-chip,
+    .month-nav-label{
+      min-width:0;
+      max-width:100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .view-toggle{
+      width:100%;
+      min-width:0;
+    }
+    .nav-step-text{display:none;}
+    .nav-step-btn{
+      padding:8px 12px;
+      min-width:44px;
+    }
+    .day-view{
+      padding:0 var(--space-sm);
+      margin-bottom:20px;
+    }
+    .day-picker-row{
+      max-width:100%;
+      margin-inline:0;
+    }
+    .month-heatmap-shell{
+      margin-inline:var(--space-sm);
+      max-width:calc(100% - 2 * var(--space-sm));
+    }
+  }
   @media(max-width:700px){
     .weekly-section.is-visible{grid-template-columns:1fr;}
-    .header .app-title{font-size:1.6rem;}
-    .app-title-badge{width:34px;height:34px;border-radius:10px;}
-    .app-title-badge svg{width:34px;height:34px;}
+    .header{
+      padding:var(--space-lg) var(--space-sm) var(--space-xs);
+    }
+    .header .app-title{
+      font-size:1.35rem;
+      padding:10px 14px;
+      gap:8px;
+      max-width:100%;
+    }
+    .app-title-badge{width:32px;height:32px;border-radius:10px;}
+    .app-title-badge svg{width:32px;height:32px;}
     .day-view-header{
       gap:6px;
-      padding:6px 8px;
+      padding:0;
     }
     .day-view-header .nav-step-btn{
       padding:8px 10px;
-      font-size:0.8rem;
+      font-size:0.85rem;
     }
     .day-date-chip{
       padding:8px 10px;
+      font-size:0.85rem;
+    }
+    .month-nav-label{
       font-size:0.9rem;
+      min-width:0;
     }
     .day-picker-row{
       gap:8px;
-      padding:8px;
+      padding:10px;
+      flex-direction:column;
+      align-items:stretch;
+      text-align:center;
+    }
+    .day-picker-row label{
+      width:100%;
+    }
+    .select-wrap,
+    .select-wrap select,
+    .btn-today{
+      width:100%;
     }
     .habit-cell, th.habit-col{min-width:120px;}
     .table-legend{
       gap:8px;
       font-size:0.78rem;
+      flex-wrap:wrap;
+      justify-content:center;
     }
     .table-legend-bar{
       padding-block:6px;
     }
     .habit-progress-row{
       display:grid;
-      grid-template-columns:7.5rem minmax(3.25rem, 1fr) auto auto auto;
+      grid-template-columns:minmax(0,1fr) auto auto;
+      grid-template-areas:
+        "name name streak"
+        "bar pct pctbox";
       align-items:center;
       gap:8px;
     }
     .habit-progress-name{
+      grid-area:name;
       min-width:0;
       max-width:none;
       overflow:hidden;
@@ -1491,13 +1587,22 @@
       white-space:nowrap;
     }
     .habit-progress-bar-wrap{
+      grid-area:bar;
       flex:unset;
       width:100%;
       min-width:0;
     }
     .habit-progress-pct{
+      grid-area:pct;
       min-width:0;
       white-space:nowrap;
+    }
+    .habit-progress-pct-box{
+      grid-area:pctbox;
+    }
+    .habit-progress-row .habit-streak{
+      grid-area:streak;
+      margin-inline-start:0;
     }
     .day-habit-item{
       display:grid;
@@ -1507,22 +1612,87 @@
         "toggles";
       align-items:center;
       gap:10px;
+      padding:12px;
     }
     .day-habit-item .day-habit-main{
       grid-area:main;
       min-width:0;
     }
     .day-habit-item .day-habit-name{
-      flex:none;
+      flex:1;
       min-width:0;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      font-size:1rem;
     }
     .day-habit-item .habit-streak{
       margin-inline-start:auto;
+      flex-shrink:0;
     }
     .day-habit-item .day-toggle-group{
       grid-area:toggles;
       min-width:0;
       width:100%;
+    }
+    .day-habit-icon{
+      width:36px;
+      height:36px;
+      font-size:1.15rem;
+    }
+    .day-total{
+      font-size:1.15rem;
+      padding:12px;
+      margin-top:14px;
+    }
+    .site-footer{
+      flex-wrap:wrap;
+      gap:8px;
+      padding:12px;
+      text-align:center;
+      justify-content:center;
+      font-size:0.85rem;
+    }
+    .theme-switch-wrap{
+      padding-inline:var(--space-sm);
+    }
+    .modal{
+      padding:var(--space-lg);
+      max-height:85vh;
+    }
+    .modal-row{
+      flex-direction:column;
+      align-items:stretch;
+    }
+    .habit-manager .row{
+      flex-direction:column;
+    }
+  }
+  @media(max-width:480px){
+    .header .app-title{
+      font-size:1.15rem;
+      padding:8px 12px;
+    }
+    .view-toggle-btn{
+      padding:8px 10px;
+      font-size:0.85rem;
+    }
+    .day-date-chip{
+      font-size:0.78rem;
+      padding:8px 6px;
+    }
+    .day-toggle-btn{
+      padding:10px 8px;
+      font-size:0.85rem;
+      min-height:44px;
+    }
+    .day-habit-cat{
+      font-size:0.72rem;
+      padding:4px 10px;
+    }
+    .footer-note{
+      padding-inline:var(--space-sm);
+      font-size:0.85rem;
     }
   }
 </style>
@@ -1561,12 +1731,12 @@
 <div class="top-bar">
   <div class="controls-bar liquid-glass memo-peach-panel" aria-label="Date and view controls">
     <div class="controls-group day-view-header" id="dayNavGroup">
-      <button type="button" id="prevDayBtn" class="nav-step-btn">
-        <span class="nav-step-icon" aria-hidden="true">◀</span> Previous day
+      <button type="button" id="prevDayBtn" class="nav-step-btn" aria-label="Previous day">
+        <span class="nav-step-icon" aria-hidden="true">◀</span><span class="nav-step-text"> Previous day</span>
       </button>
       <h2 id="dayViewTitle" class="day-date-chip liquid-glass-lite"></h2>
-      <button type="button" id="nextDayBtn" class="nav-step-btn">
-        Next day <span class="nav-step-icon" aria-hidden="true">▶</span>
+      <button type="button" id="nextDayBtn" class="nav-step-btn" aria-label="Next day">
+        <span class="nav-step-text">Next day </span><span class="nav-step-icon" aria-hidden="true">▶</span>
       </button>
     </div>
     <div class="view-toggle liquid-glass" id="viewToggle" data-mode="day" role="group" aria-label="View mode">
@@ -1575,12 +1745,12 @@
       <button class="view-toggle-btn" id="showMonthBtn" type="button" aria-pressed="false">Month view</button>
     </div>
     <div class="controls-group month-nav-bar" aria-label="Month navigation">
-      <button type="button" id="prevMonthBtn" class="nav-step-btn">
-        <span class="nav-step-icon" aria-hidden="true">◀</span> Previous month
+      <button type="button" id="prevMonthBtn" class="nav-step-btn" aria-label="Previous month">
+        <span class="nav-step-icon" aria-hidden="true">◀</span><span class="nav-step-text"> Previous month</span>
       </button>
       <span id="monthNavTitle" class="month-nav-label"></span>
-      <button type="button" id="nextMonthBtn" class="nav-step-btn">
-        Next month <span class="nav-step-icon" aria-hidden="true">▶</span>
+      <button type="button" id="nextMonthBtn" class="nav-step-btn" aria-label="Next month">
+        <span class="nav-step-text">Next month </span><span class="nav-step-icon" aria-hidden="true">▶</span>
       </button>
     </div>
   </div>
@@ -2301,7 +2471,7 @@ function updateAppTitle(){
   const label = `${MONTH_NAMES[month]} ${toArabicDigits(year)}`;
   const title = document.getElementById('appTitle');
   if(title){
-    title.textContent = `Memo Dad's Love — ${label}`;
+    title.textContent = `Memo Dad's Princess — ${label}`;
   }
   const monthNav = document.getElementById('monthNavTitle');
   if(monthNav) monthNav.textContent = label;

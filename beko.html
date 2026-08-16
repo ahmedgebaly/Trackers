@@ -484,7 +484,7 @@
     z-index:0;
   }
   .view-toggle[data-mode="month"] .view-toggle-pill{
-    transform:translateX(calc(-100% - 4px));
+    transform:translateX(calc(100% + 4px));
   }
   .view-toggle-btn{
     position:relative;
@@ -1364,42 +1364,118 @@
       max-width:none;
     }
   }
+  @media(max-width:900px){
+    .top-bar{
+      flex-direction:column;
+      align-items:stretch;
+      gap:10px;
+      max-width:100%;
+      padding:0 var(--space-sm);
+      margin-bottom:var(--space-md);
+    }
+    .view-toggle{
+      width:100%;
+      min-width:0;
+    }
+    .month-nav-bar,
+    .day-view-header{
+      display:grid;
+      grid-template-columns:auto minmax(0,1fr) auto;
+      align-items:center;
+      gap:8px;
+      width:100%;
+      flex-wrap:nowrap;
+    }
+    .day-date-chip,
+    .month-nav-label{
+      min-width:0;
+      max-width:100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .nav-step-text{display:none;}
+    .nav-step-btn{
+      padding:8px 12px;
+      min-width:44px;
+    }
+    .day-view{
+      padding:0 var(--space-sm);
+      margin-bottom:20px;
+    }
+    .month-heatmap-shell{
+      margin-inline:var(--space-sm);
+      max-width:calc(100% - 2 * var(--space-sm));
+    }
+  }
   @media(max-width:700px){
     .weekly-section.is-visible{grid-template-columns:1fr;}
-    .header .app-title{font-size:1.6rem;}
-    .app-title-badge{width:34px;height:34px;border-radius:10px;}
-    .app-title-badge svg{width:34px;height:34px;}
+    .header{
+      padding:var(--space-lg) var(--space-sm) var(--space-xs);
+    }
+    .header .app-title{
+      font-size:1.35rem;
+      padding:10px 14px;
+      gap:8px;
+      max-width:100%;
+    }
+    .app-title-badge{width:32px;height:32px;border-radius:10px;}
+    .app-title-badge svg{width:32px;height:32px;}
     .day-view-header{
       gap:6px;
-      padding:6px 8px;
+      padding:8px;
     }
     .day-view-header .nav-step-btn{
       padding:8px 10px;
-      font-size:0.8rem;
+      font-size:0.85rem;
     }
     .day-date-chip{
       padding:8px 10px;
+      font-size:0.85rem;
+    }
+    .month-nav-bar{
+      padding:8px;
+    }
+    .month-nav-label{
       font-size:0.9rem;
+      min-width:0;
     }
     .day-picker-row{
       gap:8px;
-      padding:8px;
+      padding:10px;
+      flex-direction:column;
+      align-items:stretch;
+      text-align:center;
+    }
+    .day-picker-row label{
+      width:100%;
+    }
+    .select-wrap,
+    .select-wrap select,
+    .btn-today{
+      width:100%;
     }
     .habit-cell, th.habit-col{min-width:120px;}
     .table-legend{
       gap:8px;
       font-size:0.78rem;
+      flex-wrap:wrap;
+      justify-content:center;
     }
     .table-legend-bar{
       padding-block:6px;
     }
     .habit-progress-row{
       display:grid;
-      grid-template-columns:7.5rem minmax(3.25rem, 1fr) auto auto auto;
+      grid-template-columns:minmax(0,1fr) auto auto;
+      grid-template-areas:
+        "name name streak"
+        "bar pct pctbox";
       align-items:center;
       gap:8px;
     }
     .habit-progress-name{
+      grid-area:name;
       min-width:0;
       max-width:none;
       overflow:hidden;
@@ -1407,13 +1483,22 @@
       white-space:nowrap;
     }
     .habit-progress-bar-wrap{
+      grid-area:bar;
       flex:unset;
       width:100%;
       min-width:0;
     }
     .habit-progress-pct{
+      grid-area:pct;
       min-width:0;
       white-space:nowrap;
+    }
+    .habit-progress-pct-box{
+      grid-area:pctbox;
+    }
+    .habit-progress-row .habit-streak{
+      grid-area:streak;
+      margin-inline-start:0;
     }
     .day-habit-item{
       display:grid;
@@ -1423,19 +1508,82 @@
         "toggles toggles";
       align-items:center;
       gap:10px;
+      padding:12px;
     }
     .day-habit-item .day-habit-name{
       grid-area:name;
       flex:none;
       min-width:0;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      font-size:1rem;
     }
     .day-habit-item .habit-streak{
       grid-area:streak;
+      flex-shrink:0;
     }
     .day-habit-item .day-toggle-group{
       grid-area:toggles;
       min-width:0;
       width:100%;
+    }
+    .day-total{
+      font-size:1.15rem;
+      padding:12px;
+      margin-top:14px;
+    }
+    .site-footer{
+      flex-wrap:wrap;
+      gap:8px;
+      padding:12px;
+      text-align:center;
+      justify-content:center;
+      font-size:0.85rem;
+    }
+    .theme-switch-wrap{
+      padding-inline:var(--space-sm);
+    }
+    .modal{
+      padding:var(--space-lg);
+      max-height:85vh;
+    }
+    .modal-row{
+      flex-direction:column;
+      align-items:stretch;
+    }
+    .habit-manager .row{
+      flex-direction:column;
+    }
+    .footer-note{
+      padding-inline:var(--space-sm);
+      font-size:0.9rem;
+    }
+  }
+  @media(max-width:480px){
+    .header .app-title{
+      font-size:1.15rem;
+      padding:8px 12px;
+    }
+    .view-toggle-btn{
+      padding:8px 10px;
+      font-size:0.85rem;
+    }
+    .day-date-chip{
+      font-size:0.78rem;
+      padding:8px 6px;
+    }
+    .day-toggle-btn{
+      padding:10px 8px;
+      font-size:0.85rem;
+      min-height:44px;
+    }
+    .day-habit-cat{
+      font-size:0.72rem;
+      padding:4px 10px;
+    }
+    .footer-note{
+      font-size:0.85rem;
     }
   }
 </style>
@@ -1479,12 +1627,12 @@
     <button class="view-toggle-btn" id="showMonthBtn" type="button" aria-pressed="false">Month view</button>
   </div>
   <div class="month-nav-bar liquid-glass" aria-label="Month navigation">
-    <button type="button" id="prevMonthBtn" class="nav-step-btn">
-      <span class="nav-step-icon" aria-hidden="true">◀</span> Previous month
+    <button type="button" id="prevMonthBtn" class="nav-step-btn" aria-label="Previous month">
+      <span class="nav-step-icon" aria-hidden="true">◀</span><span class="nav-step-text"> Previous month</span>
     </button>
     <span id="monthNavTitle" class="month-nav-label"></span>
-    <button type="button" id="nextMonthBtn" class="nav-step-btn">
-      Next month <span class="nav-step-icon" aria-hidden="true">▶</span>
+    <button type="button" id="nextMonthBtn" class="nav-step-btn" aria-label="Next month">
+      <span class="nav-step-text">Next month </span><span class="nav-step-icon" aria-hidden="true">▶</span>
     </button>
   </div>
   <button type="button" id="settingsBtn" class="theme-toggle liquid-glass-lite" style="display: none;" aria-label="Settings">⚙ Settings</button>
@@ -1492,12 +1640,12 @@
 
 <div class="day-view" id="dayView">
   <div class="day-view-header liquid-glass">
-    <button type="button" id="prevDayBtn" class="nav-step-btn">
-      <span class="nav-step-icon" aria-hidden="true">◀</span> Previous day
+    <button type="button" id="prevDayBtn" class="nav-step-btn" aria-label="Previous day">
+      <span class="nav-step-icon" aria-hidden="true">◀</span><span class="nav-step-text"> Previous day</span>
     </button>
     <h2 id="dayViewTitle" class="day-date-chip liquid-glass-lite"></h2>
-    <button type="button" id="nextDayBtn" class="nav-step-btn">
-      Next day <span class="nav-step-icon" aria-hidden="true">▶</span>
+    <button type="button" id="nextDayBtn" class="nav-step-btn" aria-label="Next day">
+      <span class="nav-step-text">Next day </span><span class="nav-step-icon" aria-hidden="true">▶</span>
     </button>
   </div>
   <div class="day-picker-row liquid-glass">
