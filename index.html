@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trackers</title>
 <meta name="description" content="Choose a habit tracker — Memo or Beko.">
-<meta name="theme-color" content="#1b5e20">
+<meta name="theme-color" content="#7C3AED">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Trackers">
@@ -26,17 +26,18 @@
     --gold:#e8c46b;
     --green:#1b5e20;
     --green-hover:#2e7d32;
-    --pink:#e91e8c;
-    --pink-hover:#f062ab;
+    --pink:#FDA4AF;
+    --pink-deep:#fb7185;
+    --violet:#7C3AED;
+    --violet-soft:#a78bfa;
     --lightgreen:#81c784;
-    --bg1:#fdf6e3;
-    --bg2:#f4e6b8;
-    --bg-peach:#f7d9c4;
-    --bg-lavender:#e4d4f5;
-    --text:#3a3a2a;
-    --text-dark:#3a2e10;
+    --bg1:#F3E8FF;
+    --bg2:#FCE7F3;
+    --bg-peach:#FFE4E6;
+    --text:#4c1d95;
+    --text-dark:#4c1d95;
     --radius-glass:16px;
-    --shadow:0 4px 15px rgba(0,0,0,0.1);
+    --shadow:0 8px 28px rgba(124,58,237,0.12);
   }
   *{box-sizing:border-box;}
   html,body{height:100%;margin:0;}
@@ -51,10 +52,9 @@
     padding:24px;
     background-color:var(--bg1);
     background-image:
-      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(228,212,245,0.7), transparent 55%),
-      radial-gradient(ellipse 70% 50% at 90% 15%, rgba(247,217,196,0.75), transparent 50%),
-      radial-gradient(ellipse 60% 45% at 50% 85%, rgba(232,196,107,0.35), transparent 55%),
-      linear-gradient(145deg, var(--bg1) 0%, var(--bg2) 45%, var(--bg-peach) 100%);
+      radial-gradient(ellipse 70% 55% at 15% 10%, rgba(243,232,255,0.95), transparent 55%),
+      radial-gradient(ellipse 65% 50% at 90% 20%, rgba(255,228,230,0.9), transparent 50%),
+      linear-gradient(160deg, #F3E8FF 0%, #FCE7F3 48%, #FFE4E6 100%);
     background-attachment:fixed;
   }
   .chooser{
@@ -99,20 +99,20 @@
     background:linear-gradient(145deg, var(--green-hover) 0%, var(--green) 100%);
   }
   .choice--memo{
-    background:linear-gradient(145deg, var(--pink-hover) 0%, var(--pink) 100%);
+    background:linear-gradient(145deg, var(--pink) 0%, var(--pink-deep) 55%, var(--violet) 160%);
   }
   .choice:hover,
   .choice:focus-visible{
     transform:translateY(-4px) scale(1.02);
-    box-shadow:0 10px 28px rgba(0,0,0,0.2);
+    box-shadow:0 10px 28px rgba(124,58,237,0.18);
     outline:none;
-    filter:brightness(1.08);
+    filter:brightness(1.06);
   }
   .choice--beko:focus-visible{
     box-shadow:0 0 0 3px var(--lightgreen), 0 10px 28px rgba(0,0,0,0.2);
   }
   .choice--memo:focus-visible{
-    box-shadow:0 0 0 3px #f8bbd0, 0 10px 28px rgba(0,0,0,0.2);
+    box-shadow:0 0 0 3px var(--violet-soft), 0 10px 28px rgba(124,58,237,0.2);
   }
   .choice-label{
     font-size:clamp(1.6rem, 4vw, 2.2rem);

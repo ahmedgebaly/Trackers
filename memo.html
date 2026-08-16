@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Memo Tracker</title>
 <meta name="description" content="Monthly habit tracker — track your habits daily and monthly with Memo. Follow progress, day and month views, and local saving for your data.">
-<meta name="theme-color" content="#1b5e20">
+<meta name="theme-color" content="#7C3AED">
 
 <!-- Open Graph (Facebook, WhatsApp, Telegram) -->
 <meta property="og:type" content="website">
@@ -14,8 +14,8 @@
 <meta property="og:title" content="Memo Tracker">
 <meta property="og:description" content="Track your habits daily and monthly — day and month views, progress summary, and local saving for your data.">
 <meta property="og:url" content="https://ahmedgebaly.github.io/Trackers/">
-<meta property="og:image" content="https://ahmedgebaly.github.io/Trackers/og-image.jpg">
-<meta property="og:image:secure_url" content="https://ahmedgebaly.github.io/Trackers/og-image.jpg">
+<meta property="og:image" content="https://ahmedgebaly.github.io/Trackers/og-image_Memo.jpg">
+<meta property="og:image:secure_url" content="https://ahmedgebaly.github.io/Trackers/og-image_Memo.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,23 +25,32 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Memo Tracker">
 <meta name="twitter:description" content="Track your habits daily and monthly — day and month views, progress summary, and local saving for your data.">
-<meta name="twitter:image" content="https://ahmedgebaly.github.io/Trackers/og-image.jpg">
+<meta name="twitter:image" content="https://ahmedgebaly.github.io/Trackers/og-image_Memo.jpg">
 <meta name="twitter:image:alt" content="Memo Tracker">
 <style>
   :root{
-    --gold:#e8c46b;
-    --green:#1b5e20;
-    --lightgreen:#81c784;
-    --bg1:#fdf6e3;
-    --bg2:#f4e6b8;
-    --bg-peach:#f7d9c4;
-    --bg-lavender:#e4d4f5;
-    --red:#d9534f;
-    --blue:#3a6fb5;
-    --cardbg:#fffdf5;
-    --text:#3a3a2a;
-    --text-dark:#3a2e10;
-    --border:#d8c98a;
+    --gold:#fbbf24;
+    --green:#10B981;
+    --lightgreen:#6ee7b7;
+    --violet:#7C3AED;
+    --violet-deep:#6D28D9;
+    --violet-soft:#a78bfa;
+    --rose:#FDA4AF;
+    --rose-deep:#fb7185;
+    --mint:#10B981;
+    --peach-panel:#FFE4E6;
+    --lavender-panel:#F3E8FF;
+    --bg1:#F3E8FF;
+    --bg2:#FCE7F3;
+    --bg-peach:#FFE4E6;
+    --bg-lavender:#F3E8FF;
+    --red:#FDA4AF;
+    --blue:#818cf8;
+    --cardbg:rgba(255,255,255,0.72);
+    --text:#4c1d95;
+    --text-dark:#4c1d95;
+    --text-muted:#6b7280;
+    --border:rgba(167,139,250,0.35);
     --space-sm:8px;
     --space-md:12px;
     --space-lg:16px;
@@ -53,8 +62,9 @@
     --nav-gap-sm:8px;
     --touch-min:40px;
     --lavender:#c4b5e0;
-    --shadow:0 4px 15px rgba(0,0,0,0.1);
-    --green-glass:rgba(27,94,32,0.92);
+    --shadow:0 8px 28px rgba(124,58,237,0.12);
+    --green-glass:rgba(124,58,237,0.95);
+    --peach-glass:linear-gradient(145deg, rgba(255,228,230,0.75) 0%, rgba(255,241,242,0.55) 55%, rgba(243,232,255,0.65) 100%);
   }
   *{box-sizing:border-box;}
   html{
@@ -65,11 +75,10 @@
     font-family:'Segoe UI',Tahoma,sans-serif;
     background-color:var(--bg1);
     background-image:
-      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(228,212,245,0.7), transparent 55%),
-      radial-gradient(ellipse 70% 50% at 90% 15%, rgba(247,217,196,0.75), transparent 50%),
-      radial-gradient(ellipse 60% 45% at 50% 85%, rgba(232,196,107,0.35), transparent 55%),
-      radial-gradient(ellipse 50% 40% at 70% 60%, rgba(143,191,122,0.25), transparent 50%),
-      linear-gradient(145deg, var(--bg1) 0%, var(--bg2) 45%, var(--bg-peach) 100%);
+      radial-gradient(ellipse 70% 55% at 15% 10%, rgba(243,232,255,0.95), transparent 55%),
+      radial-gradient(ellipse 65% 50% at 90% 20%, rgba(255,228,230,0.9), transparent 50%),
+      radial-gradient(ellipse 55% 45% at 50% 90%, rgba(252,231,243,0.7), transparent 55%),
+      linear-gradient(160deg, #F3E8FF 0%, #FCE7F3 48%, #FFE4E6 100%);
     background-attachment:fixed;
     margin:0;padding:0;color:var(--text);
     min-height:100vh;
@@ -84,25 +93,23 @@
     z-index:-1;
     pointer-events:none;
     background:
-      radial-gradient(circle at 20% 40%, rgba(196,181,224,0.45), transparent 35%),
-      radial-gradient(circle at 80% 70%, rgba(247,180,150,0.35), transparent 40%),
-      radial-gradient(circle at 40% 90%, rgba(143,191,122,0.3), transparent 35%);
+      radial-gradient(circle at 18% 35%, rgba(167,139,250,0.28), transparent 38%),
+      radial-gradient(circle at 82% 65%, rgba(251,113,133,0.22), transparent 40%),
+      radial-gradient(circle at 45% 88%, rgba(110,231,183,0.18), transparent 35%);
     filter:blur(40px);
   }
   .liquid-glass{
     position:relative;
     isolation:isolate;
-    background:rgba(255,255,255,0.12);
-    backdrop-filter:blur(12px) saturate(180%) brightness(1.08);
-    -webkit-backdrop-filter:blur(12px) saturate(180%) brightness(1.08);
-    border:1px solid rgba(255,255,255,0.25);
+    background:rgba(255,255,255,0.58);
+    backdrop-filter:blur(14px) saturate(160%) brightness(1.05);
+    -webkit-backdrop-filter:blur(14px) saturate(160%) brightness(1.05);
+    border:1px solid rgba(255,255,255,0.7);
     border-radius:var(--radius-glass);
     box-shadow:
-      0 8px 32px rgba(0,0,0,0.15),
-      inset 0 1px 1px rgba(255,255,255,0.6),
-      inset 0 -1px 1px rgba(255,255,255,0.25),
-      inset 1px 0 1px rgba(255,255,255,0.15),
-      inset -1px 0 1px rgba(255,255,255,0.15);
+      0 10px 32px rgba(124,58,237,0.1),
+      inset 0 1px 1px rgba(255,255,255,0.85),
+      inset 0 -1px 1px rgba(255,255,255,0.35);
     transition:all 0.25s ease;
   }
   .liquid-glass::after{
@@ -112,73 +119,84 @@
     z-index:-1;
     border-radius:inherit;
     background:linear-gradient(135deg,
-      rgba(255,255,255,0.45), rgba(255,255,255,0.08) 28%, transparent 58%);
+      rgba(255,255,255,0.55), rgba(255,255,255,0.1) 28%, transparent 58%);
     mix-blend-mode:screen;
     pointer-events:none;
   }
   .liquid-glass-lite{
     position:relative;
     isolation:isolate;
-    background:rgba(255,255,255,0.55);
-    backdrop-filter:blur(4px) saturate(140%);
-    -webkit-backdrop-filter:blur(4px) saturate(140%);
-    border:1px solid rgba(255,255,255,0.4);
+    background:rgba(255,255,255,0.72);
+    backdrop-filter:blur(8px) saturate(150%);
+    -webkit-backdrop-filter:blur(8px) saturate(150%);
+    border:1px solid rgba(255,255,255,0.75);
     border-radius:var(--radius-glass);
     box-shadow:
-      0 4px 16px rgba(0,0,0,0.1),
-      inset 0 1px 1px rgba(255,255,255,0.55);
+      0 6px 20px rgba(124,58,237,0.08),
+      inset 0 1px 1px rgba(255,255,255,0.7);
     transition:background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  }
+  .memo-peach-panel{
+    background:var(--peach-glass) !important;
+    border-color:rgba(255,255,255,0.65) !important;
   }
   @supports (backdrop-filter: url(#liquid-refract)){
     .liquid-glass{
-      backdrop-filter:blur(4px) url(#liquid-refract);
-      -webkit-backdrop-filter:blur(4px) url(#liquid-refract);
+      backdrop-filter:blur(6px) url(#liquid-refract);
+      -webkit-backdrop-filter:blur(6px) url(#liquid-refract);
     }
   }
   @supports not (backdrop-filter: blur(1px)){
     .liquid-glass{
-      background:rgba(255,253,245,0.92);
+      background:rgba(255,255,255,0.92);
       backdrop-filter:none;
       -webkit-backdrop-filter:none;
     }
     .liquid-glass-lite{
-      background:rgba(255,253,245,0.95);
+      background:rgba(255,255,255,0.95);
       backdrop-filter:none;
       -webkit-backdrop-filter:none;
     }
   }
   html.theme-dark{
-    --gold:#c9a84a;
-    --green:#6bb86e;
-    --lightgreen:#81c784;
-    --bg1:#12141a;
-    --bg2:#1a1d26;
-    --bg-peach:#2a2230;
-    --bg-lavender:#1e2438;
-    --red:#e07a7a;
-    --blue:#6ea8e8;
-    --cardbg:#1e222c;
-    --text:#e8e6e0;
-    --text-dark:#f5f2ea;
-    --border:#3a4050;
+    --gold:#fbbf24;
+    --green:#34d399;
+    --lightgreen:#6ee7b7;
+    --violet:#a78bfa;
+    --violet-deep:#8b5cf6;
+    --violet-soft:#c4b5fd;
+    --rose:#fda4af;
+    --rose-deep:#fb7185;
+    --mint:#34d399;
+    --bg1:#1a1228;
+    --bg2:#221833;
+    --bg-peach:#2a1a28;
+    --bg-lavender:#1e1630;
+    --red:#fda4af;
+    --blue:#a5b4fc;
+    --cardbg:rgba(40,30,55,0.85);
+    --text:#f3e8ff;
+    --text-dark:#f5f3ff;
+    --text-muted:#c4b5fd;
+    --border:rgba(167,139,250,0.28);
     --lavender:#9b8ec4;
-    --green-glass:rgba(107,184,110,0.55);
+    --green-glass:rgba(124,58,237,0.75);
     --shadow:0 8px 28px rgba(0,0,0,0.45);
+    --peach-glass:linear-gradient(145deg, rgba(90,50,80,0.55) 0%, rgba(60,40,90,0.5) 100%);
   }
   html.theme-dark body{
     background-color:var(--bg1);
     background-image:
-      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(90,70,140,0.35), transparent 55%),
-      radial-gradient(ellipse 70% 50% at 90% 15%, rgba(80,50,70,0.4), transparent 50%),
-      radial-gradient(ellipse 60% 45% at 50% 85%, rgba(27,94,32,0.22), transparent 55%),
-      radial-gradient(ellipse 50% 40% at 70% 60%, rgba(60,90,140,0.2), transparent 50%),
-      linear-gradient(145deg, var(--bg1) 0%, var(--bg2) 45%, #161820 100%);
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(90,50,140,0.4), transparent 55%),
+      radial-gradient(ellipse 70% 50% at 90% 15%, rgba(120,40,80,0.35), transparent 50%),
+      radial-gradient(ellipse 60% 45% at 50% 85%, rgba(60,40,100,0.3), transparent 55%),
+      linear-gradient(145deg, var(--bg1) 0%, var(--bg2) 45%, #161020 100%);
   }
   html.theme-dark body::before{
     background:
-      radial-gradient(circle at 20% 40%, rgba(107,184,110,0.18), transparent 35%),
-      radial-gradient(circle at 80% 70%, rgba(155,142,196,0.22), transparent 40%),
-      radial-gradient(circle at 40% 90%, rgba(201,168,74,0.15), transparent 35%);
+      radial-gradient(circle at 20% 40%, rgba(124,58,237,0.22), transparent 35%),
+      radial-gradient(circle at 80% 70%, rgba(251,113,133,0.18), transparent 40%),
+      radial-gradient(circle at 40% 90%, rgba(52,211,153,0.12), transparent 35%);
   }
   html.theme-dark .liquid-glass{
     background:rgba(255,255,255,0.08);
@@ -403,10 +421,10 @@
     text-shadow:0 1px 0 rgba(255,255,255,0.5);
     margin:0 0 var(--space-md);
     padding:14px 22px;
+    background:var(--peach-glass) !important;
     box-shadow:
-      0 12px 40px rgba(0,0,0,0.18),
-      inset 0 1px 1px rgba(255,255,255,0.6),
-      inset 0 -1px 1px rgba(255,255,255,0.25);
+      0 12px 36px rgba(124,58,237,0.12),
+      inset 0 1px 1px rgba(255,255,255,0.7);
   }
   .app-title-badge{
     display:inline-flex;
@@ -417,7 +435,7 @@
     flex-shrink:0;
     border-radius:12px;
     background:transparent;
-    box-shadow:0 2px 8px rgba(0,0,0,0.28);
+    box-shadow:0 2px 10px rgba(124,58,237,0.25);
     overflow:hidden;
   }
   .app-title-badge svg{
@@ -428,34 +446,52 @@
   .top-bar{
     display:flex;
     justify-content:center;
+    align-items:stretch;
+    gap:var(--nav-gap);
+    flex-wrap:wrap;
+    margin:0 auto var(--space-lg);
+    padding:10px var(--space-md);
+    max-width:1100px;
+  }
+  .controls-bar{
+    display:flex;
+    justify-content:center;
     align-items:center;
     gap:var(--nav-gap);
     flex-wrap:wrap;
-    margin:0 auto var(--space-xl);
-    padding:0 var(--space-md);
+    width:100%;
+    padding:var(--nav-gap-sm) var(--nav-gap);
+  }
+  .controls-group{
+    display:flex;
+    align-items:center;
+    gap:var(--nav-gap-sm);
+    flex-wrap:wrap;
+    justify-content:center;
   }
   select, input[type="number"], input[type="text"], button{
     padding:8px 14px;
     border-radius:var(--radius);
-    border:1px solid var(--green);
+    border:1px solid var(--violet-soft);
     font-size:1rem;
     background:var(--cardbg);
     cursor:pointer;
     font-family:inherit;
+    color:var(--text-dark);
   }
   input[type="text"]{cursor:text;}
   button.primary{
-    background:var(--green);
+    background:var(--violet);
     color:#fff;
     border:none;
   }
-  button.primary:hover{background:#145218;}
+  button.primary:hover{background:var(--violet-deep);}
   button.danger{
-    background:var(--red);
+    background:var(--rose-deep);
     color:#fff;
     border:none;
   }
-  button.danger:hover{background:#c9302c;}
+  button.danger:hover{background:#f43f5e;}
   .view-toggle{
     position:relative;
     display:grid;
@@ -477,7 +513,7 @@
     backdrop-filter:blur(6px) saturate(160%) brightness(1.1);
     -webkit-backdrop-filter:blur(6px) saturate(160%) brightness(1.1);
     box-shadow:
-      0 4px 14px rgba(27,94,32,0.35),
+      0 4px 14px rgba(124,58,237,0.4),
       inset 0 1px 1px rgba(255,255,255,0.45);
     transition:transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
     pointer-events:none;
@@ -494,7 +530,7 @@
     border:none;
     border-radius:999px;
     background:transparent;
-    color:var(--text-dark);
+    color:var(--text-muted);
     font-weight:600;
     font-size:0.95rem;
     transition:color 200ms ease;
@@ -502,7 +538,7 @@
   .view-toggle[data-mode="day"] #showDayBtn,
   .view-toggle[data-mode="month"] #showMonthBtn{
     color:#fff;
-    text-shadow:0 1px 2px rgba(0,0,0,0.2);
+    text-shadow:0 1px 2px rgba(76,29,149,0.25);
   }
   .nav-step-btn{
     display:inline-flex;
@@ -563,8 +599,8 @@
   .table-wrap.heatmap-glass{
     /* No horizontal padding — sticky habit column must sit flush (avoids gap while scrolling) */
     padding:var(--space-md) 0;
-    background:rgba(255,253,245,0.96);
-    border-color:rgba(58,46,16,0.35);
+    background:rgba(255,255,255,0.82);
+    border-color:rgba(167,139,250,0.35);
     backdrop-filter:none;
     -webkit-backdrop-filter:none;
   }
@@ -579,10 +615,10 @@
     width:100%;
     padding:10px 12px;
     margin-bottom:8px;
-    background:#fffdf5;
-    border:1px solid rgba(58,46,16,0.2);
+    background:rgba(255,255,255,0.85);
+    border:1px solid rgba(167,139,250,0.28);
     border-radius:12px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.06);
+    box-shadow:0 2px 10px rgba(124,58,237,0.08);
     display:flex;
     justify-content:center;
     align-items:center;
@@ -611,7 +647,7 @@
     top:0;
   }
   thead tr.day-header-row th.habit-col{
-    background:#e8c46b;
+    background:#c4b5fd;
   }
   .heatmap-glass table{
     border-collapse:separate;
@@ -631,7 +667,7 @@
     border-radius:10px;
   }
   th, td{
-    border:1px solid rgba(90,80,50,0.45);
+    border:1px solid rgba(167,139,250,0.28);
     text-align:center;
     padding:6px 4px;
     font-size:0.85rem;
@@ -639,10 +675,10 @@
   }
   .heatmap-glass th,
   .heatmap-glass td{
-    border-color:rgba(58,46,16,0.4);
+    border-color:rgba(167,139,250,0.28);
   }
   thead th{
-    background:#e8c46b;
+    background:#c4b5fd;
     color:var(--text-dark);
     font-weight:bold;
     position:sticky;
@@ -673,7 +709,7 @@
     text-align:left;
     padding-left:10px;
     font-weight:bold;
-    background:#fffaf0;
+    background:#faf5ff;
     min-width:160px;
     white-space:nowrap;
     position:sticky;
@@ -684,18 +720,18 @@
     transform:translateZ(0);
     -webkit-transform:translateZ(0);
     /* Seal sub-pixel gaps on both sides of the sticky habit column while scrolling */
-    box-shadow:-1px 0 0 #fffaf0, 1px 0 0 #fffaf0;
+    box-shadow:-1px 0 0 #faf5ff, 1px 0 0 #faf5ff;
   }
   th.habit-col{
-    background:#e8c46b;
+    background:#c4b5fd;
     z-index:3;
-    box-shadow:-1px 0 0 #e8c46b, 1px 0 0 #e8c46b;
+    box-shadow:-1px 0 0 #c4b5fd, 1px 0 0 #c4b5fd;
   }
   .habit-streak{
     display:inline-block;
-    font-size:0.8rem;
-    font-weight:bold;
-    color:#b45309;
+    font-size:0.85rem;
+    font-weight:700;
+    color:#d97706;
     margin-inline-start:6px;
     white-space:nowrap;
   }
@@ -723,7 +759,7 @@
     font-weight:bold;
   }
   .day-cell.heat-empty:hover{background:rgba(208,215,222,0.65);}
-  .day-cell.heat-done:hover{background:#145218;}
+  .day-cell.heat-done:hover{background:#059669;}
   .day-cell.heat-missed:hover{background:#c9302c;}
   .day-cell.today-col.heat-empty{
     box-shadow:inset 0 0 0 2px var(--gold);
@@ -766,7 +802,7 @@
   .day-cell.friday-col.heat-done{background:var(--green);color:#fff;}
   .day-cell.friday-col.heat-missed{background:var(--red);color:#fff;}
   .day-cell.friday-col.heat-empty:hover{background:rgba(208,215,222,0.65);}
-  .day-cell.friday-col.heat-done:hover{background:#145218;}
+  .day-cell.friday-col.heat-done:hover{background:#059669;}
   .day-cell.friday-col.heat-missed:hover{background:#c9302c;}
   .day-cell.friday-col.today-col.heat-done{
     background:var(--green);
@@ -886,20 +922,24 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:20px;
+    margin-bottom:0;
     gap:var(--nav-gap-sm);
     flex-wrap:nowrap;
-    padding:var(--nav-gap-sm) var(--nav-gap);
+    padding:0;
+    background:transparent;
+    border:none;
+    box-shadow:none;
   }
+  .day-view-header.liquid-glass::after{display:none;}
   .day-view-header .nav-step-btn{
-    border:1px solid rgba(255,255,255,0.4);
-    background:rgba(255,255,255,0.4);
+    border:1px solid rgba(255,255,255,0.55);
+    background:rgba(255,255,255,0.55);
     flex:0 0 auto;
     white-space:nowrap;
   }
   .day-view-header .nav-step-btn:hover{
-    background:rgba(255,255,255,0.65);
-    border-color:rgba(255,255,255,0.55);
+    background:rgba(255,255,255,0.8);
+    border-color:rgba(255,255,255,0.7);
   }
   .day-date-chip{
     margin:0;
@@ -913,6 +953,7 @@
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
+    background:rgba(255,255,255,0.65) !important;
   }
   .month-nav-bar{
     display:flex;
@@ -920,15 +961,19 @@
     gap:var(--nav-gap-sm);
     flex-wrap:wrap;
     justify-content:center;
-    padding:var(--nav-gap-sm) var(--nav-gap);
+    padding:0;
+    background:transparent;
+    border:none;
+    box-shadow:none;
   }
+  .month-nav-bar.liquid-glass::after{display:none;}
   .month-nav-bar .nav-step-btn{
-    border:1px solid rgba(255,255,255,0.4);
-    background:rgba(255,255,255,0.4);
+    border:1px solid rgba(255,255,255,0.55);
+    background:rgba(255,255,255,0.55);
   }
   .month-nav-bar .nav-step-btn:hover{
-    border-color:rgba(255,255,255,0.55);
-    background:rgba(255,255,255,0.65);
+    border-color:rgba(255,255,255,0.7);
+    background:rgba(255,255,255,0.8);
   }
   .month-nav-label{
     font-weight:700;
@@ -940,38 +985,74 @@
   .day-habit-list{
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:12px;
   }
   .day-habit-item{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:12px 16px;
-    gap:10px;
+    padding:14px 18px;
+    gap:12px;
     flex-wrap:wrap;
+    background:rgba(255,255,255,0.7) !important;
+    border-radius:var(--radius-glass);
+    box-shadow:0 8px 24px rgba(124,58,237,0.08);
+  }
+  .day-habit-main{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex:1;
+    min-width:0;
+  }
+  .day-habit-icon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+    border-radius:12px;
+    background:linear-gradient(145deg, #ede9fe, #fce7f3);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.8);
+    font-size:1.35rem;
+    line-height:1;
+  }
+  .day-habit-icon svg{
+    width:28px;
+    height:28px;
+    display:block;
   }
   .day-habit-name{
-    font-weight:bold;
-    font-size:1.05rem;
+    font-weight:700;
+    font-size:1.08rem;
     flex:1;
+    color:var(--text-dark);
     transition:opacity 180ms ease, color 180ms ease;
   }
   .day-habit-item.is-complete .day-habit-name{
     text-decoration:line-through;
     opacity:0.65;
-    color:#5a5a4a;
+    color:var(--violet-soft);
   }
   .day-habit-cat{
-    background:var(--lightgreen);
-    color:#1f3a17;
-    font-size:0.75rem;
-    padding:3px 8px;
-    border-radius:6px;
+    background:#6ee7b7;
+    color:#065f46;
+    font-size:0.78rem;
+    font-weight:700;
+    padding:4px 12px;
+    border-radius:999px;
+    letter-spacing:0.02em;
   }
+  .day-habit-cat[data-cat="Quran"]{background:#ddd6fe;color:#5b21b6;}
+  .day-habit-cat[data-cat="Chess"]{background:#fde68a;color:#92400e;}
+  .day-habit-cat[data-cat="Self-development"]{background:#fbcfe8;color:#9d174d;}
+  .day-habit-cat[data-cat="Studying"]{background:#bfdbfe;color:#1e40af;}
+  .day-habit-cat[data-cat="Routine"]{background:#a7f3d0;color:#065f46;}
   .day-toggle-group{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:6px;
+    gap:8px;
     min-width:min(100%, 280px);
   }
   .day-toggle-btn{
@@ -1008,9 +1089,12 @@
     justify-content:center;
     align-items:center;
     gap:var(--nav-gap-sm);
-    margin-bottom:15px;
+    margin:0 auto 18px;
+    max-width:800px;
     flex-wrap:wrap;
     padding:var(--nav-gap-sm) var(--nav-gap);
+    color:var(--text-dark);
+    font-weight:600;
   }
   .select-wrap{
     position:relative;
@@ -1023,9 +1107,9 @@
     min-height:var(--touch-min);
     padding:8px 14px;
     padding-inline-end:2.2rem;
-    border:1px solid rgba(255,255,255,0.4);
+    border:1px solid rgba(255,255,255,0.55);
     border-radius:var(--radius-glass);
-    background:rgba(255,255,255,0.55);
+    background:rgba(255,255,255,0.65);
     backdrop-filter:blur(4px) saturate(140%);
     -webkit-backdrop-filter:blur(4px) saturate(140%);
     box-shadow:inset 0 1px 1px rgba(255,255,255,0.55);
@@ -1048,12 +1132,12 @@
     min-height:var(--touch-min);
     min-width:var(--touch-min);
     padding:8px 16px;
-    border:1px solid rgba(255,255,255,0.4);
+    border:1px solid rgba(255,255,255,0.55);
     border-radius:999px;
-    background:rgba(255,255,255,0.45);
+    background:rgba(255,255,255,0.55);
     backdrop-filter:blur(4px) saturate(140%);
     -webkit-backdrop-filter:blur(4px) saturate(140%);
-    color:var(--text-dark);
+    color:var(--text-muted);
     font-weight:600;
     box-shadow:inset 0 1px 1px rgba(255,255,255,0.5);
     transition:background-color 160ms ease, transform 0.15s ease;
@@ -1417,20 +1501,23 @@
     }
     .day-habit-item{
       display:grid;
-      grid-template-columns:1fr auto;
+      grid-template-columns:1fr;
       grid-template-areas:
-        "name streak"
-        "toggles toggles";
+        "main"
+        "toggles";
       align-items:center;
       gap:10px;
     }
+    .day-habit-item .day-habit-main{
+      grid-area:main;
+      min-width:0;
+    }
     .day-habit-item .day-habit-name{
-      grid-area:name;
       flex:none;
       min-width:0;
     }
     .day-habit-item .habit-streak{
-      grid-area:streak;
+      margin-inline-start:auto;
     }
     .day-habit-item .day-toggle-group{
       grid-area:toggles;
@@ -1453,18 +1540,18 @@
 </svg>
 
 <div class="header">
-  <h1 class="app-title liquid-glass">
+  <h1 class="app-title liquid-glass memo-peach-panel">
     <span class="app-title-badge" aria-hidden="true" title="Princess">
       <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <!-- Princess crown badge -->
-        <rect width="40" height="40" rx="8" fill="#5b4a8a"/>
-        <path d="M8 28h24v3.5c0 1.2-.9 2.2-2.1 2.2H10.1C8.9 33.7 8 32.7 8 31.5V28z" fill="#f5d76e"/>
-        <path d="M9 27.5l4.5-11 4 7.5 2.5-10 2.5 10 4-7.5 4.5 11H9z" fill="#f8e9a0"/>
-        <path d="M9 27.5l4.5-11 4 7.5 2.5-10 2.5 10 4-7.5 4.5 11H9z" fill="#e8c46b" opacity=".35"/>
-        <circle cx="13.5" cy="17.5" r="1.6" fill="#f4a6c8"/>
-        <circle cx="20" cy="14.2" r="1.8" fill="#ffd54f"/>
-        <circle cx="26.5" cy="17.5" r="1.6" fill="#f4a6c8"/>
-        <circle cx="20" cy="24.5" r="1.4" fill="#c4b5e0"/>
+        <rect width="40" height="40" rx="10" fill="#FCE7F3"/>
+        <path d="M8 28h24v3.5c0 1.2-.9 2.2-2.1 2.2H10.1C8.9 33.7 8 32.7 8 31.5V28z" fill="#F9A8D4"/>
+        <path d="M9 27.5l4.5-11 4 7.5 2.5-10 2.5 10 4-7.5 4.5 11H9z" fill="#FBCFE8"/>
+        <path d="M9 27.5l4.5-11 4 7.5 2.5-10 2.5 10 4-7.5 4.5 11H9z" fill="#F472B6" opacity=".28"/>
+        <circle cx="13.5" cy="17.5" r="1.6" fill="#A78BFA"/>
+        <circle cx="20" cy="14.2" r="1.8" fill="#FBBF24"/>
+        <circle cx="26.5" cy="17.5" r="1.6" fill="#A78BFA"/>
+        <circle cx="20" cy="24.5" r="1.4" fill="#F9A8D4"/>
       </svg>
     </span>
     <span id="appTitle">Memo Tracker</span>
@@ -1472,34 +1559,36 @@
 </div>
 
 <div class="top-bar">
-  <div class="view-toggle liquid-glass" id="viewToggle" data-mode="day" role="group" aria-label="View mode">
-    <span class="view-toggle-pill" aria-hidden="true"></span>
-    <button class="view-toggle-btn" id="showDayBtn" type="button" aria-pressed="true">Day view</button>
-    <button class="view-toggle-btn" id="showMonthBtn" type="button" aria-pressed="false">Month view</button>
-  </div>
-  <div class="month-nav-bar liquid-glass" aria-label="Month navigation">
-    <button type="button" id="prevMonthBtn" class="nav-step-btn">
-      <span class="nav-step-icon" aria-hidden="true">◀</span> Previous month
-    </button>
-    <span id="monthNavTitle" class="month-nav-label"></span>
-    <button type="button" id="nextMonthBtn" class="nav-step-btn">
-      Next month <span class="nav-step-icon" aria-hidden="true">▶</span>
-    </button>
+  <div class="controls-bar liquid-glass memo-peach-panel" aria-label="Date and view controls">
+    <div class="controls-group day-view-header" id="dayNavGroup">
+      <button type="button" id="prevDayBtn" class="nav-step-btn">
+        <span class="nav-step-icon" aria-hidden="true">◀</span> Previous day
+      </button>
+      <h2 id="dayViewTitle" class="day-date-chip liquid-glass-lite"></h2>
+      <button type="button" id="nextDayBtn" class="nav-step-btn">
+        Next day <span class="nav-step-icon" aria-hidden="true">▶</span>
+      </button>
+    </div>
+    <div class="view-toggle liquid-glass" id="viewToggle" data-mode="day" role="group" aria-label="View mode">
+      <span class="view-toggle-pill" aria-hidden="true"></span>
+      <button class="view-toggle-btn" id="showDayBtn" type="button" aria-pressed="true">Day view</button>
+      <button class="view-toggle-btn" id="showMonthBtn" type="button" aria-pressed="false">Month view</button>
+    </div>
+    <div class="controls-group month-nav-bar" aria-label="Month navigation">
+      <button type="button" id="prevMonthBtn" class="nav-step-btn">
+        <span class="nav-step-icon" aria-hidden="true">◀</span> Previous month
+      </button>
+      <span id="monthNavTitle" class="month-nav-label"></span>
+      <button type="button" id="nextMonthBtn" class="nav-step-btn">
+        Next month <span class="nav-step-icon" aria-hidden="true">▶</span>
+      </button>
+    </div>
   </div>
   <button type="button" id="settingsBtn" class="theme-toggle liquid-glass-lite" style="display: none;" aria-label="Settings">⚙ Settings</button>
 </div>
 
 <div class="day-view" id="dayView">
-  <div class="day-view-header liquid-glass">
-    <button type="button" id="prevDayBtn" class="nav-step-btn">
-      <span class="nav-step-icon" aria-hidden="true">◀</span> Previous day
-    </button>
-    <h2 id="dayViewTitle" class="day-date-chip liquid-glass-lite"></h2>
-    <button type="button" id="nextDayBtn" class="nav-step-btn">
-      Next day <span class="nav-step-icon" aria-hidden="true">▶</span>
-    </button>
-  </div>
-  <div class="day-picker-row liquid-glass">
+  <div class="day-picker-row liquid-glass memo-peach-panel">
     <label for="daySelect">Pick another day:</label>
     <div class="select-wrap">
       <select id="daySelect"></select>
@@ -1835,7 +1924,7 @@ function playCenteredMessage(message, options = {}){
   banner.classList.toggle('is-encourage', encourage);
   overlay.querySelectorAll('.confetti-piece').forEach(el => el.remove());
   if(withConfetti){
-    const colors = ['#1b5e20','#e8c46b','#d9534f','#3a6fb5','#81c784','#ff8a65','#ab47bc'];
+    const colors = ['#7C3AED','#FDA4AF','#10B981','#a78bfa','#fbbf24','#fb7185','#34d399'];
     for(let i = 0; i < 48; i++){
       const piece = document.createElement('span');
       piece.className = 'confetti-piece';
@@ -2640,6 +2729,8 @@ function renderDayView(){
   let earnedPoints = 0;
   const possibleDayPoints = maxDayPoints();
 
+  const prayerIconSvg = `<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6c-4.8 0-8.8 3.2-9.8 7.6 1.6-1.2 3.6-2 5.8-2 4.8 0 8.7 3.4 9.6 7.9C29.2 14.4 25 6 20 6z" fill="#C4B5FD"/><path d="M12 28h16v3.2c0 .7-.6 1.3-1.3 1.3H13.3c-.7 0-1.3-.6-1.3-1.3V28z" fill="#8B5CF6"/><path d="M14 20h12v8H14z" fill="#A78BFA"/><path d="M18.6 12h2.8v8h-2.8z" fill="#7C3AED"/><circle cx="20" cy="10.5" r="1.4" fill="#F5D0FE"/><path d="M16.2 24h2v2.2h-2zm5.6 0H24v2.2h-2.2z" fill="#FCE7F3"/></svg>`;
+
   let lastCat = null;
   state.habits.forEach((habit, hIdx) => {
     const cat = habit.cat || "";
@@ -2647,6 +2738,7 @@ function renderDayView(){
       lastCat = cat;
       const catLabel = document.createElement('div');
       catLabel.className = "day-habit-cat";
+      catLabel.dataset.cat = cat;
       catLabel.style.alignSelf = "flex-start";
       catLabel.style.marginTop = hIdx === 0 ? "0" : "8px";
       catLabel.textContent = cat;
@@ -2657,11 +2749,19 @@ function renderDayView(){
     const mark = normalizeMark(state.marks[key] || "");
     earnedPoints += pointsForMark(habit, mark);
 
+    const isPrayer = cat === "Prayer";
+    const iconHtml = isPrayer
+      ? prayerIconSvg
+      : `<span aria-hidden="true">${habit.icon || "✨"}</span>`;
+
     const item = document.createElement('div');
     item.className = "day-habit-item liquid-glass-lite" + (mark === "check" ? " is-complete" : "");
     item.innerHTML = `
-      <span class="day-habit-name">${habit.icon||""} ${habit.name}</span>
-      ${streakBadgeHtml(hIdx)}
+      <div class="day-habit-main">
+        <span class="day-habit-icon">${iconHtml}</span>
+        <span class="day-habit-name">${habit.name}</span>
+        ${streakBadgeHtml(hIdx)}
+      </div>
       <div class="day-toggle-group">
         <button type="button" class="day-toggle-btn ${mark==='check'?'active-check':''}" data-key="${key}" data-mark="check" aria-pressed="${mark==='check'}">✓ Done</button>
         <button type="button" class="day-toggle-btn ${mark==='x'?'active-x':''}" data-key="${key}" data-mark="x" aria-pressed="${mark==='x'}">✗ Missed</button>

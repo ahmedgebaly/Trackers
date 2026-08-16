@@ -10,14 +10,17 @@ const DEFAULT_HABITS = [
   { name: "Memorization review", cat: "Quran", icon: "🔁" },
   // Chess
   { name: "Play games", cat: "Chess", icon: "♟️" },
-  { name: "Chess Opening Lab", cat: "Chess", icon: "♟️" },
-  { name: "Chess Strategy & Tactics Vol. 1", cat: "Chess", icon: "♟️" },
-  { name: "Chess Tactics in Caro-Kann Defense", cat: "Chess", icon: "♟️" },
-  { name: "CT-ART. Chess Mate Theory", cat: "Chess", icon: "♟️" },
+  { name: "Chess Opening", cat: "Chess", icon: "♟️" },
+    { name: "CT-ART", cat: "Chess", icon: "♟️" },
   // Self-development
   { name: "Spanish (Yanfaa)", cat: "Self-development", icon: "🇪🇸" },
   { name: "Spanish BUSUU", cat: "Self-development", icon: "📱" },
+  { name: "Reading", cat: "Self-development", icon: "📚" },
   // Studying
   { name: "Study subject 1", cat: "Studying", icon: "📚" },
   { name: "Study subject 2", cat: "Studying", icon: "📚" },
+  //Routine
+  { name: "Morning Routine", cat: "Routine", icon: "💆‍♂️" },
+  { name: "Night Routine", cat: "Routine", icon: "💆‍♂️" },
+
 ];
