@@ -17,8 +17,13 @@ const DEFAULT_HABITS = [
   { name: "Spanish BUSUU", cat: "Self-development", icon: "📱" },
   { name: "Reading", cat: "Self-development", icon: "📚" },
   // Studying
-  { name: "Study subject 1", cat: "Studying", icon: "📚" },
-  { name: "Study subject 2", cat: "Studying", icon: "📚" },
+  { name: "Study Arabic", cat: "Studying", icon: "AR" },
+  { name: "Study English", cat: "Studying", icon: "EN" },
+  { name: "Study English AL", cat: "Studying", icon: "AL" },
+  { name: "Study Math", cat: "Studying", icon: "➗" },
+  { name: "Study Science", cat: "Studying", icon: "🔬" },
+  { name: "Study Social Studies", cat: "Studying", icon: "🌍" },
+  { name: "Study Religion", cat: "Studying", icon: "☪️" },
   //Routine
   { name: "Morning Routine", cat: "Routine", icon: "💆‍♂️" },
   { name: "Night Routine", cat: "Routine", icon: "💆‍♂️" },
