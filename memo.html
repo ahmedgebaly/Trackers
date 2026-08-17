@@ -2181,6 +2181,65 @@ function syncHabitPointsFromDefaults(habits){
   return habits;
 }
 
+function habitHasMarks(marks, hIdx){
+  return Object.keys(marks || {}).some(k => {
+    const hi = parseInt(k.split("_")[0], 10);
+    return hi === hIdx && normalizeMark(marks[k]);
+  });
+}
+
+/** Merge DEFAULT_HABITS into a saved month: add new tasks, keep deleted tasks that already have marks. */
+function mergeHabitsWithDefaults(savedHabits, savedMarks){
+  const marks = savedMarks || {};
+  const saved = Array.isArray(savedHabits) ? savedHabits : [];
+  if(!saved.length){
+    return {
+      habits: JSON.parse(JSON.stringify(DEFAULT_HABITS)),
+      marks
+    };
+  }
+
+  const savedByName = new Map(saved.map((h, i) => [h.name, { habit: h, oldIdx: i }]));
+  const nextHabits = [];
+  const oldToNew = {};
+
+  DEFAULT_HABITS.forEach(def => {
+    const found = savedByName.get(def.name);
+    if(found){
+      oldToNew[found.oldIdx] = nextHabits.length;
+      nextHabits.push({
+        ...found.habit,
+        cat: def.cat,
+        icon: def.icon,
+        ...(Object.prototype.hasOwnProperty.call(def, "points") ? { points: def.points } : {})
+      });
+      savedByName.delete(def.name);
+    } else {
+      nextHabits.push(JSON.parse(JSON.stringify(def)));
+    }
+  });
+
+  saved.forEach((h, oldIdx) => {
+    if(!savedByName.has(h.name)) return;
+    if(!habitHasMarks(marks, oldIdx)) return;
+    oldToNew[oldIdx] = nextHabits.length;
+    nextHabits.push(h);
+  });
+
+  const nextMarks = {};
+  Object.keys(marks).forEach(k => {
+    const [hi, day] = k.split("_");
+    const newIdx = oldToNew[parseInt(hi, 10)];
+    if(newIdx == null) return;
+    nextMarks[`${newIdx}_${day}`] = marks[k];
+  });
+
+  return {
+    habits: syncHabitPointsFromDefaults(nextHabits),
+    marks: nextMarks
+  };
+}
+
 let state = {
   habits: JSON.parse(JSON.stringify(DEFAULT_HABITS)),
   marks: {},
@@ -2418,15 +2477,18 @@ function deleteHabitAt(idx){
 function loadState(){
   const {year, month} = getCurrentYearMonth();
   const raw = localStorage.getItem(storageKey(year, month));
+  let shouldPersistMerge = false;
   if(raw){
     try{
       const parsed = JSON.parse(raw);
-      state.habits = syncHabitPointsFromDefaults(
-        parsed.habits && parsed.habits.length ? parsed.habits : JSON.parse(JSON.stringify(DEFAULT_HABITS))
-      );
-      state.marks = parsed.marks || {};
+      const merged = mergeHabitsWithDefaults(parsed.habits, parsed.marks);
+      state.habits = merged.habits;
+      state.marks = merged.marks;
       state.weekly = parsed.weekly || {};
       state.longestStreaks = parsed.longestStreaks || {};
+      shouldPersistMerge =
+        JSON.stringify(parsed.habits || []) !== JSON.stringify(merged.habits) ||
+        JSON.stringify(parsed.marks || {}) !== JSON.stringify(merged.marks);
     }catch(e){
       state = {habits: JSON.parse(JSON.stringify(DEFAULT_HABITS)), marks:{}, weekly:{}, longestStreaks:{}};
     }
@@ -2435,6 +2497,7 @@ function loadState(){
   }
   ensureLongestStreaks();
   weeklyBuiltFor = null;
+  if(shouldPersistMerge) saveState();
   renderAll();
 }
 
