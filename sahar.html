@@ -719,10 +719,43 @@ function randomCelebrationMessage(){
   return list[Math.floor(Math.random() * list.length)];
 }
 
+const TASK_DONE_MESSAGES = [
+  "Nice — habit checked off",
+  "One more done — keep going",
+  "Great check!",
+  "Small win unlocked",
+  "Habit complete — well done",
+  "Checked and celebrated",
+  "Progress feels good",
+  "Another ✓ in the books",
+  "You showed up for this one",
+  "Task done — proud of you"
+];
+
+const TASK_DONE_MESSAGES_AR = [
+  "أحسنتِ — مهمة مكتملة",
+  "تمّت عادة أخرى — واصلي",
+  "علامة رائعة!",
+  "انتصار صغير تحقق",
+  "مهمة مكتملة — أحسنتِ",
+  "تمّت و تستحقين الاحتفال",
+  "التقدّم شعور جميل",
+  "✓ أخرى في سجلكِ",
+  "حضرتِ لهذه المهمة",
+  "مهمة منتهية — فخور بكِ"
+];
+
+function randomTaskDoneMessage(){
+  const list = currentLang === "ar" ? TASK_DONE_MESSAGES_AR : TASK_DONE_MESSAGES;
+  return list[Math.floor(Math.random() * list.length)];
+}
+
 function playCenteredMessage(message, options = {}){
   const emoji = options.emoji || "🎉";
   const withConfetti = options.confetti !== false;
   const encourage = !!options.encourage;
+  const duration = typeof options.duration === "number" ? options.duration : 5000;
+  const confettiCount = typeof options.confettiCount === "number" ? options.confettiCount : 48;
   const text = `${emoji} ${message}`;
 
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
@@ -738,7 +771,7 @@ function playCenteredMessage(message, options = {}){
   overlay.querySelectorAll('.confetti-piece').forEach(el => el.remove());
   if(withConfetti){
     const colors = ['#1565C0','#F9A825','#64B5F6','#FFD54F','#0D47A1','#FFECB3','#42A5F5'];
-    for(let i = 0; i < 48; i++){
+    for(let i = 0; i < confettiCount; i++){
       const piece = document.createElement('span');
       piece.className = 'confetti-piece';
       piece.style.left = `${Math.random() * 100}%`;
@@ -760,7 +793,7 @@ function playCenteredMessage(message, options = {}){
   playCenteredMessage._t = setTimeout(() => {
     overlay.classList.remove('is-show');
     overlay.querySelectorAll('.confetti-piece').forEach(el => el.remove());
-  }, 5000);
+  }, duration);
 }
 
 let lastCelebrationTime = 0;
@@ -772,9 +805,26 @@ function playCelebration(){
   playCenteredMessage(randomCelebrationMessage(), { emoji: "🎉", confetti: withConfetti, encourage: false });
 }
 
-function celebrateIfNewlyPerfect(day, wasPerfect){
-  if(wasPerfect) return;
-  if(getDayPoints(day).perfect) playCelebration();
+function playTaskDoneCelebration(){
+  const now = Date.now();
+  const withConfetti = now - lastCelebrationTime >= 800;
+  if(withConfetti) lastCelebrationTime = now;
+  playCenteredMessage(randomTaskDoneMessage(), {
+    emoji: "✨",
+    confetti: withConfetti,
+    confettiCount: 16,
+    duration: 1800,
+    encourage: false
+  });
+}
+
+function celebrateOnMarkChange(day, prevMark, nextMark, wasPerfect){
+  if(nextMark !== "check" || prevMark === "check") return;
+  if(!wasPerfect && getDayPoints(day).perfect){
+    playCelebration();
+    return;
+  }
+  playTaskDoneCelebration();
 }
 
 const HALF_X_ENCOURAGEMENT_MESSAGES = [
@@ -1332,7 +1382,7 @@ function cycleMark(key, td){
       habitCell.innerHTML = `${habit.icon||""} ${habitDisplayName(habit)} ${streakBadgeHtml(hIdx)}`.trim();
     }
   }
-  celebrateIfNewlyPerfect(day, wasPerfect);
+  celebrateOnMarkChange(day, current, next, wasPerfect);
   encourageIfHalfX(day, wasAtLeastHalfX);
 }
 
@@ -1719,10 +1769,11 @@ function renderDayView(){
       const wasPerfect = getDayPoints(day).perfect;
       const wasAtLeastHalfX = dayXRatio(day) >= 0.5;
       const current = normalizeMark(state.marks[key] || "");
-      state.marks[key] = current === newMark ? "" : newMark;
+      const next = current === newMark ? "" : newMark;
+      state.marks[key] = next;
       updateLongestStreak(hIdx);
       saveState();
-      celebrateIfNewlyPerfect(day, wasPerfect);
+      celebrateOnMarkChange(day, current, next, wasPerfect);
       encourageIfHalfX(day, wasAtLeastHalfX);
       renderDayView();
     });
