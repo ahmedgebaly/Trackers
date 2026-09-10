@@ -4,21 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trackers</title>
-<meta name="description" content="Choose a habit tracker — Memo or Beko.">
+<meta name="description" content="Choose a habit tracker — Memo, Beko, or Sahar.">
 <meta name="theme-color" content="#7C3AED">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Trackers">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Trackers">
-<meta property="og:description" content="Choose a habit tracker — Memo or Beko.">
+<meta property="og:description" content="Choose a habit tracker — Memo, Beko, or Sahar.">
 <meta property="og:url" content="https://ahmedgebaly.github.io/Trackers/">
 <meta property="og:image" content="https://ahmedgebaly.github.io/Trackers/og-image.jpg">
 <meta property="og:image:alt" content="Trackers">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Trackers">
-<meta name="twitter:description" content="Choose a habit tracker — Memo or Beko.">
+<meta name="twitter:description" content="Choose a habit tracker — Memo, Beko, or Sahar.">
 <meta name="twitter:image" content="https://ahmedgebaly.github.io/Trackers/og-image.jpg">
 
 <style>
@@ -30,6 +30,10 @@
     --pink-deep:#fb7185;
     --violet:#7C3AED;
     --violet-soft:#a78bfa;
+    --sahar-blue:#1565C0;
+    --sahar-blue-deep:#0D47A1;
+    --sahar-yellow:#F9A825;
+    --sahar-yellow-soft:#FFD54F;
     --lightgreen:#81c784;
     --bg1:#F3E8FF;
     --bg2:#FCE7F3;
@@ -75,7 +79,7 @@
   }
   .choices{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr 1fr 1fr;
     gap:20px;
   }
   .choice{
@@ -101,6 +105,9 @@
   .choice--memo{
     background:linear-gradient(145deg, var(--pink) 0%, var(--pink-deep) 55%, var(--violet) 160%);
   }
+  .choice--sahar{
+    background:linear-gradient(145deg, var(--sahar-yellow) 0%, var(--sahar-blue) 100%);
+  }
   .choice:hover,
   .choice:focus-visible{
     transform:translateY(-4px) scale(1.02);
@@ -113,6 +120,9 @@
   }
   .choice--memo:focus-visible{
     box-shadow:0 0 0 3px var(--violet-soft), 0 10px 28px rgba(124,58,237,0.2);
+  }
+  .choice--sahar:focus-visible{
+    box-shadow:0 0 0 3px var(--sahar-yellow-soft), 0 10px 28px rgba(21,101,192,0.25);
   }
   .choice-label{
     font-size:clamp(1.6rem, 4vw, 2.2rem);
@@ -147,6 +157,10 @@
       <a class="choice choice--beko" href="beko.html">
         <span class="choice-label">Beko</span>
         <span class="choice-sub">Beko Tracker</span>
+      </a>
+      <a class="choice choice--sahar" href="sahar.html">
+        <span class="choice-label">Sahar</span>
+        <span class="choice-sub">Sahar Tracker</span>
       </a>
     </div>
   </main>

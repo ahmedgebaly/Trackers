@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahar Tracker</title>
+<meta name="description" content="Monthly habit tracker — track your habits daily and monthly with Sahar. Follow progress, day and month views, and local saving for your data.">
+<meta name="theme-color" content="#1565C0">
+
+<!-- Open Graph (Facebook, WhatsApp, Telegram) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sahar Tracker">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Sahar Tracker">
+<meta property="og:description" content="Track your habits daily and monthly — day and month views, progress summary, and local saving for your data.">
+<meta property="og:url" content="https://ahmedgebaly.github.io/Trackers/">
+<meta property="og:image" content="https://ahmedgebaly.github.io/Trackers/og-image_Sahar.jpg">
+<meta property="og:image:secure_url" content="https://ahmedgebaly.github.io/Trackers/og-image_Sahar.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sahar Tracker">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sahar Tracker">
+<meta name="twitter:description" content="Track your habits daily and monthly — day and month views, progress summary, and local saving for your data.">
+<meta name="twitter:image" content="https://ahmedgebaly.github.io/Trackers/og-image_Sahar.jpg">
+<meta name="twitter:image:alt" content="Sahar Tracker">
+<link rel="stylesheet" href="sahar.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="liquid-refract" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008"
+      numOctaves="2" seed="4" result="noise" />
+    <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+    <feDisplacementMap in="SourceGraphic" in2="blurred" scale="40"
+      xChannelSelector="R" yChannelSelector="G" />
+  </filter>
+</svg>
+
+<div class="header">
+  <h1 class="app-title liquid-glass">
+    <span class="app-title-badge" aria-hidden="true" title="Flower">
+      <svg class="app-flower" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Petals use palette tokens so colors follow the selected theme -->
+        <ellipse class="flower-petal flower-petal-a" cx="20" cy="9" rx="6.5" ry="9" />
+        <ellipse class="flower-petal flower-petal-b" cx="29.5" cy="13.5" rx="6.5" ry="9" transform="rotate(60 29.5 13.5)" />
+        <ellipse class="flower-petal flower-petal-c" cx="29.5" cy="26.5" rx="6.5" ry="9" transform="rotate(120 29.5 26.5)" />
+        <ellipse class="flower-petal flower-petal-a" cx="20" cy="31" rx="6.5" ry="9" transform="rotate(180 20 31)" />
+        <ellipse class="flower-petal flower-petal-b" cx="10.5" cy="26.5" rx="6.5" ry="9" transform="rotate(240 10.5 26.5)" />
+        <ellipse class="flower-petal flower-petal-c" cx="10.5" cy="13.5" rx="6.5" ry="9" transform="rotate(300 10.5 13.5)" />
+        <circle class="flower-center-ring" cx="20" cy="20" r="7.2" />
+        <circle class="flower-center" cx="20" cy="20" r="5.2" />
+        <circle class="flower-center-dot" cx="20" cy="20" r="2" />
+      </svg>
+    </span>
+    <span id="appTitle">Sahar Tracker</span>
+  </h1>
+</div>
+
+<div class="top-bar">
+  <div class="view-toggle liquid-glass" id="viewToggle" data-mode="day" role="group" aria-label="View mode" data-i18n-aria="viewMode">
+    <span class="view-toggle-pill" aria-hidden="true"></span>
+    <button class="view-toggle-btn" id="showDayBtn" type="button" aria-pressed="true" data-i18n="dayView">Day view</button>
+    <button class="view-toggle-btn" id="showMonthBtn" type="button" aria-pressed="false" data-i18n="monthView">Month view</button>
+  </div>
+  <div class="month-nav-bar liquid-glass" aria-label="Month navigation" data-i18n-aria="monthNav">
+    <button type="button" id="prevMonthBtn" class="nav-step-btn" aria-label="Previous month" data-i18n-aria="prevMonth">
+      <span class="nav-step-icon" aria-hidden="true">◀</span><span class="nav-step-text" data-i18n="prevMonth"> Previous month</span>
+    </button>
+    <span id="monthNavTitle" class="month-nav-label"></span>
+    <button type="button" id="nextMonthBtn" class="nav-step-btn" aria-label="Next month" data-i18n-aria="nextMonth">
+      <span class="nav-step-text" data-i18n="nextMonth">Next month </span><span class="nav-step-icon" aria-hidden="true">▶</span>
+    </button>
+  </div>
+  <button type="button" id="settingsBtn" class="theme-toggle liquid-glass-lite" style="display: none;" aria-label="Settings" data-i18n-aria="settings">⚙ <span data-i18n="settings">Settings</span></button>
+</div>
+
+<div class="day-view" id="dayView">
+  <div class="day-view-header liquid-glass">
+    <button type="button" id="prevDayBtn" class="nav-step-btn" aria-label="Previous day" data-i18n-aria="prevDay">
+      <span class="nav-step-icon" aria-hidden="true">◀</span><span class="nav-step-text" data-i18n="prevDay"> Previous day</span>
+    </button>
+    <h2 id="dayViewTitle" class="day-date-chip liquid-glass-lite"></h2>
+    <button type="button" id="nextDayBtn" class="nav-step-btn" aria-label="Next day" data-i18n-aria="nextDay">
+      <span class="nav-step-text" data-i18n="nextDay">Next day </span><span class="nav-step-icon" aria-hidden="true">▶</span>
+    </button>
+  </div>
+  <div class="day-picker-row liquid-glass">
+    <label for="daySelect" data-i18n="pickDay">Pick another day:</label>
+    <div class="select-wrap">
+      <select id="daySelect"></select>
+    </div>
+    <button type="button" id="goTodayBtn" class="btn-today" data-i18n="today">Today</button>
+  </div>
+  <div class="day-habit-list" id="dayHabitList"></div>
+  <div class="day-total liquid-glass" id="dayTotal"></div>
+</div>
+
+<div class="month-panel" id="monthPanel">
+  <div class="month-heatmap-shell">
+    <div class="table-legend-bar" id="tableLegendBar">
+      <div class="table-legend" aria-hidden="true">
+        <span><span class="legend-swatch empty"></span> <span data-i18n="unmarked">Unmarked</span></span>
+        <span><span class="legend-swatch done"></span> ✓ <span data-i18n="done">Done</span></span>
+        <span><span class="legend-swatch missed">✗</span> <span data-i18n="missed">Missed</span></span>
+      </div>
+    </div>
+    <div class="table-wrap liquid-glass heatmap-glass">
+      <table id="trackerTable">
+        <thead>
+          <tr id="headerRow" class="day-header-row"></tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="month-summary" id="monthSummary">
+    <div class="month-summary-card liquid-glass">
+      <h3 data-i18n="monthlyProgress">Monthly progress by habit</h3>
+      <div id="monthSummaryList"></div>
+    </div>
+  </div>
+
+  <div class="weekly-section" id="weeklySection"></div>
+</div>
+
+<div class="footer-note" id="footerNote" data-i18n="footerNote">
+  In day view, use the ✓ Done and ✗ Missed buttons. In month view, tap a cell to cycle empty → ✓ → ✗. Your data is saved automatically on this device, one month at a time.
+</div>
+
+<div class="theme-switch-wrap">
+  <button type="button" id="langToggle" class="lang-toggle liquid-glass-lite" aria-label="Switch language">العربية</button>
+  <label class="theme-switch liquid-glass-lite" for="themeToggle">
+    <span class="theme-switch-label" id="themeSwitchLabel" data-i18n="darkMode">Dark mode</span>
+    <input type="checkbox" id="themeToggle" role="switch" aria-checked="false">
+    <span class="theme-switch-track" aria-hidden="true"></span>
+  </label>
+</div>
+
+<div class="palette-picker" id="palettePicker" role="group" aria-label="Color palette" data-i18n-aria="colorPalette">
+  <button type="button" class="palette-btn" data-palette="warm-rose" aria-pressed="false" data-i18n-aria="paletteWarmRose" title="Warm Rose & Earth">
+    <span class="palette-swatch" aria-hidden="true"><span></span><span></span></span>
+    <span data-i18n="paletteWarmRoseShort">Warm Rose</span>
+  </button>
+  <button type="button" class="palette-btn" data-palette="sage-lavender" aria-pressed="false" data-i18n-aria="paletteSageLavender" title="Modern Sage & Lavender">
+    <span class="palette-swatch" aria-hidden="true"><span></span><span></span></span>
+    <span data-i18n="paletteSageLavenderShort">Sage Lavender</span>
+  </button>
+  <button type="button" class="palette-btn" data-palette="plum-champagne" aria-pressed="false" data-i18n-aria="palettePlumChampagne" title="Plum & Champagne">
+    <span class="palette-swatch" aria-hidden="true"><span></span><span></span></span>
+    <span data-i18n="palettePlumChampagneShort">Plum Champagne</span>
+  </button>
+  <button type="button" class="palette-btn" data-palette="warm-ochre" aria-pressed="false" data-i18n-aria="paletteWarmOchre" title="Warm Ochre & Coral">
+    <span class="palette-swatch" aria-hidden="true"><span></span><span></span></span>
+    <span data-i18n="paletteWarmOchreShort">Warm Ochre</span>
+  </button>
+  <button type="button" class="palette-btn" data-palette="indigo-mint" aria-pressed="false" data-i18n-aria="paletteIndigoMint" title="Indigo & Soft Mint">
+    <span class="palette-swatch" aria-hidden="true"><span></span><span></span></span>
+    <span data-i18n="paletteIndigoMintShort">Indigo Mint</span>
+  </button>
+  <button type="button" class="palette-btn" data-palette="berry-blush" aria-pressed="false" data-i18n-aria="paletteBerryBlush" title="Berry & Blush">
+    <span class="palette-swatch" aria-hidden="true"><span></span><span></span></span>
+    <span data-i18n="paletteBerryBlushShort">Berry Blush</span>
+  </button>
+  <button type="button" class="palette-btn" data-palette="forest-amber" aria-pressed="false" data-i18n-aria="paletteForestAmber" title="Forest & Amber">
+    <span class="palette-swatch" aria-hidden="true"><span></span><span></span></span>
+    <span data-i18n="paletteForestAmberShort">Forest Amber</span>
+  </button>
+  <button type="button" class="palette-btn" data-palette="yellow-blue" aria-pressed="true" data-i18n-aria="paletteYellowBlue" title="Yellow & Blue">
+    <span class="palette-swatch" aria-hidden="true"><span></span><span></span></span>
+    <span data-i18n="paletteYellowBlueShort">Yellow Blue</span>
+  </button>
+</div>
+
+<footer class="site-footer" dir="ltr">
+  <span data-i18n="developedBy">Developed By:</span>
+  <span class="site-footer-credit">
+    <strong>
+      <a href="https://www.linkedin.com/in/ahmedgebaly/" target="_blank" rel="noopener noreferrer">Ahmed El Gebaly</a>
+    </strong>
+    <a class="linkedin-icon" href="https://www.linkedin.com/in/ahmedgebaly/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn — Ahmed El Gebaly">
+      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.23 0z"/>
+      </svg>
+    </a>
+  </span>
+</footer>
+
+<div class="modal-overlay" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div class="modal">
+    <button type="button" class="modal-close" id="closeSettingsBtn" aria-label="Close" data-i18n-aria="close">×</button>
+    <h2 id="settingsTitle" data-i18n="settings">Settings</h2>
+
+    <div class="modal-section">
+      <h3 data-i18n="period">Period</h3>
+      <div class="modal-row">
+        <label><span data-i18n="month">Month:</span>
+          <select id="monthSelect"></select>
+        </label>
+        <label><span data-i18n="year">Year:</span>
+          <input type="number" id="yearInput" value="2026" min="2000" max="2100" style="width:90px;">
+        </label>
+        <button class="primary" type="button" id="loadBtn" data-i18n="load">Load</button>
+        <button class="danger" type="button" id="resetBtn" data-i18n="clearMonth">Clear month data</button>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3 data-i18n="data">Data</h3>
+      <div class="modal-row">
+        <button type="button" id="exportBtn" data-i18n="exportJson">Export JSON</button>
+        <button type="button" id="importBtn" data-i18n="importJson">Import JSON</button>
+        <input type="file" id="importFile" accept=".json" style="display:none;">
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3 data-i18n="habits">Habits</h3>
+      <div class="habit-manager">
+        <div class="row">
+          <input type="text" id="newHabitName" placeholder="New habit name" data-i18n-placeholder="newHabitName" style="flex:2;min-width:120px;">
+          <input type="text" id="newHabitCat" placeholder="Category (e.g. Morning)" data-i18n-placeholder="newHabitCat" style="flex:1;min-width:100px;">
+          <input type="text" id="newHabitIcon" placeholder="Emoji" data-i18n-placeholder="emoji" style="width:70px;">
+          <button class="primary" type="button" id="addHabitBtn" data-i18n="addHabit">Add habit</button>
+        </div>
+        <div class="habit-list-manage" id="habitManageList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="celebration-overlay" id="celebrationOverlay" aria-hidden="true">
+  <div class="celebration-banner" id="celebrationBanner">🎉 Well done! 100%</div>
+</div>
+
+<script src="sahar.js"></script>
+<script>
+const MONTH_NAMES_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MONTH_NAMES_AR = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+const DAY_NAMES_EN = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const DAY_NAMES_AR = ["أحد","إثن","ثلا","أرب","خمي","جمع","سبت"];
+
+const LANG_KEY = "sahar_lang";
+let currentLang = "en";
+
+const I18N = {
+  en: {
+    viewMode: "View mode",
+    dayView: "Day view",
+    monthView: "Month view",
+    monthNav: "Month navigation",
+    prevMonth: " Previous month",
+    nextMonth: "Next month ",
+    prevDay: " Previous day",
+    nextDay: "Next day ",
+    settings: "Settings",
+    pickDay: "Pick another day:",
+    today: "Today",
+    unmarked: "Unmarked",
+    done: "Done",
+    missed: "Missed",
+    monthlyProgress: "Monthly progress by habit",
+    footerNote: "In day view, use the ✓ Done and ✗ Missed buttons. In month view, tap a cell to cycle empty → ✓ → ✗. Your data is saved automatically on this device, one month at a time.",
+    darkMode: "Dark mode",
+    lightMode: "Light mode",
+    developedBy: "Developed By:",
+    close: "Close",
+    period: "Period",
+    month: "Month:",
+    year: "Year:",
+    load: "Load",
+    clearMonth: "Clear month data",
+    data: "Data",
+    exportJson: "Export JSON",
+    importJson: "Import JSON",
+    habits: "Habits",
+    newHabitName: "New habit name",
+    newHabitCat: "Category (e.g. Morning)",
+    emoji: "Emoji",
+    addHabit: "Add habit",
+    habit: "Habit",
+    points: "Points",
+    dayPoints: "Day points:",
+    monthPoints: "Month points:",
+    totalPoints: "Total points:",
+    weekPlan: "Week plan:",
+    weekPlanPlaceholder: "Write your plan for this week...",
+    daysRange: "Days",
+    weekOf: "Week",
+    of: "of",
+    weekShort: "week",
+    doneBtn: "✓ Done",
+    missedBtn: "✗ Missed",
+    habitName: "Habit name",
+    category: "Category",
+    delete: "Delete",
+    deleteHabitConfirm: "Delete this habit?",
+    clearMonthConfirm: "Clear this month's data?",
+    monthCleared: "Month cleared",
+    habitAdded: "Habit added",
+    exported: "Exported",
+    imported: "Imported",
+    invalidFile: "Invalid file",
+    saveFailed: "Could not save — storage is full",
+    currentStreak: "Current streak:",
+    earnedPossible: "Earned/possible:",
+    ofDays: "of",
+    daysWord: "days",
+    switchToAr: "العربية",
+    switchToEn: "English",
+    switchLangAr: "التبديل إلى العربية",
+    switchLangEn: "Switch to English",
+    colorPalette: "Color palette",
+    paletteWarmRose: "Warm Rose & Earth",
+    paletteSageLavender: "Modern Sage & Lavender",
+    palettePlumChampagne: "Plum & Champagne",
+    paletteWarmOchre: "Warm Ochre & Coral",
+    paletteIndigoMint: "Indigo & Soft Mint",
+    paletteBerryBlush: "Berry & Blush",
+    paletteForestAmber: "Forest & Amber",
+    paletteYellowBlue: "Yellow & Blue",
+    paletteWarmRoseShort: "Warm Rose",
+    paletteSageLavenderShort: "Sage Lavender",
+    palettePlumChampagneShort: "Plum Champagne",
+    paletteWarmOchreShort: "Warm Ochre",
+    paletteIndigoMintShort: "Indigo Mint",
+    paletteBerryBlushShort: "Berry Blush",
+    paletteForestAmberShort: "Forest Amber",
+    paletteYellowBlueShort: "Yellow Blue"
+  },
+  ar: {
+    viewMode: "وضع العرض",
+    dayView: "عرض اليوم",
+    monthView: "عرض الشهر",
+    monthNav: "التنقل بين الأشهر",
+    prevMonth: " الشهر السابق",
+    nextMonth: "الشهر التالي ",
+    prevDay: " اليوم السابق",
+    nextDay: "اليوم التالي ",
+    settings: "الإعدادات",
+    pickDay: "اختر يوماً آخر:",
+    today: "اليوم",
+    unmarked: "بدون علامة",
+    done: "تم",
+    missed: "فائت",
+    monthlyProgress: "التقدم الشهري حسب العادة",
+    footerNote: "في عرض اليوم استخدمي أزرار ✓ تم و ✗ فائت. في عرض الشهر اضغطي على الخلية للتبديل: فارغ ← ✓ ← ✗. يتم حفظ بياناتك تلقائياً على هذا الجهاز، شهراً بشهر.",
+    darkMode: "الوضع الداكن",
+    lightMode: "الوضع الفاتح",
+    developedBy: "تطوير:",
+    close: "إغلاق",
+    period: "الفترة",
+    month: "الشهر:",
+    year: "السنة:",
+    load: "تحميل",
+    clearMonth: "مسح بيانات الشهر",
+    data: "البيانات",
+    exportJson: "تصدير JSON",
+    importJson: "استيراد JSON",
+    habits: "العادات",
+    newHabitName: "اسم عادة جديدة",
+    newHabitCat: "التصنيف",
+    emoji: "رمز",
+    addHabit: "إضافة عادة",
+    habit: "العادة",
+    points: "النقاط",
+    dayPoints: "نقاط اليوم:",
+    monthPoints: "نقاط الشهر:",
+    totalPoints: "مجموع النقاط:",
+    weekPlan: "خطة الأسبوع:",
+    weekPlanPlaceholder: "اكتبي خطتك لهذا الأسبوع...",
+    daysRange: "الأيام",
+    weekOf: "الأسبوع",
+    of: "من",
+    weekShort: "أسبوع",
+    doneBtn: "✓ تم",
+    missedBtn: "✗ فائت",
+    habitName: "اسم العادة",
+    category: "التصنيف",
+    delete: "حذف",
+    deleteHabitConfirm: "حذف هذه العادة؟",
+    clearMonthConfirm: "مسح بيانات هذا الشهر؟",
+    monthCleared: "تم مسح الشهر",
+    habitAdded: "تمت إضافة العادة",
+    exported: "تم التصدير",
+    imported: "تم الاستيراد",
+    invalidFile: "ملف غير صالح",
+    saveFailed: "تعذر الحفظ — مساحة التخزين ممتلئة",
+    currentStreak: "السلسلة الحالية:",
+    earnedPossible: "المكتسب / الممكن:",
+    ofDays: "من",
+    daysWord: "أيام",
+    switchToAr: "العربية",
+    switchToEn: "English",
+    switchLangAr: "التبديل إلى العربية",
+    switchLangEn: "Switch to English",
+    colorPalette: "لوحة الألوان",
+    paletteWarmRose: "ورد دافئ وأرضي",
+    paletteSageLavender: "مريمية وخزامى",
+    palettePlumChampagne: "برقوق وشمبانيا",
+    paletteWarmOchre: "مغرة ومرجاني",
+    paletteIndigoMint: "نيلي ونعناع",
+    paletteBerryBlush: "توت وورد",
+    paletteForestAmber: "غابة وعنبر",
+    paletteYellowBlue: "أصفر وأزرق",
+    paletteWarmRoseShort: "ورد دافئ",
+    paletteSageLavenderShort: "مريمية",
+    palettePlumChampagneShort: "برقوق",
+    paletteWarmOchreShort: "مغرة",
+    paletteIndigoMintShort: "نيلي نعناع",
+    paletteBerryBlushShort: "توت ورد",
+    paletteForestAmberShort: "غابة عنبر",
+    paletteYellowBlueShort: "أصفر أزرق"
+  }
+};
+
+function t(key){
+  return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
+}
+
+function monthName(month){
+  return (currentLang === "ar" ? MONTH_NAMES_AR : MONTH_NAMES_EN)[month];
+}
+
+function dayName(weekday){
+  return (currentLang === "ar" ? DAY_NAMES_AR : DAY_NAMES_EN)[weekday];
+}
+
+/** @deprecated use monthName — kept for populateMonthSelect rebuild */
+let MONTH_NAMES = MONTH_NAMES_EN;
+let DAY_NAMES = DAY_NAMES_EN;
+
+function syncNameArrays(){
+  MONTH_NAMES = currentLang === "ar" ? MONTH_NAMES_AR : MONTH_NAMES_EN;
+  DAY_NAMES = currentLang === "ar" ? DAY_NAMES_AR : DAY_NAMES_EN;
+}
+
+function applyStaticI18n(){
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if(key) el.textContent = t(key);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if(key) el.setAttribute("placeholder", t(key));
+  });
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria");
+    if(key){
+      const label = t(key);
+      el.setAttribute("aria-label", label);
+      if(el.classList.contains("palette-btn")) el.title = label;
+    }
+  });
+  const langBtn = document.getElementById("langToggle");
+  if(langBtn){
+    langBtn.textContent = currentLang === "ar" ? t("switchToEn") : t("switchToAr");
+    langBtn.setAttribute("aria-label", currentLang === "ar" ? t("switchLangEn") : t("switchLangAr"));
+  }
+}
+
+function applyLanguage(lang, { skipRender } = {}){
+  currentLang = lang === "ar" ? "ar" : "en";
+  syncNameArrays();
+  safeSetItem(LANG_KEY, currentLang);
+  document.documentElement.lang = currentLang === "ar" ? "ar" : "en";
+  document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+  applyStaticI18n();
+  const themeInput = document.getElementById("themeToggle");
+  const isDark = themeInput ? themeInput.checked : document.documentElement.classList.contains("theme-dark");
+  const label = document.getElementById("themeSwitchLabel");
+  if(label) label.textContent = isDark ? t("lightMode") : t("darkMode");
+  populateMonthSelect();
+  if(!skipRender){
+    weeklyBuiltFor = null;
+    renderAll();
+  }
+}
+
+function initLanguage(){
+  let lang = null;
+  try{ lang = localStorage.getItem(LANG_KEY); }catch(e){}
+  applyLanguage(lang === "ar" ? "ar" : "en", { skipRender: true });
+}
+
+const MARK_SYMBOL = {"":"", "check":"✓", "x":"✗"};
+const MARK_CLASS = {"":"", "check":"mark-check", "x":"mark-x"};
+
+function markLabel(mark){
+  if(mark === "check") return t("done");
+  if(mark === "x") return t("missed");
+  return t("unmarked");
+}
+
+/** Display name for current language. Identity key stays habit.name (Arabic). */
+function habitDisplayName(habit){
+  if(!habit) return "";
+  if(currentLang === "en" && habit.nameEn) return habit.nameEn;
+  return habit.name || "";
+}
+
+/** Display category for current language. Identity key stays habit.cat (Arabic). */
+function habitDisplayCat(habit){
+  if(!habit) return "";
+  if(currentLang === "en" && habit.catEn) return habit.catEn;
+  return habit.cat || "";
+}
+
+function normalizeMark(mark){
+  if(mark === "check") return "check";
+  if(mark === "x") return "x";
+  return "";
+}
+
+function habitPointValue(habit){
+  return habit.points ?? 10;
+}
+
+function pointsForMark(habit, mark){
+  return normalizeMark(mark) === "check" ? habitPointValue(habit) : 0;
+}
+
+function maxDayPoints(){
+  return state.habits.reduce((sum, h) => sum + habitPointValue(h), 0);
+}
+
+function getDayPoints(day){
+  let earnedPoints = 0;
+  state.habits.forEach((h, hIdx) => {
+    earnedPoints += pointsForMark(h, state.marks[`${hIdx}_${day}`] || "");
+  });
+  const possibleDayPoints = maxDayPoints();
+  return {
+    earnedPoints,
+    possibleDayPoints,
+    total: earnedPoints,
+    max: possibleDayPoints,
+    perfect: possibleDayPoints > 0 && earnedPoints >= possibleDayPoints
+  };
+}
+
+function formatEarnedPossible(earned, possible){
+  return toArabicDigits(`${earned} / ${possible}`);
+}
+
+function isMobileViewport(){
+  return window.matchMedia("(max-width:700px)").matches;
+}
+
+/** Month heatmap/summary: earned only on mobile, earned/possible on larger screens. */
+function formatMonthPointsDisplay(earned, possible){
+  if(!possible || isMobileViewport()) return toArabicDigits(earned);
+  return formatEarnedPossible(earned, possible);
+}
+
+/** Self-tests: earned/possible and category subtotals across Morning, Noon, Growth, Before sleep */
+function runPointsSelfTests(){
+  const fixtureHabits = [
+    {name:"A", cat:"Morning", points:10},
+    {name:"B", cat:"Noon", points:10},
+    {name:"C", cat:"Growth", points:10},
+    {name:"D", cat:"Before sleep", points:10},
+    {name:"E", cat:"Before sleep", points:0}
+  ];
+  const fixtureMarks = {"0_1":"check", "1_1":"check", "2_1":"", "3_1":"check", "4_1":"check"};
+  const savedHabits = state.habits;
+  const savedMarks = state.marks;
+  state.habits = fixtureHabits;
+  state.marks = fixtureMarks;
+
+  const possibleDayPoints = maxDayPoints();
+  console.assert(possibleDayPoints === 40, "possibleDayPoints should be 40 (4×10 + 0)");
+
+  let earnedPoints = 0;
+  const byCat = {};
+  fixtureHabits.forEach((h, hIdx) => {
+    const pts = pointsForMark(h, fixtureMarks[`${hIdx}_1`] || "");
+    earnedPoints += pts;
+    byCat[h.cat] = (byCat[h.cat] || 0) + pts;
+  });
+  console.assert(earnedPoints === 30, "earnedPoints should be 30 (A+B+D)");
+  console.assert(byCat["Morning"] === 10, "Morning subtotal");
+  console.assert(byCat["Noon"] === 10, "Noon subtotal");
+  console.assert(byCat["Growth"] === 0, "Growth subtotal");
+  console.assert(byCat["Before sleep"] === 10, "Before sleep subtotal (D=10, E=0)");
+  const catSum = Object.values(byCat).reduce((a, b) => a + b, 0);
+  console.assert(catSum === earnedPoints, "category subtotals must equal day earned");
+
+  const day = getDayPoints(1);
+  console.assert(day.earnedPoints === earnedPoints && day.possibleDayPoints === possibleDayPoints,
+    "getDayPoints earned/possible mismatch");
+
+  state.habits = savedHabits;
+  state.marks = savedMarks;
+}
+
+const CELEBRATION_MESSAGES = [
+  "Well done! You finished the day at 100%",
+  "Amazing! A perfect day",
+  "Proud of you — you got everything done today",
+  "Excellent! Keep this rhythm going",
+  "You're today's champion",
+  "A full win that deserves a celebration",
+  "A perfect day — beautifully done",
+  "Every habit checked off successfully",
+  "This is real commitment",
+  "Congrats! A day with nothing left undone",
+  "Your performance today is inspiring",
+  "Peak focus and follow-through",
+  "You completed the mission with excellence",
+  "A golden day in your record",
+  "You're on the right path",
+  "A small win today builds a big habit",
+  "Congratulations on a complete day",
+  "Today was entirely yours",
+  "Strong, organized, and done",
+  "Great choices and great consistency",
+  "A day that earns a gold star",
+  "Outstanding — a complete finish",
+  "Every point you earned was deserved",
+  "You finished the race all the way",
+  "This discipline deserves recognition",
+  "A complete day means more confidence",
+  "You impressed yourself today",
+  "Nothing missing... wonderful!",
+  "From peak to peak",
+  "Today's success starts right here",
+  "You're proving what you can do",
+  "Your habits thank you today",
+  "A clean day with no gaps",
+  "Great consistency",
+  "This is what excellence looks like",
+  "You closed the loop successfully",
+  "A 100% result deserves a smile",
+  "Today you beat procrastination",
+  "Iron will showed up today",
+  "Every habit got its due",
+  "A day to write in bold",
+  "Clear, tangible progress",
+  "You're making a daily difference",
+  "Blessed persistence — keep going",
+  "A full day means peace of mind",
+  "Strong performance through the last habit",
+  "A level worth aspiring to",
+  "You finished the day like a pro",
+  "The joy of full completion",
+  "No shortcuts — just results",
+  "You're closer to your goal now",
+  "A day worth applause",
+  "You stayed consistent and succeeded",
+  "Great management of time and energy",
+  "Every box shines today",
+  "A beautiful personal victory",
+  "A golden day in your tracking",
+  "You proved your discipline today",
+  "Congrats on a total completion",
+  "Strong habits start with days like this",
+  "Today was your best version",
+  "You're building a better you",
+  "An achievement worth a moment of pride",
+  "You didn't leave anything short today",
+  "This is a winner's rhythm",
+  "A complete day = complete confidence",
+  "Awesome! Carry the same strength tomorrow",
+  "Every ✓ is a small success story",
+  "You closed the day on a high note",
+  "Today's work lifts the mood",
+  "A day without excuses",
+  "This is keeping a promise to yourself",
+  "You finished — you earned the celebration",
+  "From the heart: very well done",
+  "Another day added to your win streak",
+  "Peak daily mastery",
+  "Every habit done the right way",
+  "You're building a winning habit",
+  "Quiet, powerful success",
+  "Today you showed up for yourself",
+  "A full result that suits you",
+  "Nothing beats 100%",
+  "A complete day lights up the week",
+  "Well done staying committed to the end",
+  "This discipline builds the future",
+  "A small joy... a big impact",
+  "You finished the day with confidence",
+  "You deserve this good feeling",
+  "A perfect day in the achievement log",
+  "Every step today was intentional",
+  "Congrats on the perseverance",
+  "You brightened your day with progress",
+  "This is calm, serious focus",
+  "A full day with nothing missing",
+  "You're at your best today",
+  "Great priority management",
+  "Today's success fuels a better tomorrow",
+  "You finished proud of what you did",
+  "A day to tell with pride",
+  "Warm congratulations on 100%"
+];
+
+const CELEBRATION_MESSAGES_AR = [
+  "أحسنتِ — أكملتِ كل شيء اليوم",
+  "يوم كامل يستحق الاحتفال",
+  "فخر بكِ على إنجاز 100%",
+  "انضباط رائع اليوم",
+  "كل المهام تمت — مبروك",
+  "يوم ذهبي في سجلكِ",
+  "نجاح اليوم يبدأ من هنا",
+  "أحسنتِ على إتمام اليوم كاملاً"
+];
+
+function randomCelebrationMessage(){
+  const list = currentLang === "ar" ? CELEBRATION_MESSAGES_AR : CELEBRATION_MESSAGES;
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+function playCenteredMessage(message, options = {}){
+  const emoji = options.emoji || "🎉";
+  const withConfetti = options.confetti !== false;
+  const encourage = !!options.encourage;
+  const text = `${emoji} ${message}`;
+
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    showToast(text);
+    return;
+  }
+  const overlay = document.getElementById('celebrationOverlay');
+  const banner = document.getElementById('celebrationBanner');
+  if(!overlay || !banner) return;
+
+  banner.textContent = text;
+  banner.classList.toggle('is-encourage', encourage);
+  overlay.querySelectorAll('.confetti-piece').forEach(el => el.remove());
+  if(withConfetti){
+    const colors = ['#1565C0','#F9A825','#64B5F6','#FFD54F','#0D47A1','#FFECB3','#42A5F5'];
+    for(let i = 0; i < 48; i++){
+      const piece = document.createElement('span');
+      piece.className = 'confetti-piece';
+      piece.style.left = `${Math.random() * 100}%`;
+      piece.style.background = colors[i % colors.length];
+      piece.style.animationDuration = `${1.6 + Math.random() * 1.4}s`;
+      piece.style.animationDelay = `${Math.random() * 0.35}s`;
+      piece.style.setProperty('--drift', `${(Math.random() * 160) - 80}px`);
+      piece.style.width = `${6 + Math.random() * 8}px`;
+      piece.style.height = `${8 + Math.random() * 10}px`;
+      overlay.appendChild(piece);
+    }
+  }
+
+  banner.style.animation = 'none';
+  void banner.offsetWidth;
+  banner.style.animation = '';
+  overlay.classList.add('is-show');
+  clearTimeout(playCenteredMessage._t);
+  playCenteredMessage._t = setTimeout(() => {
+    overlay.classList.remove('is-show');
+    overlay.querySelectorAll('.confetti-piece').forEach(el => el.remove());
+  }, 5000);
+}
+
+let lastCelebrationTime = 0;
+
+function playCelebration(){
+  const now = Date.now();
+  const withConfetti = now - lastCelebrationTime >= 1500;
+  if(withConfetti) lastCelebrationTime = now;
+  playCenteredMessage(randomCelebrationMessage(), { emoji: "🎉", confetti: withConfetti, encourage: false });
+}
+
+function celebrateIfNewlyPerfect(day, wasPerfect){
+  if(wasPerfect) return;
+  if(getDayPoints(day).perfect) playCelebration();
+}
+
+const HALF_X_ENCOURAGEMENT_MESSAGES = [
+  "It's okay — tomorrow is a fresh chance",
+  "You're still on the path; keep going",
+  "A hard day doesn't erase your progress",
+  "Take a breath… and gently start again",
+  "Every attempt brings you closer to your habit",
+  "Falling short today doesn't mean failure",
+  "Well done for facing what wasn't finished",
+  "Tomorrow you can complete more",
+  "Being kind to yourself is part of discipline",
+  "A small step tomorrow can make a difference"
+];
+
+const HALF_X_ENCOURAGEMENT_MESSAGES_AR = [
+  "لا بأس — الغد فرصة جديدة",
+  "ما زلتِ على الطريق؛ واصلي",
+  "يوم صعب لا يمحو تقدّمكِ",
+  "خذي نفساً… وابدئي بلطف من جديد",
+  "كل محاولة تقرّبكِ من عادتكِ",
+  "التقصير اليوم لا يعني الفشل",
+  "أحسنتِ على مواجهة ما لم يكتمل",
+  "غداً يمكنكِ إنجاز المزيد",
+  "اللطف مع نفسكِ جزء من الانضباط",
+  "خطوة صغيرة غداً تصنع فرقاً"
+];
+
+function randomHalfXMessage(){
+  const list = currentLang === "ar" ? HALF_X_ENCOURAGEMENT_MESSAGES_AR : HALF_X_ENCOURAGEMENT_MESSAGES;
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+function dayXRatio(day){
+  let scored = 0;
+  let xCount = 0;
+  state.habits.forEach((h, hIdx) => {
+    if(habitPointValue(h) <= 0) return;
+    scored++;
+    if(normalizeMark(state.marks[`${hIdx}_${day}`] || "") === "x") xCount++;
+  });
+  if(!scored) return 0;
+  return xCount / scored;
+}
+
+function encourageIfHalfX(day, wasAtLeastHalf){
+  if(wasAtLeastHalf) return;
+  if(dayXRatio(day) >= 0.5){
+    playCenteredMessage(randomHalfXMessage(), { emoji: "💛", confetti: false, encourage: true });
+  }
+}
+
+function syncHabitPointsFromDefaults(habits){
+  const byName = {};
+  DEFAULT_HABITS.forEach(h => {
+    if(Object.prototype.hasOwnProperty.call(h, "points")) byName[h.name] = h.points;
+  });
+  habits.forEach(h => {
+    if(Object.prototype.hasOwnProperty.call(byName, h.name)) h.points = byName[h.name];
+  });
+  return habits;
+}
+
+function habitHasMarks(marks, hIdx){
+  return Object.keys(marks || {}).some(k => {
+    const hi = parseInt(k.split("_")[0], 10);
+    return hi === hIdx && normalizeMark(marks[k]);
+  });
+}
+
+/** Merge DEFAULT_HABITS into a saved month: add new tasks, keep deleted tasks that already have marks. */
+function mergeHabitsWithDefaults(savedHabits, savedMarks){
+  const marks = savedMarks || {};
+  const saved = Array.isArray(savedHabits) ? savedHabits : [];
+  if(!saved.length){
+    return {
+      habits: JSON.parse(JSON.stringify(DEFAULT_HABITS)),
+      marks
+    };
+  }
+
+  const savedByName = new Map(saved.map((h, i) => [h.name, { habit: h, oldIdx: i }]));
+  const nextHabits = [];
+  const oldToNew = {};
+
+  DEFAULT_HABITS.forEach(def => {
+    const found = savedByName.get(def.name);
+    if(found){
+      oldToNew[found.oldIdx] = nextHabits.length;
+      nextHabits.push({
+        ...found.habit,
+        cat: def.cat,
+        icon: def.icon,
+        nameEn: def.nameEn,
+        catEn: def.catEn,
+        ...(Object.prototype.hasOwnProperty.call(def, "points") ? { points: def.points } : {})
+      });
+      savedByName.delete(def.name);
+    } else {
+      nextHabits.push(JSON.parse(JSON.stringify(def)));
+    }
+  });
+
+  saved.forEach((h, oldIdx) => {
+    if(!savedByName.has(h.name)) return;
+    if(!habitHasMarks(marks, oldIdx)) return;
+    oldToNew[oldIdx] = nextHabits.length;
+    nextHabits.push(h);
+  });
+
+  const nextMarks = {};
+  Object.keys(marks).forEach(k => {
+    const [hi, day] = k.split("_");
+    const newIdx = oldToNew[parseInt(hi, 10)];
+    if(newIdx == null) return;
+    nextMarks[`${newIdx}_${day}`] = marks[k];
+  });
+
+  return {
+    habits: syncHabitPointsFromDefaults(nextHabits),
+    marks: nextMarks
+  };
+}
+
+let state = {
+  habits: JSON.parse(JSON.stringify(DEFAULT_HABITS)),
+  marks: {},
+  weekly: {},
+  longestStreaks: {}
+};
+
+let currentDay = new Date().getDate();
+let viewMode = "day";
+let weeklyBuiltFor = null;
+
+const VIEW_MODE_KEY = "sahar_view_mode";
+const THEME_KEY = "sahar_theme";
+const PALETTE_KEY = "sahar_palette";
+const PALETTE_IDS = ["warm-rose","sage-lavender","plum-champagne","warm-ochre","indigo-mint","berry-blush","forest-amber","yellow-blue"];
+const PALETTE_PRIMARY = {
+  "warm-rose": "#D9777F",
+  "sage-lavender": "#7F9C96",
+  "plum-champagne": "#6B4E71",
+  "warm-ochre": "#E07A5F",
+  "indigo-mint": "#5B6C8F",
+  "berry-blush": "#A56B8A",
+  "forest-amber": "#3F6F5A",
+  "yellow-blue": "#1565C0"
+};
+const PALETTE_I18N_ARIA = {
+  "warm-rose": "paletteWarmRose",
+  "sage-lavender": "paletteSageLavender",
+  "plum-champagne": "palettePlumChampagne",
+  "warm-ochre": "paletteWarmOchre",
+  "indigo-mint": "paletteIndigoMint",
+  "berry-blush": "paletteBerryBlush",
+  "forest-amber": "paletteForestAmber",
+  "yellow-blue": "paletteYellowBlue"
+};
+let currentPalette = "yellow-blue";
+
+function applyPalette(id){
+  const palette = PALETTE_IDS.includes(id) ? id : "yellow-blue";
+  currentPalette = palette;
+  document.documentElement.dataset.palette = palette;
+  safeSetItem(PALETTE_KEY, palette);
+  document.querySelectorAll(".palette-btn").forEach(btn => {
+    const active = btn.dataset.palette === palette;
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+    const ariaKey = PALETTE_I18N_ARIA[btn.dataset.palette];
+    if(ariaKey){
+      btn.setAttribute("aria-label", t(ariaKey));
+      btn.title = t(ariaKey);
+    }
+  });
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.setAttribute("content", PALETTE_PRIMARY[palette] || PALETTE_PRIMARY["yellow-blue"]);
+  if(viewMode === "month"){
+    renderTable();
+    renderMonthSummary();
+    updateWeeklyPoints();
+  }
+}
+
+function initPalette(){
+  let saved = null;
+  try{ saved = localStorage.getItem(PALETTE_KEY); }catch(e){}
+  applyPalette(PALETTE_IDS.includes(saved) ? saved : "yellow-blue");
+}
+
+function applyTheme(theme){
+  const isDark = theme === "dark";
+  document.documentElement.classList.toggle("theme-dark", isDark);
+  safeSetItem(THEME_KEY, isDark ? "dark" : "light");
+  const input = document.getElementById("themeToggle");
+  if(input){
+    input.checked = isDark;
+    input.setAttribute("aria-checked", isDark ? "true" : "false");
+  }
+  const label = document.getElementById("themeSwitchLabel");
+  if(label) label.textContent = isDark ? t("lightMode") : t("darkMode");
+  // Refresh month heatmap so sticky/legend paints pick up theme tokens
+  if(viewMode === "month"){
+    renderTable();
+    renderMonthSummary();
+    updateWeeklyPoints();
+  }
+}
+
+function initTheme(){
+  let theme = null;
+  try{ theme = localStorage.getItem(THEME_KEY); }catch(e){}
+  if(theme !== "dark" && theme !== "light"){
+    theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  applyTheme(theme);
+}
+
+function storageKey(year, month){
+  return `sahar_tracker_${year}_${String(month+1).padStart(2,'0')}`;
+}
+
+function daysInMonth(year, month){
+  return new Date(year, month+1, 0).getDate();
+}
+
+function ensureLongestStreaks(){
+  if(!state.longestStreaks || typeof state.longestStreaks !== "object"){
+    state.longestStreaks = {};
+  }
+}
+
+function habitStreakKey(habit){
+  return habit?.name || "";
+}
+
+function getMarksSnapshot(year, month){
+  const cur = getCurrentYearMonth();
+  if(year === cur.year && month === cur.month){
+    return { marks: state.marks, habits: state.habits };
+  }
+  const raw = localStorage.getItem(storageKey(year, month));
+  if(!raw) return { marks: {}, habits: [] };
+  try{
+    const parsed = JSON.parse(raw);
+    return { marks: parsed.marks || {}, habits: parsed.habits || [] };
+  }catch(e){
+    return { marks: {}, habits: [] };
+  }
+}
+
+function isHabitCheckedOn(habitName, year, month, day){
+  const { marks, habits } = getMarksSnapshot(year, month);
+  const hIdx = habits.findIndex(h => h.name === habitName);
+  if(hIdx < 0) return false;
+  return normalizeMark(marks[`${hIdx}_${day}`] || "") === "check";
+}
+
+/** Consecutive completes walking backward from today; resets on any miss. */
+function getCurrentStreak(hIdx){
+  const habit = state.habits[hIdx];
+  if(!habit) return 0;
+  const name = habit.name;
+  const now = new Date();
+  let y = now.getFullYear();
+  let m = now.getMonth();
+  let d = now.getDate();
+  let streak = 0;
+  for(let i = 0; i < 400; i++){
+    if(!isHabitCheckedOn(name, y, m, d)) break;
+    streak++;
+    d -= 1;
+    if(d < 1){
+      m -= 1;
+      if(m < 0){ m = 11; y -= 1; }
+      d = daysInMonth(y, m);
+    }
+  }
+  return streak;
+}
+
+function getLongestStreakInMonth(hIdx){
+  const {year, month} = getCurrentYearMonth();
+  const nDays = daysInMonth(year, month);
+  let longest = 0;
+  let run = 0;
+  for(let d = 1; d <= nDays; d++){
+    if(normalizeMark(state.marks[`${hIdx}_${d}`] || "") === "check"){
+      run++;
+      if(run > longest) longest = run;
+    } else {
+      run = 0;
+    }
+  }
+  return longest;
+}
+
+function updateLongestStreak(hIdx){
+  ensureLongestStreaks();
+  const habit = state.habits[hIdx];
+  if(!habit) return;
+  const key = habitStreakKey(habit);
+  const stored = state.longestStreaks[key] || 0;
+  state.longestStreaks[key] = Math.max(stored, getCurrentStreak(hIdx), getLongestStreakInMonth(hIdx));
+}
+
+function getPersistedLongestStreak(hIdx){
+  ensureLongestStreaks();
+  const habit = state.habits[hIdx];
+  if(!habit) return 0;
+  const key = habitStreakKey(habit);
+  return Math.max(state.longestStreaks[key] || 0, getLongestStreakInMonth(hIdx), getCurrentStreak(hIdx));
+}
+
+function streakBadgeHtml(hIdx){
+  const n = getCurrentStreak(hIdx);
+  return `<span class="habit-streak" title="${t("currentStreak")} ${toArabicDigits(n)}">🔥 ${toArabicDigits(n)}</span>`;
+}
+
+function runStreakSelfTests(){
+  const savedHabits = state.habits;
+  const savedMarks = state.marks;
+  const savedLongest = state.longestStreaks;
+  state.habits = [{name:"Streak test", cat:"Morning", points:10}];
+  state.marks = {
+    "0_1":"check", "0_2":"check", "0_3":"",
+    "0_4":"check", "0_5":"check", "0_6":"check"
+  };
+  state.longestStreaks = {};
+  console.assert(getLongestStreakInMonth(0) === 3, "longest month streak should be 3");
+  state.habits = savedHabits;
+  state.marks = savedMarks;
+  state.longestStreaks = savedLongest;
+}
+
+function getCurrentYearMonth(){
+  const year = parseInt(document.getElementById('yearInput').value, 10);
+  const month = parseInt(document.getElementById('monthSelect').value, 10);
+  return {year, month};
+}
+
+function setYearMonth(year, month, day){
+  while(month < 0){ month += 12; year -= 1; }
+  while(month > 11){ month -= 12; year += 1; }
+  document.getElementById('yearInput').value = year;
+  document.getElementById('monthSelect').value = month;
+  const nDays = daysInMonth(year, month);
+  if(day != null) currentDay = day;
+  if(currentDay > nDays) currentDay = nDays;
+  if(currentDay < 1) currentDay = 1;
+  loadState();
+}
+
+function shiftMonth(delta){
+  const {year, month} = getCurrentYearMonth();
+  let y = year;
+  let m = month + delta;
+  while(m < 0){ m += 12; y -= 1; }
+  while(m > 11){ m -= 12; y += 1; }
+  const now = new Date();
+  const day = (viewMode === "day" && y === now.getFullYear() && m === now.getMonth())
+    ? now.getDate()
+    : 1;
+  setYearMonth(y, m, day);
+}
+
+function showToast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('is-show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => el.classList.remove('is-show'), 2200);
+}
+
+function escapeAttr(str){
+  return String(str ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function toArabicDigits(value){
+  return String(value);
+}
+
+function getWeekOfYear(date){
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+}
+
+function deleteHabitAt(idx){
+  if(!confirm(t("deleteHabitConfirm"))) return;
+  state.habits.splice(idx, 1);
+  const newMarks = {};
+  Object.keys(state.marks).forEach(k => {
+    const [hi, day] = k.split('_');
+    const hiNum = parseInt(hi, 10);
+    if(hiNum === idx) return;
+    const newHi = hiNum > idx ? hiNum - 1 : hiNum;
+    newMarks[`${newHi}_${day}`] = state.marks[k];
+  });
+  state.marks = newMarks;
+  saveState();
+  renderAll();
+}
+
+function loadState(){
+  const {year, month} = getCurrentYearMonth();
+  const raw = localStorage.getItem(storageKey(year, month));
+  let shouldPersistMerge = false;
+  if(raw){
+    try{
+      const parsed = JSON.parse(raw);
+      const merged = mergeHabitsWithDefaults(parsed.habits, parsed.marks);
+      state.habits = merged.habits;
+      state.marks = merged.marks;
+      state.weekly = parsed.weekly || {};
+      state.longestStreaks = parsed.longestStreaks || {};
+      shouldPersistMerge =
+        JSON.stringify(parsed.habits || []) !== JSON.stringify(merged.habits) ||
+        JSON.stringify(parsed.marks || {}) !== JSON.stringify(merged.marks);
+    }catch(e){
+      state = {habits: JSON.parse(JSON.stringify(DEFAULT_HABITS)), marks:{}, weekly:{}, longestStreaks:{}};
+    }
+  } else {
+    state = {habits: JSON.parse(JSON.stringify(DEFAULT_HABITS)), marks:{}, weekly:{}, longestStreaks:{}};
+  }
+  ensureLongestStreaks();
+  weeklyBuiltFor = null;
+  if(shouldPersistMerge) saveState();
+  renderAll();
+}
+
+function safeSetItem(key, value){
+  try{
+    localStorage.setItem(key, value);
+    return true;
+  }catch(err){
+    console.error(err);
+    showToast(t("saveFailed"));
+    return false;
+  }
+}
+
+function saveState(){
+  const {year, month} = getCurrentYearMonth();
+  safeSetItem(storageKey(year, month), JSON.stringify(state));
+}
+
+function renderAll(){
+  updateAppTitle();
+  if(viewMode === "month"){
+    renderTable();
+    renderWeekly(false);
+    renderMonthSummary();
+  } else {
+    renderDayView();
+  }
+  renderHabitManageList();
+}
+
+function updateAppTitle(){
+  const {year, month} = getCurrentYearMonth();
+  const label = `${MONTH_NAMES[month]} ${toArabicDigits(year)}`;
+  const title = document.getElementById('appTitle');
+  if(title){
+    title.textContent = `Sahar Tracker — ${label}`;
+  }
+  const monthNav = document.getElementById('monthNavTitle');
+  if(monthNav) monthNav.textContent = label;
+}
+
+function setViewMode(mode){
+  viewMode = mode === "month" ? "month" : "day";
+  safeSetItem(VIEW_MODE_KEY, viewMode);
+  const isDay = viewMode === "day";
+  document.getElementById('dayView').classList.toggle('is-visible', isDay);
+  document.getElementById('monthPanel').classList.toggle('is-visible', !isDay);
+  document.getElementById('monthSummary').classList.toggle('is-visible', !isDay);
+  document.getElementById('weeklySection').classList.toggle('is-visible', !isDay);
+  const viewToggle = document.getElementById('viewToggle');
+  if(viewToggle) viewToggle.dataset.mode = viewMode;
+  const dayBtn = document.getElementById('showDayBtn');
+  const monthBtn = document.getElementById('showMonthBtn');
+  if(dayBtn) dayBtn.setAttribute('aria-pressed', isDay ? 'true' : 'false');
+  if(monthBtn) monthBtn.setAttribute('aria-pressed', isDay ? 'false' : 'true');
+  if(isDay){
+    renderDayView();
+  } else {
+    renderTable();
+    renderWeekly(true);
+    renderMonthSummary();
+  }
+}
+
+function getSavedViewMode(){
+  try{
+    const saved = localStorage.getItem(VIEW_MODE_KEY);
+    if(saved === "month" || saved === "day") return saved;
+  }catch(e){}
+  return "day";
+}
+
+function applyMarkToCell(td, key, mark){
+  mark = normalizeMark(mark);
+  const heatClass = mark === "check" ? "heat-done" : (mark === "x" ? "heat-missed" : "heat-empty");
+  td.className = `day-cell ${heatClass}`;
+  if(td.dataset.friday === "1") td.classList.add('friday-col');
+  if(td.classList.contains('today-col') || td.dataset.today === "1"){
+    td.classList.add('today-col');
+  }
+  td.textContent = MARK_SYMBOL[mark] || "";
+  const hIdx = parseInt(key.split('_')[0], 10);
+  const day = parseInt(key.split('_')[1], 10);
+  // Theme colors come from CSS (var(--green) / dark overrides) — clear any stale inline fill
+  td.style.backgroundColor = "";
+  const habitName = habitDisplayName(state.habits[hIdx]) || t("habit");
+  const {year, month} = getCurrentYearMonth();
+  const status = markLabel(mark);
+  const dateLabel = `${toArabicDigits(day)} ${MONTH_NAMES[month]}`;
+  const tip = `${habitName} — ${dateLabel}: ${status}`;
+  td.setAttribute('aria-label', tip);
+  td.title = tip;
+}
+
+function cycleMark(key, td){
+  const day = parseInt(key.split('_')[1], 10);
+  const hIdx = parseInt(key.split('_')[0], 10);
+  const wasPerfect = getDayPoints(day).perfect;
+  const wasAtLeastHalfX = dayXRatio(day) >= 0.5;
+  const current = normalizeMark(state.marks[key] || "");
+  const next = current === "" ? "check" : (current === "check" ? "x" : "");
+  state.marks[key] = next;
+  applyMarkToCell(td, key, next);
+  const habitRow = td.closest('tr');
+  if(habitRow){
+    habitRow.querySelectorAll('td.day-cell[data-key]').forEach(cell => {
+      const cellKey = cell.dataset.key;
+      applyMarkToCell(cell, cellKey, state.marks[cellKey] || "");
+    });
+  }
+  updateLongestStreak(hIdx);
+  saveState();
+  updatePointsRow();
+  updateWeeklyPoints();
+  if(viewMode === "month"){
+    renderMonthSummary();
+    const habit = state.habits[hIdx];
+    const habitCell = td.closest('tr')?.querySelector('.habit-cell');
+    if(habit && habitCell){
+      habitCell.innerHTML = `${habit.icon||""} ${habitDisplayName(habit)} ${streakBadgeHtml(hIdx)}`.trim();
+    }
+  }
+  celebrateIfNewlyPerfect(day, wasPerfect);
+  encourageIfHalfX(day, wasAtLeastHalfX);
+}
+
+function updatePointsRow(){
+  const row = document.getElementById('pointsRow');
+  if(!row) return;
+  const possibleDayPoints = maxDayPoints();
+  const cells = row.querySelectorAll('td[data-day]');
+  cells.forEach(td => {
+    const d = parseInt(td.dataset.day, 10);
+    let earnedPoints = 0;
+    state.habits.forEach((h, hIdx) => {
+      earnedPoints += pointsForMark(h, state.marks[`${hIdx}_${d}`] || "");
+    });
+    td.textContent = formatMonthPointsDisplay(earnedPoints, possibleDayPoints);
+    td.title = `${t("earnedPossible")} ${earnedPoints} / ${possibleDayPoints}`;
+  });
+}
+
+function layoutMonthLegend(){
+  const bar = document.getElementById('tableLegendBar');
+  if(!bar) return;
+  // Keep legend truly centered in the heatmap shell (no habit-column offset).
+  bar.style.paddingInlineStart = "";
+  bar.style.paddingInlineEnd = "";
+}
+
+function scrollMonthTableToToday(){
+  const wrap = document.querySelector('.table-wrap.heatmap-glass');
+  const todayTh = wrap?.querySelector('thead tr.day-header-row th.today-col');
+  const habitTh = wrap?.querySelector('thead tr.day-header-row th.habit-col');
+  if(!wrap || !todayTh || !habitTh) return;
+
+  // Align today's left edge flush with the habit column's right edge (no gap).
+  const align = () => {
+    const habitEdge = habitTh.getBoundingClientRect().right;
+    const todayEdge = todayTh.getBoundingClientRect().left;
+    const delta = todayEdge - habitEdge;
+    if(Math.abs(delta) > 0.5) wrap.scrollBy({left: delta, behavior: 'auto'});
+    // Second pass after sticky/layout settles
+    requestAnimationFrame(() => {
+      const habitEdge2 = habitTh.getBoundingClientRect().right;
+      const todayEdge2 = todayTh.getBoundingClientRect().left;
+      const delta2 = todayEdge2 - habitEdge2;
+      if(Math.abs(delta2) > 0.5) wrap.scrollBy({left: delta2, behavior: 'auto'});
+      layoutMonthLegend();
+    });
+  };
+  requestAnimationFrame(() => requestAnimationFrame(align));
+}
+
+function renderTable(){
+  const {year, month} = getCurrentYearMonth();
+  const nDays = daysInMonth(year, month);
+  const now = new Date();
+  const todayDay = (now.getFullYear() === year && now.getMonth() === month) ? now.getDate() : -1;
+  const headerRow = document.getElementById('headerRow');
+  const tbody = document.getElementById('tableBody');
+  headerRow.innerHTML = "";
+  tbody.innerHTML = "";
+
+  const thHabit = document.createElement('th');
+  thHabit.textContent = t("habit");
+  thHabit.className = "habit-col";
+  headerRow.appendChild(thHabit);
+
+  for(let d = 1; d <= nDays; d++){
+    const th = document.createElement('th');
+    const weekday = new Date(year, month, d).getDay();
+    th.innerHTML = `<span class="day-name">${DAY_NAMES[weekday]}</span><span class="day-num">${toArabicDigits(d)}</span>`;
+    if(weekday === 5) th.classList.add('friday-col');
+    if(d === todayDay) th.classList.add('today-col');
+    headerRow.appendChild(th);
+  }
+
+  let lastCat = null;
+  state.habits.forEach((habit, hIdx) => {
+    const catKey = habit.cat || "—";
+    if(catKey !== lastCat){
+      lastCat = catKey;
+      const groupTr = document.createElement('tr');
+      groupTr.className = "cat-group-row";
+      const tdLabel = document.createElement('td');
+      tdLabel.className = "habit-cell cat-group-label";
+      tdLabel.textContent = habitDisplayCat(habit) || "—";
+      groupTr.appendChild(tdLabel);
+      const tdSpan = document.createElement('td');
+      tdSpan.className = "cat-group-span";
+      tdSpan.colSpan = nDays;
+      tdSpan.setAttribute('aria-hidden', 'true');
+      groupTr.appendChild(tdSpan);
+      tbody.appendChild(groupTr);
+    }
+
+    const tr = document.createElement('tr');
+    const tdHabit = document.createElement('td');
+    tdHabit.className = "habit-cell";
+    tdHabit.innerHTML = `${habit.icon||""} ${habitDisplayName(habit)} ${streakBadgeHtml(hIdx)}`.trim();
+    tr.appendChild(tdHabit);
+
+    for(let d = 1; d <= nDays; d++){
+      const td = document.createElement('td');
+      td.className = "day-cell";
+      td.tabIndex = 0;
+      td.setAttribute('role', 'button');
+      const key = `${hIdx}_${d}`;
+      const mark = state.marks[key] || "";
+      if(new Date(year, month, d).getDay() === 5){
+        td.classList.add('friday-col');
+        td.dataset.friday = "1";
+      }
+      if(d === todayDay){
+        td.classList.add('today-col');
+        td.dataset.today = "1";
+      }
+      applyMarkToCell(td, key, mark);
+      td.dataset.key = key;
+      td.addEventListener('click', () => cycleMark(key, td));
+      td.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          cycleMark(key, td);
+        }
+      });
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  });
+
+  const pointsRow = document.createElement('tr');
+  pointsRow.className = "points-row";
+  pointsRow.id = "pointsRow";
+  const tdLabel = document.createElement('td');
+  tdLabel.className = "habit-cell";
+  tdLabel.textContent = t("points");
+  pointsRow.appendChild(tdLabel);
+  const possibleDayPoints = maxDayPoints();
+  for(let d = 1; d <= nDays; d++){
+    const td = document.createElement('td');
+    td.dataset.day = d;
+    let earnedPoints = 0;
+    state.habits.forEach((h, hIdx) => {
+      earnedPoints += pointsForMark(h, state.marks[`${hIdx}_${d}`] || "");
+    });
+    td.textContent = formatMonthPointsDisplay(earnedPoints, possibleDayPoints);
+    td.title = `${t("earnedPossible")} ${earnedPoints} / ${possibleDayPoints}`;
+    if(new Date(year, month, d).getDay() === 5) td.classList.add('friday-col');
+    if(d === todayDay) td.classList.add('today-col');
+    pointsRow.appendChild(td);
+  }
+  tbody.appendChild(pointsRow);
+
+  if(todayDay > 0){
+    scrollMonthTableToToday();
+  } else {
+    requestAnimationFrame(() => requestAnimationFrame(layoutMonthLegend));
+  }
+}
+
+function updateWeeklyPoints(){
+  const {year, month} = getCurrentYearMonth();
+  const nDays = daysInMonth(year, month);
+  const nWeeks = Math.ceil(nDays / 7);
+  for(let w = 0; w < nWeeks; w++){
+    const startDay = w*7 + 1;
+    const endDay = Math.min(nDays, startDay + 6);
+    let weekPoints = 0;
+    for(let d = startDay; d <= endDay; d++){
+      state.habits.forEach((h, hIdx) => {
+        weekPoints += pointsForMark(h, state.marks[`${hIdx}_${d}`] || "");
+      });
+    }
+    const badge = document.querySelector(`[data-week-points="${w}"]`);
+    if(badge) badge.textContent = `${t("totalPoints")} ${toArabicDigits(weekPoints)}`;
+  }
+}
+
+function renderWeekly(forceRebuild){
+  const {year, month} = getCurrentYearMonth();
+  const nDays = daysInMonth(year, month);
+  const nWeeks = Math.ceil(nDays / 7);
+  const key = `${year}-${month}-${nWeeks}`;
+  const section = document.getElementById('weeklySection');
+
+  if(!forceRebuild && weeklyBuiltFor === key && section.children.length === nWeeks){
+    updateWeeklyPoints();
+    return;
+  }
+
+  const active = document.activeElement;
+  const activeWeek = active && active.dataset && active.dataset.week;
+  const activePos = active && active.tagName === 'TEXTAREA' ? active.selectionStart : null;
+
+  section.innerHTML = "";
+  for(let w = 0; w < nWeeks; w++){
+    const startDay = w*7 + 1;
+    const endDay = Math.min(nDays, startDay + 6);
+    let weekPoints = 0;
+    for(let d = startDay; d <= endDay; d++){
+      state.habits.forEach((h, hIdx) => {
+        weekPoints += pointsForMark(h, state.marks[`${hIdx}_${d}`] || "");
+      });
+    }
+    const monthWeek = w + 1;
+    const yearWeek = getWeekOfYear(new Date(year, month, startDay));
+    const card = document.createElement('div');
+    card.className = "weekly-card liquid-glass-lite";
+    card.innerHTML = `
+      <h3>
+        ${t("daysRange")} ${toArabicDigits(startDay)}–${toArabicDigits(endDay)}
+        <span class="week-numbers">${t("weekOf")} ${toArabicDigits(monthWeek)} ${t("of")} ${MONTH_NAMES[month]} — ${t("weekShort")} ${toArabicDigits(yearWeek)} ${t("of")} ${toArabicDigits(year)}</span>
+      </h3>
+      <div class="week-points"><span data-week-points="${w}">${t("totalPoints")} ${toArabicDigits(weekPoints)}</span></div>
+      <label style="display:block;margin-top:10px;font-weight:bold;">${t("weekPlan")}</label>
+      <textarea data-week="${w}" placeholder="${t("weekPlanPlaceholder")}"></textarea>
+    `;
+    const ta = card.querySelector('textarea');
+    ta.value = state.weekly[w] || "";
+    ta.addEventListener('input', () => {
+      state.weekly[ta.dataset.week] = ta.value;
+      saveState();
+    });
+    section.appendChild(card);
+  }
+  weeklyBuiltFor = key;
+
+  if(activeWeek != null){
+    const ta = section.querySelector(`textarea[data-week="${activeWeek}"]`);
+    if(ta){
+      ta.focus();
+      if(activePos != null) ta.setSelectionRange(activePos, activePos);
+    }
+  }
+}
+
+function populateDaySelect(year, month, nDays){
+  const sel = document.getElementById('daySelect');
+  sel.innerHTML = "";
+  for(let d = 1; d <= nDays; d++){
+    const opt = document.createElement('option');
+    opt.value = d;
+    opt.textContent = `${toArabicDigits(d)} ${MONTH_NAMES[month]}`;
+    if(d === currentDay) opt.selected = true;
+    sel.appendChild(opt);
+  }
+}
+
+function populateMonthSelect(){
+  const sel = document.getElementById('monthSelect');
+  const prev = sel.value;
+  sel.innerHTML = "";
+  MONTH_NAMES.forEach((name, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = name;
+    sel.appendChild(opt);
+  });
+  if(prev !== "") sel.value = prev;
+}
+
+function goToToday(){
+  const now = new Date();
+  document.getElementById('monthSelect').value = now.getMonth();
+  document.getElementById('yearInput').value = now.getFullYear();
+  currentDay = now.getDate();
+  loadState();
+  setViewMode('day');
+}
+
+function initApp(){
+  const now = new Date();
+  document.getElementById('monthSelect').value = now.getMonth();
+  document.getElementById('yearInput').value = now.getFullYear();
+  currentDay = now.getDate();
+  loadState();
+  setViewMode(getSavedViewMode());
+  const monthWrap = document.querySelector('.table-wrap.heatmap-glass');
+  if(monthWrap && !monthWrap.dataset.legendBound){
+    monthWrap.dataset.legendBound = "1";
+  }
+  window.addEventListener('resize', layoutMonthLegend);
+}
+
+function openSettings(){
+  document.getElementById('settingsModal').classList.add('is-open');
+  renderHabitManageList();
+}
+
+function closeSettings(){
+  document.getElementById('settingsModal').classList.remove('is-open');
+}
+
+function renderHabitManageList(){
+  const list = document.getElementById('habitManageList');
+  if(!list) return;
+  list.innerHTML = "";
+  state.habits.forEach((habit, hIdx) => {
+    const nameField = currentLang === "en" ? "nameEn" : "name";
+    const catField = currentLang === "en" ? "catEn" : "cat";
+    const nameVal = currentLang === "en" ? (habit.nameEn || habit.name || "") : (habit.name || "");
+    const catVal = currentLang === "en" ? (habit.catEn || habit.cat || "") : (habit.cat || "");
+    const item = document.createElement('div');
+    item.className = "habit-manage-item";
+    item.innerHTML = `
+      <input type="text" class="icon-input" data-field="icon" data-idx="${hIdx}" value="${escapeAttr(habit.icon||"")}" title="${t("emoji")}">
+      <input type="text" data-field="${nameField}" data-idx="${hIdx}" value="${escapeAttr(nameVal)}" placeholder="${t("habitName")}">
+      <input type="text" data-field="${catField}" data-idx="${hIdx}" value="${escapeAttr(catVal)}" placeholder="${t("category")}" style="flex:0.8;">
+      <button type="button" class="danger" data-del="${hIdx}">${t("delete")}</button>
+    `;
+    list.appendChild(item);
+  });
+
+  list.querySelectorAll('input[data-field]').forEach(input => {
+    input.addEventListener('change', () => {
+      const idx = parseInt(input.dataset.idx, 10);
+      const field = input.dataset.field;
+      if(!state.habits[idx] || !field) return;
+      state.habits[idx][field] = input.value.trim();
+      saveState();
+      renderAll();
+    });
+  });
+
+  list.querySelectorAll('[data-del]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      deleteHabitAt(parseInt(btn.dataset.del, 10));
+    });
+  });
+}
+
+function renderDayView(){
+  const {year, month} = getCurrentYearMonth();
+  const nDays = daysInMonth(year, month);
+  if(currentDay > nDays) currentDay = nDays;
+  if(currentDay < 1) currentDay = 1;
+
+  const weekday = new Date(year, month, currentDay).getDay();
+  document.getElementById('dayViewTitle').textContent =
+    `${DAY_NAMES[weekday]} - ${toArabicDigits(currentDay)} ${MONTH_NAMES[month]} ${toArabicDigits(year)}`;
+  populateDaySelect(year, month, nDays);
+
+  const list = document.getElementById('dayHabitList');
+  list.innerHTML = "";
+  let earnedPoints = 0;
+  const possibleDayPoints = maxDayPoints();
+
+  let lastCat = null;
+  state.habits.forEach((habit, hIdx) => {
+    const catKey = habit.cat || "";
+    if(catKey && catKey !== lastCat){
+      lastCat = catKey;
+      const catLabel = document.createElement('div');
+      catLabel.className = "day-habit-cat";
+      catLabel.style.alignSelf = "flex-start";
+      catLabel.style.marginTop = hIdx === 0 ? "0" : "8px";
+      catLabel.textContent = habitDisplayCat(habit);
+      list.appendChild(catLabel);
+    }
+
+    const key = `${hIdx}_${currentDay}`;
+    const mark = normalizeMark(state.marks[key] || "");
+    earnedPoints += pointsForMark(habit, mark);
+
+    const item = document.createElement('div');
+    item.className = "day-habit-item liquid-glass-lite" + (mark === "check" ? " is-complete" : "");
+    item.innerHTML = `
+      <span class="day-habit-name">${habit.icon||""} ${habitDisplayName(habit)}</span>
+      ${streakBadgeHtml(hIdx)}
+      <div class="day-toggle-group">
+        <button type="button" class="day-toggle-btn ${mark==='check'?'active-check':''}" data-key="${key}" data-mark="check" aria-pressed="${mark==='check'}">${t("doneBtn")}</button>
+        <button type="button" class="day-toggle-btn ${mark==='x'?'active-x':''}" data-key="${key}" data-mark="x" aria-pressed="${mark==='x'}">${t("missedBtn")}</button>
+      </div>
+    `;
+    list.appendChild(item);
+  });
+
+  list.querySelectorAll('.day-toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.key;
+      const newMark = btn.dataset.mark;
+      const parts = key.split('_');
+      const hIdx = parseInt(parts[0], 10);
+      const day = parseInt(parts[1], 10);
+      const wasPerfect = getDayPoints(day).perfect;
+      const wasAtLeastHalfX = dayXRatio(day) >= 0.5;
+      const current = normalizeMark(state.marks[key] || "");
+      state.marks[key] = current === newMark ? "" : newMark;
+      updateLongestStreak(hIdx);
+      saveState();
+      celebrateIfNewlyPerfect(day, wasPerfect);
+      encourageIfHalfX(day, wasAtLeastHalfX);
+      renderDayView();
+    });
+  });
+
+  document.getElementById('dayTotal').textContent = possibleDayPoints
+    ? `${t("dayPoints")} ${formatEarnedPossible(earnedPoints, possibleDayPoints)}`
+    : `${t("dayPoints")} ${toArabicDigits(earnedPoints)}`;
+}
+
+function renderMonthSummary(){
+  const {year, month} = getCurrentYearMonth();
+  const nDays = daysInMonth(year, month);
+  const list = document.getElementById('monthSummaryList');
+  list.innerHTML = "";
+
+  state.habits.forEach((habit, hIdx) => {
+    let doneCount = 0;
+    for(let d = 1; d <= nDays; d++){
+      if((state.marks[`${hIdx}_${d}`] || "") === "check") doneCount++;
+    }
+    const pct = Math.round((doneCount / nDays) * 100);
+    const row = document.createElement('div');
+    row.className = "habit-progress-row";
+    row.innerHTML = `
+      <span class="habit-progress-name">${habit.icon||""} ${habitDisplayName(habit)}</span>
+      <div class="habit-progress-bar-wrap" title="${toArabicDigits(doneCount)} ${t("ofDays")} ${toArabicDigits(nDays)} ${t("daysWord")} (${toArabicDigits(pct)}%)">
+        <div class="habit-progress-bar" style="width:${pct}%;" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <span class="habit-progress-pct">${toArabicDigits(`${doneCount} / ${nDays}`)}</span>
+      <span class="habit-progress-pct-box">${toArabicDigits(pct)}%</span>
+      ${streakBadgeHtml(hIdx)}
+    `;
+    list.appendChild(row);
+  });
+
+  let earnedMonthPoints = 0;
+  for(let d = 1; d <= nDays; d++){
+    state.habits.forEach((h, hIdx) => {
+      earnedMonthPoints += pointsForMark(h, state.marks[`${hIdx}_${d}`] || "");
+    });
+  }
+  const possibleMonthPoints = maxDayPoints() * nDays;
+  const totalRow = document.createElement('div');
+  totalRow.style.marginTop = "15px";
+  totalRow.style.fontWeight = "bold";
+  totalRow.style.fontSize = "1.1rem";
+  totalRow.textContent = possibleMonthPoints && !isMobileViewport()
+    ? `${t("monthPoints")} ${formatEarnedPossible(earnedMonthPoints, possibleMonthPoints)}`
+    : `${t("monthPoints")} ${toArabicDigits(earnedMonthPoints)}`;
+  list.appendChild(totalRow);
+}
+
+document.getElementById('loadBtn').addEventListener('click', loadState);
+document.getElementById('monthSelect').addEventListener('change', () => {
+  loadState();
+  if(viewMode === "day") renderDayView();
+});
+document.getElementById('yearInput').addEventListener('change', () => {
+  loadState();
+  if(viewMode === "day") renderDayView();
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if(confirm(t("clearMonthConfirm"))){
+    const {year, month} = getCurrentYearMonth();
+    localStorage.removeItem(storageKey(year, month));
+    loadState();
+    showToast(t("monthCleared"));
+  }
+});
+
+document.getElementById('addHabitBtn').addEventListener('click', () => {
+  const name = document.getElementById('newHabitName').value.trim();
+  const cat = document.getElementById('newHabitCat').value.trim();
+  const icon = document.getElementById('newHabitIcon').value.trim();
+  if(!name) return;
+  state.habits.push({ name, nameEn: name, cat, catEn: cat, icon });
+  document.getElementById('newHabitName').value = "";
+  document.getElementById('newHabitCat').value = "";
+  document.getElementById('newHabitIcon').value = "";
+  saveState();
+  renderAll();
+  showToast(t("habitAdded"));
+});
+
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const {year, month} = getCurrentYearMonth();
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `tracker_${year}_${String(month+1).padStart(2,'0')}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(t("exported"));
+});
+
+document.getElementById('importBtn').addEventListener('click', () => {
+  document.getElementById('importFile').click();
+});
+
+document.getElementById('importFile').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try{
+      const parsed = JSON.parse(ev.target.result);
+      state = {
+        habits: syncHabitPointsFromDefaults(parsed.habits || JSON.parse(JSON.stringify(DEFAULT_HABITS))),
+        marks: parsed.marks || {},
+        weekly: parsed.weekly || {},
+        longestStreaks: parsed.longestStreaks || {}
+      };
+      weeklyBuiltFor = null;
+      saveState();
+      renderAll();
+      showToast(t("imported"));
+    }catch(err){
+      alert(t("invalidFile"));
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+});
+
+document.getElementById('settingsBtn').addEventListener('click', openSettings);
+document.getElementById('closeSettingsBtn').addEventListener('click', closeSettings);
+document.getElementById('settingsModal').addEventListener('click', (e) => {
+  if(e.target.id === 'settingsModal') closeSettings();
+});
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape'){
+    closeSettings();
+  }
+});
+
+document.getElementById('showDayBtn').addEventListener('click', () => setViewMode('day'));
+document.getElementById('showMonthBtn').addEventListener('click', () => setViewMode('month'));
+document.getElementById('prevMonthBtn').addEventListener('click', () => shiftMonth(-1));
+document.getElementById('nextMonthBtn').addEventListener('click', () => shiftMonth(1));
+document.getElementById('prevDayBtn').addEventListener('click', () => {
+  currentDay -= 1;
+  if(currentDay < 1){
+    const {year, month} = getCurrentYearMonth();
+    let y = year, m = month - 1;
+    if(m < 0){ m = 11; y -= 1; }
+    setYearMonth(y, m, daysInMonth(y, m));
+    return;
+  }
+  renderDayView();
+});
+document.getElementById('nextDayBtn').addEventListener('click', () => {
+  const {year, month} = getCurrentYearMonth();
+  currentDay += 1;
+  if(currentDay > daysInMonth(year, month)){
+    let y = year, m = month + 1;
+    if(m > 11){ m = 0; y += 1; }
+    setYearMonth(y, m, 1);
+    return;
+  }
+  renderDayView();
+});
+document.getElementById('daySelect').addEventListener('change', (e) => {
+  currentDay = parseInt(e.target.value, 10);
+  renderDayView();
+});
+document.getElementById('goTodayBtn').addEventListener('click', goToToday);
+document.getElementById('themeToggle').addEventListener('change', (e) => {
+  applyTheme(e.target.checked ? 'dark' : 'light');
+});
+document.getElementById('langToggle').addEventListener('click', () => {
+  applyLanguage(currentLang === "ar" ? "en" : "ar");
+});
+document.getElementById('palettePicker').addEventListener('click', (e) => {
+  const btn = e.target.closest('.palette-btn');
+  if(!btn || !btn.dataset.palette) return;
+  applyPalette(btn.dataset.palette);
+});
+
+populateMonthSelect();
+runPointsSelfTests();
+runStreakSelfTests();
+initLanguage();
+initPalette();
+initTheme();
+initApp();
+</script>
+
+</body>
+</html>
