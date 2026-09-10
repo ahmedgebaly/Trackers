@@ -1,27 +1,33 @@
 const DEFAULT_HABITS = [
-  // الصباح
-  { name: "ساعة التنظيف", nameEn: "ساعة التنظيف", cat: "الصباح", catEn: "الصباح", icon: "🧹" },
-  { name: "التطوير", nameEn: "التطوير", cat: "الصباح", catEn: "الصباح", icon: "📈" },
-  // الظهر
-  { name: "أولوية المطبخ", nameEn: "أولوية المطبخ", cat: "الظهر", catEn: "الظهر", icon: "🍳" },
-  { name: "متابعة المجتمع", nameEn: "متابعة المجتمع", cat: "الظهر", catEn: "الظهر", icon: "👥" },
-  // المساء
-  { name: "وقت العائلة", nameEn: "وقت العائلة", cat: "المساء", catEn: "المساء", icon: "👨‍👩‍👧‍👦" },
-  { name: "عادات صحية", nameEn: "عادات صحية", cat: "المساء", catEn: "المساء", icon: "💪" },
-  // قبل النوم
-  { name: "روتين إعادة الضبط", nameEn: "روتين إعادة الضبط", cat: "قبل النوم", catEn: "قبل النوم", icon: "🔄" },
-  { name: "رعاية", nameEn: "رعاية", cat: "قبل النوم", catEn: "قبل النوم", icon: "💜" },
-  // 20 نقطة
-  { name: "ارسال التودوليست", nameEn: "ارسال التودوليست", cat: "20 نقطة", catEn: "20 نقطة", icon: "✅" },
-  { name: "اللمسة الواحدة", nameEn: "اللمسة الواحدة", cat: "20 نقطة", catEn: "20 نقطة", icon: "👆" },
-  // الصلوات
-  { name: "صلاة الفجر", nameEn: "صلاة الفجر", cat: "الصلوات", catEn: "الصلوات", icon: "🕌" },
-  { name: "صلاة الظهر", nameEn: "صلاة الظهر", cat: "الصلوات", catEn: "الصلوات", icon: "🕌" },
-  { name: "صلاة العصر", nameEn: "صلاة العصر", cat: "الصلوات", catEn: "الصلوات", icon: "🕌" },
-  { name: "صلاة المغرب", nameEn: "صلاة المغرب", cat: "الصلوات", catEn: "الصلوات", icon: "🕌" },
-  { name: "صلاة العشاء", nameEn: "صلاة العشاء", cat: "الصلوات", catEn: "الصلوات", icon: "🕌" },
-  // سكون الروح
-  { name: "ورد قرآني", nameEn: "ورد قرآني", cat: "سكون الروح", catEn: "سكون الروح", icon: "📖" },
-  { name: "اذكار المساء", nameEn: "اذكار المساء", cat: "سكون الروح", catEn: "سكون الروح", icon: "🌙" },
-  { name: "اذكار الصباح", nameEn: "اذكار الصباح", cat: "سكون الروح", catEn: "سكون الروح", icon: "☀️" },
+  // Morning
+  { name: "ساعة التنظيف", nameEn: "Cleaning Hour", cat: "الصباح", catEn: "Morning", icon: "🧹" },
+  { name: "التطوير", nameEn: "Personal Development", cat: "الصباح", catEn: "Morning", icon: "📈" },
+
+  // Afternoon
+  { name: "أولوية المطبخ", nameEn: "Kitchen Priority", cat: "الظهر", catEn: "Afternoon", icon: "🍳" },
+  { name: "متابعة المجتمع", nameEn: "Community Follow-up", cat: "الظهر", catEn: "Afternoon", icon: "👥" },
+
+  // Evening
+  { name: "وقت العائلة", nameEn: "Family Time", cat: "المساء", catEn: "Evening", icon: "👨‍👩‍👧‍👦" },
+  { name: "عادات صحية", nameEn: "Healthy Habits", cat: "المساء", catEn: "Evening", icon: "💪" },
+
+  // Before Bed
+  { name: "روتين إعادة الضبط", nameEn: "Reset Routine", cat: "قبل النوم", catEn: "Before Bed", icon: "🔄" },
+  { name: "رعاية", nameEn: "Self-Care", cat: "قبل النوم", catEn: "Before Bed", icon: "💜" },
+
+  // 20 Points
+  { name: "مهام الغد", nameEn: "Tomorrow's Tasks", cat: "20 نقطة", catEn: "20 Points", icon: "✅" },
+  { name: "اللمسة الواحدة", nameEn: "The One-Touch Rule", cat: "20 نقطة", catEn: "20 Points", icon: "👆" },
+
+  // Prayers
+  { name: "صلاة الفجر", nameEn: "Fajr Prayer", cat: "الصلوات", catEn: "Prayers", icon: "🕌" },
+  { name: "صلاة الظهر", nameEn: "Dhuhr Prayer", cat: "الصلوات", catEn: "Prayers", icon: "🕌" },
+  { name: "صلاة العصر", nameEn: "Asr Prayer", cat: "الصلوات", catEn: "Prayers", icon: "🕌" },
+  { name: "صلاة المغرب", nameEn: "Maghrib Prayer", cat: "الصلوات", catEn: "Prayers", icon: "🕌" },
+  { name: "صلاة العشاء", nameEn: "Isha Prayer", cat: "الصلوات", catEn: "Prayers", icon: "🕌" },
+
+  // Spiritual Serenity
+  { name: "ورد قرآني", nameEn: "Daily Quran Recitation", cat: "سكون الروح", catEn: "Spiritual Serenity", icon: "📖" },
+  { name: "اذكار المساء", nameEn: "Evening Adhkar", cat: "سكون الروح", catEn: "Spiritual Serenity", icon: "🌙" },
+  { name: "اذكار الصباح", nameEn: "Morning Adhkar", cat: "سكون الروح", catEn: "Spiritual Serenity", icon: "☀️" },
 ];
