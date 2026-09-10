@@ -15,9 +15,9 @@ const DEFAULT_HABITS = [
   { name: "روتين إعادة الضبط", nameEn: "Reset Routine", cat: "قبل النوم", catEn: "Before Bed", icon: "🔄" },
   { name: "رعاية", nameEn: "Self-Care", cat: "قبل النوم", catEn: "Before Bed", icon: "💜" },
 
-  // 20 Points
-  { name: "مهام الغد", nameEn: "Tomorrow's Tasks", cat: "20 نقطة", catEn: "20 Points", icon: "✅" },
-  { name: "اللمسة الواحدة", nameEn: "The One-Touch Rule", cat: "20 نقطة", catEn: "20 Points", icon: "👆" },
+  // Extra Tasks
+  { name: "مهام الغد", nameEn: "Tomorrow's Tasks", cat: "مهام إضافية", catEn: "Extra Tasks", icon: "✅" },
+  { name: "اللمسة الواحدة", nameEn: "The One-Touch Rule", cat: "مهام إضافية", catEn: "Extra Tasks", icon: "👆" },
 
   // Prayers
   { name: "صلاة الفجر", nameEn: "Fajr Prayer", cat: "الصلوات", catEn: "Prayers", icon: "🕌" },
@@ -28,6 +28,7 @@ const DEFAULT_HABITS = [
 
   // Spiritual Serenity
   { name: "ورد قرآني", nameEn: "Daily Quran Recitation", cat: "سكون الروح", catEn: "Spiritual Serenity", icon: "📖" },
-  { name: "اذكار المساء", nameEn: "Evening Adhkar", cat: "سكون الروح", catEn: "Spiritual Serenity", icon: "🌙" },
   { name: "اذكار الصباح", nameEn: "Morning Adhkar", cat: "سكون الروح", catEn: "Spiritual Serenity", icon: "☀️" },
+  { name: "اذكار المساء", nameEn: "Evening Adhkar", cat: "سكون الروح", catEn: "Spiritual Serenity", icon: "🌙" },
+  { name: "اذكار النوم", nameEn: "Sleeping Adhkar", cat: "سكون الروح", catEn: "Spiritual Serenity", icon: "🛌" },
 ];
