@@ -1416,16 +1416,21 @@ function scrollMonthTableToToday(){
   const habitTh = wrap?.querySelector('thead tr.day-header-row th.habit-col');
   if(!wrap || !todayTh || !habitTh) return;
 
-  // Align today's left edge flush with the habit column's right edge (no gap).
+  // LTR: today's left flush with habit right. RTL: today's right flush with habit left.
+  const isRtl = document.documentElement.dir === "rtl";
   const align = () => {
-    const habitEdge = habitTh.getBoundingClientRect().right;
-    const todayEdge = todayTh.getBoundingClientRect().left;
+    const habitRect = habitTh.getBoundingClientRect();
+    const todayRect = todayTh.getBoundingClientRect();
+    const habitEdge = isRtl ? habitRect.left : habitRect.right;
+    const todayEdge = isRtl ? todayRect.right : todayRect.left;
     const delta = todayEdge - habitEdge;
     if(Math.abs(delta) > 0.5) wrap.scrollBy({left: delta, behavior: 'auto'});
     // Second pass after sticky/layout settles
     requestAnimationFrame(() => {
-      const habitEdge2 = habitTh.getBoundingClientRect().right;
-      const todayEdge2 = todayTh.getBoundingClientRect().left;
+      const habitRect2 = habitTh.getBoundingClientRect();
+      const todayRect2 = todayTh.getBoundingClientRect();
+      const habitEdge2 = isRtl ? habitRect2.left : habitRect2.right;
+      const todayEdge2 = isRtl ? todayRect2.right : todayRect2.left;
       const delta2 = todayEdge2 - habitEdge2;
       if(Math.abs(delta2) > 0.5) wrap.scrollBy({left: delta2, behavior: 'auto'});
       layoutMonthLegend();

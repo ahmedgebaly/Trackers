@@ -1006,6 +1006,11 @@
     /* Seal sub-pixel gaps on both sides of the sticky habit column while scrolling */
     box-shadow:-1px 0 0 #fffaf0, 1px 0 0 #fffaf0;
   }
+  html[dir="rtl"] .habit-cell,
+  html[dir="rtl"] th.habit-col{
+    left:auto;
+    right:0;
+  }
   th.habit-col{
     background:var(--gold);
     z-index:3;
@@ -1667,6 +1672,15 @@
       text-overflow:ellipsis;
       position:sticky;
       left:0;
+    }
+    html[dir="rtl"] .habit-cell,
+    html[dir="rtl"] th.habit-col{
+      left:auto;
+      right:0;
+    }
+    .celebration-banner{
+      white-space:nowrap;
+      max-width:none;
     }
     .day-cell{
       min-width:0;
