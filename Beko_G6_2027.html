@@ -8,7 +8,7 @@
   * { box-sizing: border-box; }
   body {
     font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    background: #0d7377;
     margin: 0;
     padding: 20px 10px;
     display: flex;
@@ -19,13 +19,13 @@
   .container {
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.22);
     padding: 20px;
     max-width: 1100px;
     width: 100%;
   }
-  h1 { text-align: center; color: #2c3e50; margin-bottom: 4px; font-size: 24px; }
-  h2 { text-align: center; color: #6a11cb; margin-top: 0; font-size: 16px; font-weight: 600; }
+  h1 { text-align: center; color: #0f172a; margin-bottom: 4px; font-size: 24px; }
+  h2 { text-align: center; color: #0d7377; margin-top: 0; font-size: 16px; font-weight: 600; }
 
   /* ===== Full table - shown on large screens ===== */
   .desktop-table { display: block; }
@@ -42,54 +42,83 @@
     width: 100%;
     table-layout: fixed;
   }
-  th, td { border: 1px solid #d0d7de; padding: 8px 5px; text-align: center; white-space: nowrap; }
-  thead th { background: #2c3e50; color: #fff; font-weight: 600; font-size: 12px; }
+  th, td { border: 1px solid #b0bec5; padding: 8px 5px; text-align: center; white-space: nowrap; }
+  thead th {
+    background: #0f172a;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+  }
   col.day { width: 90px; }
   col.narrow { width: 40px; }
   col.period { width: 90px; }
-  .day-col { background: #6a11cb; color: #fff; font-weight: bold; }
-  .break-cell { background: #ffe08a; }
-  .lineup-cell { background: #d9f2d9; }
+  .day-col {
+    background: #0d7377;
+    color: #fff;
+    font-weight: bold;
+  }
+  .break-cell {
+    background: #ffc107;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    font-size: 12px;
+    font-weight: 700;
+    color: #5d4037;
+    letter-spacing: 0.04em;
+  }
+  .lineup-cell {
+    background: #4caf50;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+  }
   .break-col-header, .lineup-col-header { writing-mode: vertical-lr; text-orientation: mixed; font-size: 11px; }
-  .break-col-header { background: #d68f00; }
-  .lineup-col-header { background: #1e6b1e; }
-  td.subject { font-weight: 600; }
+  .break-col-header { background: #ff9800; }
+  .lineup-col-header { background: #2e7d32; }
+  td.subject { font-weight: 700; }
 
-  .Arabic { background: #ffe3e3; color:#a33; }
-  .Math { background: #d9e8ff; color:#1b4c8a; }
-  .English { background: #e3ffe6; color:#1b6b2d; }
-  .Science { background: #fff2cc; color:#8a6d1b; }
-  .Social { background: #f0e0ff; color:#5b1b8a; }
-  .Religion { background: #ffe0f0; color:#8a1b5b; }
-  .FrGr { background: #e0f7ff; color:#1b7a8a; }
-  .Art { background: #ffe8d1; color:#8a4a1b; }
-  .Skills { background: #e6e6e6; color:#444; }
-  .ICT { background: #d4f5f0; color:#1b8a7a; }
-  .PE { background: #f5e6ff; color:#6a1b8a; }
-  .Quran { background: #fff9d1; color:#8a7a1b; }
+  .Arabic { background: #ef5350; color: #fff; }
+  .Math { background: #42a5f5; color: #fff; }
+  .English { background: #66bb6a; color: #fff; }
+  .Science { background: #ffca28; color: #3e2723; }
+  .Social { background: #ff7043; color: #fff; }
+  .Religion { background: #ec407a; color: #fff; }
+  .German { background: #26c6da; color: #004d40; }
+  .Art { background: #ff9800; color: #fff; }
+  .Skills { background: #78909c; color: #fff; }
+  .ICT { background: #26a69a; color: #fff; }
+  .PE { background: #9ccc65; color: #1b5e20; }
+  .Quran { background: #ffd54f; color: #5d4037; }
 
   /* ===== Day-by-day view - shown on mobile ===== */
   .mobile-days { display: none; margin-top: 16px; }
   .day-tabs {
     display: flex;
+    flex-wrap: wrap;
     gap: 6px;
-    overflow-x: auto;
-    padding-bottom: 6px;
+    justify-content: center;
     margin-bottom: 14px;
   }
   .day-tab {
-    flex: 0 0 auto;
-    padding: 9px 16px;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 9px 10px;
     border-radius: 20px;
     background: #eee;
     color: #333;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 12px;
     cursor: pointer;
     border: none;
-    white-space: nowrap;
+    text-align: center;
   }
-  .day-tab.active { background: #6a11cb; color: #fff; }
+  .day-tab.active {
+    background: #0d7377;
+    color: #fff;
+  }
   .day-panel { display: none; }
   .day-panel.active { display: block; }
   .period-row {
@@ -99,27 +128,18 @@
     padding: 10px 12px;
     border-radius: 10px;
     margin-bottom: 8px;
-    border: 1px solid #eee;
+    border: 1px solid #e0e7ec;
   }
   .period-row.special { background: #f3f3f3; font-size: 12px; color: #777; justify-content: center; padding: 6px; }
   .period-num {
     flex: 0 0 60px;
     font-weight: 700;
-    color: #2c3e50;
+    color: #0f172a;
     font-size: 13px;
     text-align: center;
   }
   .period-time { flex: 0 0 90px; font-size: 11px; color: #888; text-align: center; }
   .period-subject { flex: 1; font-weight: 700; text-align: center; padding: 6px; border-radius: 8px; }
-
-  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; justify-content: center; }
-  .legend span { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-
-  .analysis { margin-top: 25px; background: #f7f8fc; border-radius: 12px; padding: 16px 20px; }
-  .analysis h3 { color: #2c3e50; margin-top: 0; }
-  .analysis ul { margin: 0; padding-inline-start: 20px; }
-  .analysis li { margin-bottom: 6px; line-height: 1.6; font-size: 14px; }
-  .note { margin-top: 14px; font-size: 12px; color: #777; font-style: italic; }
 
   @media (max-width: 700px) {
     .desktop-table { display: none; }
@@ -145,12 +165,12 @@
       <thead>
         <tr>
           <th>Day</th>
-          <th class="lineup-col-header">Line Up<br>7:40-8:05</th>
+          <th class="lineup-col-header"></th>
           <th>1st<br>8:05-8:50</th>
           <th>2nd<br>8:50-9:35</th>
           <th>3rd<br>9:35-10:20</th>
           <th>4th<br>10:20-11:05</th>
-          <th class="break-col-header">Break<br>11:05-11:35</th>
+          <th class="break-col-header"></th>
           <th>5th<br>11:35-12:20</th>
           <th>6th<br>12:20-1:05</th>
           <th>7th<br>1:05-1:50</th>
@@ -160,33 +180,29 @@
       <tbody>
         <tr>
           <td class="day-col">Sunday</td>
-          <td class="lineup-cell"></td>
+          <td class="lineup-cell" rowspan="5">Line Up<br>7:40-8:05</td>
           <td class="subject Social">Social</td>
           <td class="subject Math">Math</td>
           <td class="subject Arabic" colspan="2">Arabic</td>
-          <td class="break-cell"></td>
+          <td class="break-cell" rowspan="5">Break<br>11:05-11:35</td>
           <td class="subject Religion">Religion</td>
-          <td class="subject FrGr">Fr./Gr.</td>
+          <td class="subject German">German</td>
           <td class="subject English" colspan="2">English</td>
         </tr>
         <tr>
           <td class="day-col">Monday</td>
-          <td class="lineup-cell"></td>
-          <td class="subject English">English</td>
+          <td class="subject English" colspan="2">English</td>
           <td class="subject Science">Science</td>
-          <td class="subject Arabic" colspan="2">Arabic</td>
-          <td class="break-cell"></td>
-          <td class="subject Arabic" colspan="2">Arabic</td>
-          <td class="subject Math">Math</td>
+          <td class="subject Arabic">Arabic</td>
+          <td class="subject Arabic">Arabic</td>
+          <td class="subject Math" colspan="2">Math</td>
           <td class="subject Art">Art</td>
         </tr>
         <tr>
           <td class="day-col">Tuesday</td>
-          <td class="lineup-cell"></td>
           <td class="subject Math">Math</td>
-          <td class="subject Science" colspan="2">Science</td>
-          <td class="subject English">English</td>
-          <td class="break-cell"></td>
+          <td class="subject Science">Science</td>
+          <td class="subject English" colspan="2">English</td>
           <td class="subject Skills">Skills</td>
           <td class="subject ICT">ICT</td>
           <td class="subject Arabic">Arabic</td>
@@ -194,22 +210,18 @@
         </tr>
         <tr>
           <td class="day-col">Wednesday</td>
-          <td class="lineup-cell"></td>
           <td class="subject Arabic" colspan="2">Arabic</td>
           <td class="subject PE">P.E.</td>
           <td class="subject Religion">Religion</td>
-          <td class="break-cell"></td>
-          <td class="subject Social" colspan="2">Social</td>
-          <td class="subject English">English</td>
+          <td class="subject Social">Social</td>
+          <td class="subject English" colspan="2">English</td>
           <td class="subject Quran">Qur'an</td>
         </tr>
         <tr>
           <td class="day-col">Thursday</td>
-          <td class="lineup-cell"></td>
           <td class="subject Arabic" colspan="2">Arabic</td>
-          <td class="subject FrGr">Fr./Gr.</td>
+          <td class="subject German">German</td>
           <td class="subject Religion">Religion</td>
-          <td class="break-cell"></td>
           <td class="subject Math" colspan="2">Math</td>
           <td class="subject Science">Science</td>
           <td class="subject ICT">ICT</td>
@@ -233,29 +245,29 @@
       <div class="period-row special">Line Up 7:40 - 8:05</div>
       <div class="period-row"><div class="period-num">1</div><div class="period-time">8:05-8:50</div><div class="period-subject Social">Social</div></div>
       <div class="period-row"><div class="period-num">2</div><div class="period-time">8:50-9:35</div><div class="period-subject Math">Math</div></div>
-      <div class="period-row"><div class="period-num">3-4</div><div class="period-time">9:35-11:05</div><div class="period-subject Arabic">Arabic (double period)</div></div>
+      <div class="period-row"><div class="period-num">3-4</div><div class="period-time">9:35-11:05</div><div class="period-subject Arabic">Arabic (double sessions)</div></div>
       <div class="period-row special">Break 11:05 - 11:35</div>
       <div class="period-row"><div class="period-num">5</div><div class="period-time">11:35-12:20</div><div class="period-subject Religion">Religion</div></div>
-      <div class="period-row"><div class="period-num">6</div><div class="period-time">12:20-1:05</div><div class="period-subject FrGr">Fr./Gr.</div></div>
-      <div class="period-row"><div class="period-num">7-8</div><div class="period-time">1:05-2:35</div><div class="period-subject English">English (double period)</div></div>
+      <div class="period-row"><div class="period-num">6</div><div class="period-time">12:20-1:05</div><div class="period-subject German">German</div></div>
+      <div class="period-row"><div class="period-num">7-8</div><div class="period-time">1:05-2:35</div><div class="period-subject English">English (double sessions)</div></div>
     </div>
 
     <div class="day-panel" id="monday">
       <div class="period-row special">Line Up 7:40 - 8:05</div>
-      <div class="period-row"><div class="period-num">1</div><div class="period-time">8:05-8:50</div><div class="period-subject English">English</div></div>
-      <div class="period-row"><div class="period-num">2</div><div class="period-time">8:50-9:35</div><div class="period-subject Science">Science</div></div>
-      <div class="period-row"><div class="period-num">3-4</div><div class="period-time">9:35-11:05</div><div class="period-subject Arabic">Arabic (double period)</div></div>
+      <div class="period-row"><div class="period-num">1-2</div><div class="period-time">8:05-9:35</div><div class="period-subject English">English (double sessions)</div></div>
+      <div class="period-row"><div class="period-num">3</div><div class="period-time">9:35-10:20</div><div class="period-subject Science">Science</div></div>
+      <div class="period-row"><div class="period-num">4</div><div class="period-time">10:20-11:05</div><div class="period-subject Arabic">Arabic</div></div>
       <div class="period-row special">Break 11:05 - 11:35</div>
-      <div class="period-row"><div class="period-num">5-6</div><div class="period-time">11:35-1:05</div><div class="period-subject Arabic">Arabic (double period)</div></div>
-      <div class="period-row"><div class="period-num">7</div><div class="period-time">1:05-1:50</div><div class="period-subject Math">Math</div></div>
+      <div class="period-row"><div class="period-num">5</div><div class="period-time">11:35-12:20</div><div class="period-subject Arabic">Arabic</div></div>
+      <div class="period-row"><div class="period-num">6-7</div><div class="period-time">12:20-1:50</div><div class="period-subject Math">Math (double sessions)</div></div>
       <div class="period-row"><div class="period-num">8</div><div class="period-time">1:50-2:35</div><div class="period-subject Art">Art</div></div>
     </div>
 
     <div class="day-panel" id="tuesday">
       <div class="period-row special">Line Up 7:40 - 8:05</div>
       <div class="period-row"><div class="period-num">1</div><div class="period-time">8:05-8:50</div><div class="period-subject Math">Math</div></div>
-      <div class="period-row"><div class="period-num">2-3</div><div class="period-time">8:50-10:20</div><div class="period-subject Science">Science (double period)</div></div>
-      <div class="period-row"><div class="period-num">4</div><div class="period-time">10:20-11:05</div><div class="period-subject English">English</div></div>
+      <div class="period-row"><div class="period-num">2</div><div class="period-time">8:50-9:35</div><div class="period-subject Science">Science</div></div>
+      <div class="period-row"><div class="period-num">3-4</div><div class="period-time">9:35-11:05</div><div class="period-subject English">English (double sessions)</div></div>
       <div class="period-row special">Break 11:05 - 11:35</div>
       <div class="period-row"><div class="period-num">5</div><div class="period-time">11:35-12:20</div><div class="period-subject Skills">Skills</div></div>
       <div class="period-row"><div class="period-num">6</div><div class="period-time">12:20-1:05</div><div class="period-subject ICT">ICT</div></div>
@@ -265,54 +277,24 @@
 
     <div class="day-panel" id="wednesday">
       <div class="period-row special">Line Up 7:40 - 8:05</div>
-      <div class="period-row"><div class="period-num">1-2</div><div class="period-time">8:05-9:35</div><div class="period-subject Arabic">Arabic (double period)</div></div>
+      <div class="period-row"><div class="period-num">1-2</div><div class="period-time">8:05-9:35</div><div class="period-subject Arabic">Arabic (double sessions)</div></div>
       <div class="period-row"><div class="period-num">3</div><div class="period-time">9:35-10:20</div><div class="period-subject PE">P.E.</div></div>
       <div class="period-row"><div class="period-num">4</div><div class="period-time">10:20-11:05</div><div class="period-subject Religion">Religion</div></div>
       <div class="period-row special">Break 11:05 - 11:35</div>
-      <div class="period-row"><div class="period-num">5-6</div><div class="period-time">11:35-1:05</div><div class="period-subject Social">Social (double period)</div></div>
-      <div class="period-row"><div class="period-num">7</div><div class="period-time">1:05-1:50</div><div class="period-subject English">English</div></div>
+      <div class="period-row"><div class="period-num">5</div><div class="period-time">11:35-12:20</div><div class="period-subject Social">Social</div></div>
+      <div class="period-row"><div class="period-num">6-7</div><div class="period-time">12:20-1:50</div><div class="period-subject English">English (double sessions)</div></div>
       <div class="period-row"><div class="period-num">8</div><div class="period-time">1:50-2:35</div><div class="period-subject Quran">Qur'an</div></div>
     </div>
 
     <div class="day-panel" id="thursday">
       <div class="period-row special">Line Up 7:40 - 8:05</div>
-      <div class="period-row"><div class="period-num">1-2</div><div class="period-time">8:05-9:35</div><div class="period-subject Arabic">Arabic (double period)</div></div>
-      <div class="period-row"><div class="period-num">3</div><div class="period-time">9:35-10:20</div><div class="period-subject FrGr">Fr./Gr.</div></div>
+      <div class="period-row"><div class="period-num">1-2</div><div class="period-time">8:05-9:35</div><div class="period-subject Arabic">Arabic (double sessions)</div></div>
+      <div class="period-row"><div class="period-num">3</div><div class="period-time">9:35-10:20</div><div class="period-subject German">German</div></div>
       <div class="period-row"><div class="period-num">4</div><div class="period-time">10:20-11:05</div><div class="period-subject Religion">Religion</div></div>
       <div class="period-row special">Break 11:05 - 11:35</div>
-      <div class="period-row"><div class="period-num">5-6</div><div class="period-time">11:35-1:05</div><div class="period-subject Math">Math (double period)</div></div>
+      <div class="period-row"><div class="period-num">5-6</div><div class="period-time">11:35-1:05</div><div class="period-subject Math">Math (double sessions)</div></div>
       <div class="period-row"><div class="period-num">7</div><div class="period-time">1:05-1:50</div><div class="period-subject Science">Science</div></div>
       <div class="period-row"><div class="period-num">8</div><div class="period-time">1:50-2:35</div><div class="period-subject ICT">ICT</div></div>
-    </div>
-  </div>
-
-  <div class="legend">
-    <span class="Arabic">Arabic</span>
-    <span class="Math">Math</span>
-    <span class="English">English</span>
-    <span class="Science">Science</span>
-    <span class="Social">Social</span>
-    <span class="Religion">Religion</span>
-    <span class="FrGr">Fr./Gr.</span>
-    <span class="Art">Art</span>
-    <span class="Skills">Skills</span>
-    <span class="ICT">ICT</span>
-    <span class="PE">P.E.</span>
-    <span class="Quran">Qur'an</span>
-  </div>
-
-  <div class="analysis">
-    <h3>Timetable Analysis</h3>
-    <ul>
-      <li><strong>Total weekly periods:</strong> 40 periods across 5 school days, 8 periods per day (4 before the break, 4 after), plus a morning Line Up from 7:40 to 8:05 and a Break from 11:05 to 11:35.</li>
-      <li><strong>Arabic</strong> is the most frequent subject, with double periods on: Sunday, Monday (twice), Wednesday, and Thursday.</li>
-      <li><strong>Science</strong> has a double period on Tuesday.</li>
-      <li><strong>English</strong> has a double period only on Sunday.</li>
-      <li><strong>Tuesday</strong> afternoon is the only session split into 4 fully separate periods with no merging.</li>
-      <li><strong>Art, Skills, P.E., and Qur'an</strong> each appear only once per week.</li>
-    </ul>
-    <div class="note">
-      On mobile, the page automatically switches to a day-by-day view with tabs to pick each day, instead of horizontal scrolling. On larger screens, the full table is shown as-is.
     </div>
   </div>
 </div>
