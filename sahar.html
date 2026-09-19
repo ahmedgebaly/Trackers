@@ -76,7 +76,8 @@
       <span class="nav-step-text" data-i18n="nextMonth">Next month </span><span class="nav-step-icon" aria-hidden="true">▶</span>
     </button>
   </div>
-  <button type="button" id="timetableBtn" class="theme-toggle" aria-label="Beko G6A" data-i18n-aria="timetable">Beko G6A - بيكو G6A</button>
+  <button type="button" id="timetableBekoBtn" class="theme-toggle timetable-btn" aria-label="Beko G6A" data-i18n="timetableBeko" data-i18n-aria="timetableBeko">Beko G6A - بيكو G6A</button>
+  <button type="button" id="timetableMemoBtn" class="theme-toggle timetable-btn timetable-btn--memo" aria-label="Memo 7B" data-i18n="timetableMemo" data-i18n-aria="timetableMemo">Memo 7B - ميمو 7B</button>
   <button type="button" id="settingsBtn" class="theme-toggle liquid-glass-lite" style="display: none;" aria-label="Settings" data-i18n-aria="settings">⚙ <span data-i18n="settings">Settings</span></button>
 </div>
 
@@ -195,8 +196,8 @@
 <div class="modal-overlay" id="timetableModal" role="dialog" aria-modal="true" aria-labelledby="timetableTitle">
   <div class="modal timetable-modal">
     <button type="button" class="modal-close" id="closeTimetableBtn" aria-label="Close" data-i18n-aria="close">×</button>
-    <h2 id="timetableTitle" data-i18n="timetableTitle">Grade 6.A Timetable 2026 / 2027</h2>
-    <iframe class="timetable-frame" id="timetableFrame" title="Grade 6.A Timetable" src="about:blank" loading="lazy"></iframe>
+    <h2 id="timetableTitle">Grade 6.A Timetable 2026 / 2027</h2>
+    <iframe class="timetable-frame" id="timetableFrame" title="Class Timetable" src="about:blank" loading="lazy"></iframe>
   </div>
 </div>
 
@@ -269,8 +270,10 @@ const I18N = {
     prevDay: " Previous day",
     nextDay: "Next day ",
     settings: "Settings",
-    timetable: "Beko G6A - بيكو G6A",
-    timetableTitle: "Grade 6.A Timetable 2026 / 2027",
+    timetableBeko: "Beko G6A - بيكو G6A",
+    timetableMemo: "Memo 7B - ميمو 7B",
+    timetableTitleBeko: "Grade 6.A Timetable 2026 / 2027",
+    timetableTitleMemo: "Grade 7.B Timetable 2026 / 2027",
     pickDay: "Pick another day:",
     today: "Today",
     unmarked: "Unmarked",
@@ -355,8 +358,10 @@ const I18N = {
     prevDay: " اليوم السابق",
     nextDay: "اليوم التالي ",
     settings: "الإعدادات",
-    timetable: "Beko G6A - بيكو G6A",
-    timetableTitle: "جدول الصف 6.أ 2026 / 2027",
+    timetableBeko: "Beko G6A - بيكو G6A",
+    timetableMemo: "Memo 7B - ميمو 7B",
+    timetableTitleBeko: "جدول الصف 6.أ 2026 / 2027",
+    timetableTitleMemo: "جدول الصف 7.ب 2026 / 2027",
     pickDay: "اختر يوماً آخر:",
     today: "اليوم",
     unmarked: "بدون علامة",
@@ -1684,10 +1689,15 @@ function initApp(){
   window.addEventListener('resize', layoutMonthLegend);
 }
 
-function openTimetable(){
+function openTimetable(src, titleKey){
   const frame = document.getElementById('timetableFrame');
-  if(frame && frame.getAttribute('src') === 'about:blank'){
-    frame.src = 'Beko_G6_2027.html';
+  const titleEl = document.getElementById('timetableTitle');
+  if(titleEl) titleEl.textContent = t(titleKey);
+  if(frame){
+    frame.title = t(titleKey);
+    if(frame.getAttribute('src') !== src){
+      frame.src = src;
+    }
   }
   document.getElementById('timetableModal').classList.add('is-open');
 }
@@ -1930,7 +1940,8 @@ document.getElementById('importFile').addEventListener('change', (e) => {
   e.target.value = "";
 });
 
-document.getElementById('timetableBtn').addEventListener('click', openTimetable);
+document.getElementById('timetableBekoBtn').addEventListener('click', () => openTimetable('Beko_G6_2027.html', 'timetableTitleBeko'));
+document.getElementById('timetableMemoBtn').addEventListener('click', () => openTimetable('Memo_G7_2027.html', 'timetableTitleMemo'));
 document.getElementById('closeTimetableBtn').addEventListener('click', closeTimetable);
 document.getElementById('timetableModal').addEventListener('click', (e) => {
   if(e.target.id === 'timetableModal') closeTimetable();
