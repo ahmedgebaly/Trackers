@@ -78,6 +78,7 @@
   </div>
   <button type="button" id="timetableBekoBtn" class="theme-toggle timetable-btn" aria-label="Beko G6A" data-i18n="timetableBeko" data-i18n-aria="timetableBeko">Beko G6A - بيكو G6A</button>
   <button type="button" id="timetableMemoBtn" class="theme-toggle timetable-btn timetable-btn--memo" aria-label="Memo 7B" data-i18n="timetableMemo" data-i18n-aria="timetableMemo">Memo 7B - ميمو 7B</button>
+  <button type="button" id="foodBtn" class="theme-toggle timetable-btn timetable-btn--food" aria-label="Food" data-i18n="foodLink" data-i18n-aria="foodLink">Food - الأكل</button>
   <button type="button" id="settingsBtn" class="theme-toggle liquid-glass-lite" style="display: none;" aria-label="Settings" data-i18n-aria="settings">⚙ <span data-i18n="settings">Settings</span></button>
 </div>
 
@@ -272,6 +273,7 @@ const I18N = {
     settings: "Settings",
     timetableBeko: "Beko G6A - بيكو G6A",
     timetableMemo: "Memo 7B - ميمو 7B",
+    foodLink: "Food - الأكل",
     timetableTitleBeko: "Grade 6.A Timetable 2026 / 2027",
     timetableTitleMemo: "Grade 7.B Timetable 2026 / 2027",
     pickDay: "Pick another day:",
@@ -360,6 +362,7 @@ const I18N = {
     settings: "الإعدادات",
     timetableBeko: "Beko G6A - بيكو G6A",
     timetableMemo: "Memo 7B - ميمو 7B",
+    foodLink: "الأكل - Food",
     timetableTitleBeko: "جدول الصف 6.أ 2026 / 2027",
     timetableTitleMemo: "جدول الصف 7.ب 2026 / 2027",
     pickDay: "اختر يوماً آخر:",
@@ -1942,6 +1945,7 @@ document.getElementById('importFile').addEventListener('change', (e) => {
 
 document.getElementById('timetableBekoBtn').addEventListener('click', () => openTimetable('Beko_G6_2027.html', 'timetableTitleBeko'));
 document.getElementById('timetableMemoBtn').addEventListener('click', () => openTimetable('Memo_G7_2027.html', 'timetableTitleMemo'));
+document.getElementById('foodBtn').addEventListener('click', () => { window.location.href = 'food.html'; });
 document.getElementById('closeTimetableBtn').addEventListener('click', closeTimetable);
 document.getElementById('timetableModal').addEventListener('click', (e) => {
   if(e.target.id === 'timetableModal') closeTimetable();

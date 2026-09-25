@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قائمة الأكل — Food</title>
+<meta name="description" content="ابحث في وصفات مصرية وخليجية وشامية وعالمية حسب الاسم والسهولة والتكلفة والبروتين.">
+<meta name="theme-color" content="#1565C0">
+<link rel="stylesheet" href="food.css">
+</head>
+<body>
+  <main class="page">
+    <div class="top-nav">
+      <a class="back-link" href="sahar.html">← العودة إلى سحر</a>
+    </div>
+
+    <header class="hero">
+      <h1>قائمة الأكل</h1>
+      <p>ابحث في أكثر من 400 طبق — مصري، خليجي، شامي، وعالمي</p>
+    </header>
+
+    <section class="filters" aria-label="فلاتر البحث">
+      <form id="filtersForm" class="filters-form">
+        <div class="filters-grid">
+          <div class="field">
+            <label for="nameFilter">اسم الطبق</label>
+            <input id="nameFilter" type="search" placeholder="ابحث بالاسم..." autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="difficultyFilter">مستوى السهولة</label>
+            <select id="difficultyFilter">
+              <option value="">الكل</option>
+              <option value="سهل">سهل</option>
+              <option value="متوسط">متوسط</option>
+              <option value="صعب">صعب</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="costFilter">مستوى التكلفة</label>
+            <select id="costFilter">
+              <option value="">الكل</option>
+              <option value="منخفض">منخفض</option>
+              <option value="متوسط">متوسط</option>
+              <option value="مرتفع">مرتفع</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="proteinFilter">يحتوي على بروتين</label>
+            <select id="proteinFilter">
+              <option value="">الكل</option>
+              <option value="نعم">نعم</option>
+              <option value="لا">لا</option>
+              <option value="لا/اختياري">لا/اختياري</option>
+              <option value="نعم/اختياري">نعم/اختياري</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="cuisine-row">
+          <span id="cuisineLabel">نوع المطبخ</span>
+          <div class="cuisine-chips" role="group" aria-labelledby="cuisineLabel">
+            <button type="button" class="cuisine-chip cuisine-chip--all" data-cuisine="" aria-pressed="true">الكل</button>
+            <button type="button" class="cuisine-chip cuisine-chip--egyptian" data-cuisine="egyptian" aria-pressed="false">مصري</button>
+            <button type="button" class="cuisine-chip cuisine-chip--gulf" data-cuisine="gulf" aria-pressed="false">خليجي</button>
+            <button type="button" class="cuisine-chip cuisine-chip--levantine" data-cuisine="levantine" aria-pressed="false">شامي</button>
+            <button type="button" class="cuisine-chip cuisine-chip--world" data-cuisine="world" aria-pressed="false">عالمي</button>
+          </div>
+        </div>
+
+        <div class="search-actions">
+          <button type="submit" id="searchBtn" class="search-btn">بحث</button>
+        </div>
+      </form>
+    </section>
+
+    <div class="results-meta">
+      <span id="resultCount"></span>
+    </div>
+
+    <section id="results" class="results" aria-live="polite">
+      <div class="empty">اضغط بحث لعرض النتائج</div>
+    </section>
+  </main>
+
+  <script src="food-data.js"></script>
+  <script src="food.js"></script>
+</body>
+</html>
