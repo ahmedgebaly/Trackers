@@ -306,6 +306,13 @@ a {
   gap: var(--space-sm);
 }
 
+.dish-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .dish-name {
   margin: 0;
   font-size: 1.15rem;
@@ -327,11 +334,67 @@ a {
   outline: none;
 }
 
+.youtube-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: #FF0000;
+  box-shadow: 0 2px 6px rgba(255, 0, 0, 0.35);
+  text-decoration: none;
+}
+
+.youtube-btn:hover,
+.youtube-btn:focus-visible {
+  filter: brightness(1.08);
+  outline: 2px solid #FF0000;
+  outline-offset: 2px;
+}
+
+.youtube-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
 .dish-name-en {
   margin: 4px 0 0;
   font-size: 0.9rem;
   color: var(--text-muted);
 }
+
+.dish-name-link--en {
+  color: var(--sahar-blue);
+  font-weight: 600;
+}
+
+.dish-en-actions {
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.youtube-btn--en {
+  width: auto;
+  height: auto;
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.youtube-btn--en .youtube-icon {
+  width: 18px;
+  height: 18px;
+}
+
 
 .cuisine-badge {
   display: inline-flex;

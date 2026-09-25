@@ -13,6 +13,49 @@
     world: "",
   };
 
+  const COUNTRY_EN = {
+    أفغانستان: "Afghanistan",
+    ألمانيا: "Germany",
+    أمريكا: "USA",
+    أوزبكستان: "Uzbekistan",
+    إثيوبيا: "Ethiopia",
+    إسبانيا: "Spain",
+    إندونيسيا: "Indonesia",
+    "إندونيسيا/ماليزيا": "Indonesia Malaysia",
+    إيران: "Iran",
+    إيطاليا: "Italy",
+    "إيطاليا/أمريكا": "Italy USA",
+    الأرجنتين: "Argentina",
+    البرازيل: "Brazil",
+    الجزائر: "Algeria",
+    السنغال: "Senegal",
+    الصين: "China",
+    الفلبين: "Philippines",
+    المجر: "Hungary",
+    المغرب: "Morocco",
+    المكسيك: "Mexico",
+    "المكسيك/أمريكا": "Mexico USA",
+    الهند: "India",
+    اليابان: "Japan",
+    اليونان: "Greece",
+    باكستان: "Pakistan",
+    بريطانيا: "UK",
+    بولندا: "Poland",
+    بيرو: "Peru",
+    تايلاند: "Thailand",
+    تركيا: "Turkey",
+    تونس: "Tunisia",
+    روسيا: "Russia",
+    "روسيا/أوكرانيا": "Russia Ukraine",
+    سنغافورة: "Singapore",
+    فرنسا: "France",
+    فيتنام: "Vietnam",
+    كوريا: "Korea",
+    كينيا: "Kenya",
+    ماليزيا: "Malaysia",
+    نيجيريا: "Nigeria",
+  };
+
   const nameFilter = document.getElementById("nameFilter");
   const difficultyFilter = document.getElementById("difficultyFilter");
   const costFilter = document.getElementById("costFilter");
@@ -48,13 +91,33 @@
       `<div class="empty">اضغط بحث لعرض النتائج</div>`;
   }
 
-  function googleSearchUrl(dish) {
+  function dishSearchQuery(dish) {
     const country =
       (dish.country || "").trim() ||
       CUISINE_COUNTRY_FALLBACK[dish.cuisine] ||
       "";
-    const query = [dish.name, country].filter(Boolean).join(" ").trim();
+    return [dish.name, country].filter(Boolean).join(" ").trim();
+  }
+
+  function dishSearchQueryEn(dish) {
+    const nameEn = (dish.nameEn || "").trim();
+    const countryEn = COUNTRY_EN[(dish.country || "").trim()] || "";
+    return [nameEn, countryEn].filter(Boolean).join(" ").trim();
+  }
+
+  function googleSearchUrl(query) {
     return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+  }
+
+  function youtubeSearchUrl(query) {
+    return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+  }
+
+  function youtubeIconSvg() {
+    return `
+      <svg class="youtube-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.75 15.5v-7l6.2 3.5-6.2 3.5z"/>
+      </svg>`;
   }
 
   function renderCard(dish) {
@@ -63,9 +126,6 @@
     const badgeClass = cuisineKey
       ? `cuisine-badge cuisine-badge--${escapeHtml(cuisineKey)}`
       : "cuisine-badge";
-    const nameEn = dish.nameEn
-      ? `<p class="dish-name-en">${escapeHtml(dish.nameEn)}</p>`
-      : "";
     const country = dish.country
       ? `<p class="dish-meta"><strong>الدولة</strong>${escapeHtml(dish.country)}</p>`
       : "";
@@ -74,23 +134,56 @@
       "حلال (بدون خمور أو خنزير)",
     ]);
     const halalNote = (dish.halal || "").trim();
-    const halal = halalNote && !hideDefaultHalal.has(halalNote)
+    const halalBlock = halalNote && !hideDefaultHalal.has(halalNote)
       ? `<p class="dish-section"><strong>التوافق الشرعي</strong>${escapeHtml(halalNote)}</p>`
       : "";
-    const searchUrl = googleSearchUrl(dish);
-    const dishNameLink = `
-      <h2 class="dish-name">
-        <a class="dish-name-link" href="${escapeHtml(searchUrl)}" target="_blank" rel="noopener noreferrer" title="بحث في Google">
-          ${escapeHtml(dish.name)}
+
+    const queryAr = dishSearchQuery(dish);
+    const googleUrlAr = googleSearchUrl(queryAr);
+    const youtubeUrlAr = youtubeSearchUrl(queryAr);
+    const ytIcon = youtubeIconSvg();
+
+    const dishNameRow = `
+      <div class="dish-name-row">
+        <h2 class="dish-name">
+          <a class="dish-name-link" href="${escapeHtml(googleUrlAr)}" target="_blank" rel="noopener noreferrer" title="بحث في Google">
+            ${escapeHtml(dish.name)}
+          </a>
+        </h2>
+        <a class="youtube-btn" href="${escapeHtml(youtubeUrlAr)}" target="_blank" rel="noopener noreferrer" title="بحث في YouTube" aria-label="بحث في YouTube عن ${escapeHtml(dish.name)}">
+          ${ytIcon}
         </a>
-      </h2>`;
+      </div>`;
+
+    let nameEnBlock = "";
+    let youtubeEnBlock = "";
+    if (cuisineKey === "world" && dish.nameEn) {
+      const queryEn = dishSearchQueryEn(dish);
+      const countryEn = COUNTRY_EN[(dish.country || "").trim()] || "";
+      const linkLabel = [dish.nameEn, countryEn].filter(Boolean).join(" · ");
+      const googleUrlEn = googleSearchUrl(queryEn);
+      const youtubeUrlEn = youtubeSearchUrl(queryEn);
+      nameEnBlock = `
+        <p class="dish-name-en">
+          <a class="dish-name-link dish-name-link--en" href="${escapeHtml(googleUrlEn)}" target="_blank" rel="noopener noreferrer" title="Google search (English)" dir="ltr">
+            ${escapeHtml(linkLabel)}
+          </a>
+        </p>`;
+      youtubeEnBlock = `
+        <div class="dish-en-actions" dir="ltr">
+          <a class="youtube-btn youtube-btn--en" href="${escapeHtml(youtubeUrlEn)}" target="_blank" rel="noopener noreferrer" title="YouTube search (English)" aria-label="YouTube search for ${escapeHtml(linkLabel)}">
+            ${ytIcon}
+            <span>YouTube EN</span>
+          </a>
+        </div>`;
+    }
 
     return `
       <article class="dish-card">
         <div class="dish-card-head">
           <div>
-            ${dishNameLink}
-            ${nameEn}
+            ${dishNameRow}
+            ${nameEnBlock}
           </div>
           <span class="${badgeClass}">${escapeHtml(cuisineLabel)}</span>
         </div>
@@ -101,7 +194,8 @@
         </div>
         ${country}
         <p class="dish-section"><strong>المكونات لـ 4 أفراد</strong>${escapeHtml(dish.ingredients)}</p>
-        ${halal}
+        ${halalBlock}
+        ${youtubeEnBlock}
       </article>
     `;
   }
