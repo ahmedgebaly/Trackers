@@ -6,6 +6,13 @@
     world: "عالمي",
   };
 
+  const CUISINE_COUNTRY_FALLBACK = {
+    egyptian: "مصر",
+    gulf: "خليجي",
+    levantine: "شامي",
+    world: "",
+  };
+
   const nameFilter = document.getElementById("nameFilter");
   const difficultyFilter = document.getElementById("difficultyFilter");
   const costFilter = document.getElementById("costFilter");
@@ -41,6 +48,15 @@
       `<div class="empty">اضغط بحث لعرض النتائج</div>`;
   }
 
+  function googleSearchUrl(dish) {
+    const country =
+      (dish.country || "").trim() ||
+      CUISINE_COUNTRY_FALLBACK[dish.cuisine] ||
+      "";
+    const query = [dish.name, country].filter(Boolean).join(" ").trim();
+    return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+  }
+
   function renderCard(dish) {
     const cuisineKey = dish.cuisine || "";
     const cuisineLabel = CUISINE_LABELS[cuisineKey] || cuisineKey;
@@ -61,12 +77,19 @@
     const halal = halalNote && !hideDefaultHalal.has(halalNote)
       ? `<p class="dish-section"><strong>التوافق الشرعي</strong>${escapeHtml(halalNote)}</p>`
       : "";
+    const searchUrl = googleSearchUrl(dish);
+    const dishNameLink = `
+      <h2 class="dish-name">
+        <a class="dish-name-link" href="${escapeHtml(searchUrl)}" target="_blank" rel="noopener noreferrer" title="بحث في Google">
+          ${escapeHtml(dish.name)}
+        </a>
+      </h2>`;
 
     return `
       <article class="dish-card">
         <div class="dish-card-head">
           <div>
-            <h2 class="dish-name">${escapeHtml(dish.name)}</h2>
+            ${dishNameLink}
             ${nameEn}
           </div>
           <span class="${badgeClass}">${escapeHtml(cuisineLabel)}</span>

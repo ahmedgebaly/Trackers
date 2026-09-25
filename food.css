@@ -313,6 +313,20 @@ a {
   line-height: 1.35;
 }
 
+.dish-name-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.dish-name-link:hover,
+.dish-name-link:focus-visible {
+  color: var(--sahar-blue);
+  outline: none;
+}
+
 .dish-name-en {
   margin: 4px 0 0;
   font-size: 0.9rem;
