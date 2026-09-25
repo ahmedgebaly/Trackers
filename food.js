@@ -53,6 +53,14 @@
     const country = dish.country
       ? `<p class="dish-meta"><strong>الدولة</strong>${escapeHtml(dish.country)}</p>`
       : "";
+    const hideDefaultHalal = new Set([
+      "حلال (لا يحتوي على خمور أو خنزير)",
+      "حلال (بدون خمور أو خنزير)",
+    ]);
+    const halalNote = (dish.halal || "").trim();
+    const halal = halalNote && !hideDefaultHalal.has(halalNote)
+      ? `<p class="dish-section"><strong>التوافق الشرعي</strong>${escapeHtml(halalNote)}</p>`
+      : "";
 
     return `
       <article class="dish-card">
@@ -70,7 +78,7 @@
         </div>
         ${country}
         <p class="dish-section"><strong>المكونات لـ 4 أفراد</strong>${escapeHtml(dish.ingredients)}</p>
-        <p class="dish-section"><strong>التوافق الشرعي</strong>${escapeHtml(dish.halal)}</p>
+        ${halal}
       </article>
     `;
   }
